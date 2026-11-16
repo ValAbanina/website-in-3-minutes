@@ -883,5 +883,460 @@
     "file": "assets/audio/voice/deadline/line-5.mp3",
     "text": "Your final-final-v3 is now just final.",
     "kind": "voice"
+  },
+  "voice.gerald.perfect-palette-2": {
+    "file": "assets/audio/voice/gerald/perfect-palette-2.mp3",
+    "text": "Navy. Sensible. Like a good filing cabinet.",
+    "kind": "voice"
+  },
+  "voice.gerald.perfect-palette-3": {
+    "file": "assets/audio/voice/gerald/perfect-palette-3.mp3",
+    "text": "Ah, the colour of a balanced budget.",
+    "kind": "voice"
+  },
+  "voice.gerald.deal-breaker-palette-2": {
+    "file": "assets/audio/voice/gerald/deal-breaker-palette-2.mp3",
+    "text": "This colour scheme would never pass an audit.",
+    "kind": "voice"
+  },
+  "voice.gerald.deal-breaker-palette-3": {
+    "file": "assets/audio/voice/gerald/deal-breaker-palette-3.mp3",
+    "text": "Margaret will think I’ve been hacked.",
+    "kind": "voice"
+  },
+  "voice.gerald.perfect-heading-2": {
+    "file": "assets/audio/voice/gerald/perfect-heading-2.mp3",
+    "text": "Serifs. Little feet. Very stable.",
+    "kind": "voice"
+  },
+  "voice.gerald.perfect-heading-3": {
+    "file": "assets/audio/voice/gerald/perfect-heading-3.mp3",
+    "text": "That font has read the whole tax code. Twice.",
+    "kind": "voice"
+  },
+  "voice.gerald.deal-breaker-heading-2": {
+    "file": "assets/audio/voice/gerald/deal-breaker-heading-2.mp3",
+    "text": "That font files its taxes late. I can tell.",
+    "kind": "voice"
+  },
+  "voice.gerald.deal-breaker-heading-3": {
+    "file": "assets/audio/voice/gerald/deal-breaker-heading-3.mp3",
+    "text": "I wouldn’t trust that font with a receipt.",
+    "kind": "voice"
+  },
+  "voice.gerald.perfect-style-2": {
+    "file": "assets/audio/voice/gerald/perfect-style-2.mp3",
+    "text": "Straight lines. Everything in its column. Lovely.",
+    "kind": "voice"
+  },
+  "voice.gerald.perfect-style-3": {
+    "file": "assets/audio/voice/gerald/perfect-style-3.mp3",
+    "text": "It looks like a well-kept ledger. High praise.",
+    "kind": "voice"
+  },
+  "voice.gerald.perfect-pictures-2": {
+    "file": "assets/audio/voice/gerald/perfect-pictures-2.mp3",
+    "text": "A bar chart going up. My favourite genre.",
+    "kind": "voice"
+  },
+  "voice.gerald.perfect-pictures-3": {
+    "file": "assets/audio/voice/gerald/perfect-pictures-3.mp3",
+    "text": "Numbers, in picture form. Wonderful.",
+    "kind": "voice"
+  },
+  "voice.gerald.decoy-picture-2": {
+    "file": "assets/audio/voice/gerald/decoy-picture-2.mp3",
+    "text": "That picture is not tax-deductible.",
+    "kind": "voice"
+  },
+  "voice.gerald.decoy-picture-3": {
+    "file": "assets/audio/voice/gerald/decoy-picture-3.mp3",
+    "text": "I fail to see how this relates to quarterly filings.",
+    "kind": "voice"
+  },
+  "voice.gerald.deal-breaker-decoration-2": {
+    "file": "assets/audio/voice/gerald/deal-breaker-decoration-2.mp3",
+    "text": "Confetti is not a business expense.",
+    "kind": "voice"
+  },
+  "voice.gerald.deal-breaker-decoration-3": {
+    "file": "assets/audio/voice/gerald/deal-breaker-decoration-3.mp3",
+    "text": "Please. I have a reputation.",
+    "kind": "voice"
+  },
+  "voice.gerald.must-have-added-2": {
+    "file": "assets/audio/voice/gerald/must-have-added-2.mp3",
+    "text": "Client reviews. Very reassuring. Very legal.",
+    "kind": "voice"
+  },
+  "voice.gerald.must-have-added-3": {
+    "file": "assets/audio/voice/gerald/must-have-added-3.mp3",
+    "text": "Good. People trust people who trust me.",
+    "kind": "voice"
+  },
+  "voice.kaia.perfect-palette-2": {
+    "file": "assets/audio/voice/kaia/perfect-palette-2.mp3",
+    "text": "These colours have serious unicorn energy.",
+    "kind": "voice"
+  },
+  "voice.kaia.perfect-palette-3": {
+    "file": "assets/audio/voice/kaia/perfect-palette-3.mp3",
+    "text": "Bright! Loud! Disruptive! Ship it!",
+    "kind": "voice"
+  },
+  "voice.kaia.deal-breaker-palette-2": {
+    "file": "assets/audio/voice/kaia/deal-breaker-palette-2.mp3",
+    "text": "This palette feels like a quarterly report. Pivot!",
+    "kind": "voice"
+  },
+  "voice.kaia.deal-breaker-palette-3": {
+    "file": "assets/audio/voice/kaia/deal-breaker-palette-3.mp3",
+    "text": "Those colours are giving waiting room.",
+    "kind": "voice"
+  },
+  "voice.kaia.perfect-heading-2": {
+    "file": "assets/audio/voice/kaia/perfect-heading-2.mp3",
+    "text": "Big bold letters. Very series A.",
+    "kind": "voice"
+  },
+  "voice.kaia.perfect-heading-3": {
+    "file": "assets/audio/voice/kaia/perfect-heading-3.mp3",
+    "text": "That font could pitch on stage. Love it.",
+    "kind": "voice"
+  },
+  "voice.kaia.deal-breaker-heading-2": {
+    "file": "assets/audio/voice/kaia/deal-breaker-heading-2.mp3",
+    "text": "That font still uses a fax machine.",
+    "kind": "voice"
+  },
+  "voice.kaia.deal-breaker-heading-3": {
+    "file": "assets/audio/voice/kaia/deal-breaker-heading-3.mp3",
+    "text": "Serifs? We’re a startup, not a law firm.",
+    "kind": "voice"
+  },
+  "voice.kaia.perfect-style-2": {
+    "file": "assets/audio/voice/kaia/perfect-style-2.mp3",
+    "text": "Bold outlines! People will screenshot this.",
+    "kind": "voice"
+  },
+  "voice.kaia.perfect-style-3": {
+    "file": "assets/audio/voice/kaia/perfect-style-3.mp3",
+    "text": "Chunky and loud. Very on brand. Our brand is loud.",
+    "kind": "voice"
+  },
+  "voice.kaia.perfect-pictures-2": {
+    "file": "assets/audio/voice/kaia/perfect-pictures-2.mp3",
+    "text": "Abstract shapes mean we’re innovative. It’s science.",
+    "kind": "voice"
+  },
+  "voice.kaia.perfect-pictures-3": {
+    "file": "assets/audio/voice/kaia/perfect-pictures-3.mp3",
+    "text": "It looks like the future. Somehow.",
+    "kind": "voice"
+  },
+  "voice.kaia.decoy-picture-2": {
+    "file": "assets/audio/voice/kaia/decoy-picture-2.mp3",
+    "text": "That picture is giving bank lobby.",
+    "kind": "voice"
+  },
+  "voice.kaia.decoy-picture-3": {
+    "file": "assets/audio/voice/kaia/decoy-picture-3.mp3",
+    "text": "Cute picture, but does it scale?",
+    "kind": "voice"
+  },
+  "voice.kaia.no-decoration-2": {
+    "file": "assets/audio/voice/kaia/no-decoration-2.mp3",
+    "text": "Plain? We need more energy! More!",
+    "kind": "voice"
+  },
+  "voice.kaia.no-decoration-3": {
+    "file": "assets/audio/voice/kaia/no-decoration-3.mp3",
+    "text": "Where’s the sparkle? I promised investors sparkle.",
+    "kind": "voice"
+  },
+  "voice.kaia.must-have-added-2": {
+    "file": "assets/audio/voice/kaia/must-have-added-2.mp3",
+    "text": "A sign-up button! That’s our whole business model.",
+    "kind": "voice"
+  },
+  "voice.kaia.must-have-added-3": {
+    "file": "assets/audio/voice/kaia/must-have-added-3.mp3",
+    "text": "Big button, big growth. That’s the plan.",
+    "kind": "voice"
+  },
+  "voice.rosa.perfect-palette-2": {
+    "file": "assets/audio/voice/rosa/perfect-palette-2.mp3",
+    "text": "Golden, like a crust. Perfetto.",
+    "kind": "voice"
+  },
+  "voice.rosa.perfect-palette-3": {
+    "file": "assets/audio/voice/rosa/perfect-palette-3.mp3",
+    "text": "These colours smell like cinnamon.",
+    "kind": "voice"
+  },
+  "voice.rosa.deal-breaker-palette-2": {
+    "file": "assets/audio/voice/rosa/deal-breaker-palette-2.mp3",
+    "text": "So grey! Who turned off the oven?",
+    "kind": "voice"
+  },
+  "voice.rosa.deal-breaker-palette-3": {
+    "file": "assets/audio/voice/rosa/deal-breaker-palette-3.mp3",
+    "text": "This is the colour of a fridge. I’m a bakery!",
+    "kind": "voice"
+  },
+  "voice.rosa.perfect-heading-2": {
+    "file": "assets/audio/voice/rosa/perfect-heading-2.mp3",
+    "text": "Swirly letters, like cream on a cannoli!",
+    "kind": "voice"
+  },
+  "voice.rosa.perfect-heading-3": {
+    "file": "assets/audio/voice/rosa/perfect-heading-3.mp3",
+    "text": "That font is smiling. Good, it should.",
+    "kind": "voice"
+  },
+  "voice.rosa.deal-breaker-heading-2": {
+    "file": "assets/audio/voice/rosa/deal-breaker-heading-2.mp3",
+    "text": "That font is too serious. Give it a biscotti.",
+    "kind": "voice"
+  },
+  "voice.rosa.deal-breaker-heading-3": {
+    "file": "assets/audio/voice/rosa/deal-breaker-heading-3.mp3",
+    "text": "Those letters look like a tax form.",
+    "kind": "voice"
+  },
+  "voice.rosa.perfect-style-2": {
+    "file": "assets/audio/voice/rosa/perfect-style-2.mp3",
+    "text": "Round corners, like a fresh roll. Bene!",
+    "kind": "voice"
+  },
+  "voice.rosa.perfect-style-3": {
+    "file": "assets/audio/voice/rosa/perfect-style-3.mp3",
+    "text": "Soft! Nothing sharp in my bakery except the knives.",
+    "kind": "voice"
+  },
+  "voice.rosa.perfect-pictures-2": {
+    "file": "assets/audio/voice/rosa/perfect-pictures-2.mp3",
+    "text": "Bread on the website! Now people will come.",
+    "kind": "voice"
+  },
+  "voice.rosa.perfect-pictures-3": {
+    "file": "assets/audio/voice/rosa/perfect-pictures-3.mp3",
+    "text": "Look at that loaf. I could cry.",
+    "kind": "voice"
+  },
+  "voice.rosa.decoy-picture-2": {
+    "file": "assets/audio/voice/rosa/decoy-picture-2.mp3",
+    "text": "This picture has no flour in it. Change it.",
+    "kind": "voice"
+  },
+  "voice.rosa.decoy-picture-3": {
+    "file": "assets/audio/voice/rosa/decoy-picture-3.mp3",
+    "text": "What is this? Where is the bread?",
+    "kind": "voice"
+  },
+  "voice.rosa.nice-pattern": {
+    "file": "assets/audio/voice/rosa/nice-pattern.mp3",
+    "text": "A pretty pattern! Like my tablecloth!",
+    "kind": "voice"
+  },
+  "voice.rosa.nice-pattern-2": {
+    "file": "assets/audio/voice/rosa/nice-pattern-2.mp3",
+    "text": "Ooh, cosy. Like a picnic in Napoli.",
+    "kind": "voice"
+  },
+  "voice.rosa.nice-pattern-3": {
+    "file": "assets/audio/voice/rosa/nice-pattern-3.mp3",
+    "text": "My nonna had curtains just like this.",
+    "kind": "voice"
+  },
+  "voice.rosa.must-have-added-2": {
+    "file": "assets/audio/voice/rosa/must-have-added-2.mp3",
+    "text": "Pictures of the pastries! People eat with their eyes.",
+    "kind": "voice"
+  },
+  "voice.rosa.must-have-added-3": {
+    "file": "assets/audio/voice/rosa/must-have-added-3.mp3",
+    "text": "Yes, a gallery! Put the cornetti in the front.",
+    "kind": "voice"
+  },
+  "voice.damien.perfect-palette-2": {
+    "file": "assets/audio/voice/damien/perfect-palette-2.mp3",
+    "text": "Deep plum. Like a bruise on a rose. Perfect.",
+    "kind": "voice"
+  },
+  "voice.damien.perfect-palette-3": {
+    "file": "assets/audio/voice/damien/perfect-palette-3.mp3",
+    "text": "These colours look like midnight. I’m home.",
+    "kind": "voice"
+  },
+  "voice.damien.deal-breaker-palette-2": {
+    "file": "assets/audio/voice/damien/deal-breaker-palette-2.mp3",
+    "text": "So bright. Do you want me to evaporate?",
+    "kind": "voice"
+  },
+  "voice.damien.deal-breaker-palette-3": {
+    "file": "assets/audio/voice/damien/deal-breaker-palette-3.mp3",
+    "text": "This palette is far too cheerful. Who hurt you?",
+    "kind": "voice"
+  },
+  "voice.damien.perfect-heading-2": {
+    "file": "assets/audio/voice/damien/perfect-heading-2.mp3",
+    "text": "Gothic letters. My ancestors approve.",
+    "kind": "voice"
+  },
+  "voice.damien.perfect-heading-3": {
+    "file": "assets/audio/voice/damien/perfect-heading-3.mp3",
+    "text": "That font was carved by candlelight.",
+    "kind": "voice"
+  },
+  "voice.damien.deal-breaker-heading-2": {
+    "file": "assets/audio/voice/damien/deal-breaker-heading-2.mp3",
+    "text": "That font goes to brunch. I can tell.",
+    "kind": "voice"
+  },
+  "voice.damien.deal-breaker-heading-3": {
+    "file": "assets/audio/voice/damien/deal-breaker-heading-3.mp3",
+    "text": "Too bubbly. It sounds like a party I wasn’t invited to.",
+    "kind": "voice"
+  },
+  "voice.damien.perfect-style-2": {
+    "file": "assets/audio/voice/damien/perfect-style-2.mp3",
+    "text": "Minimal. Empty. Like my calendar.",
+    "kind": "voice"
+  },
+  "voice.damien.perfect-style-3": {
+    "file": "assets/audio/voice/damien/perfect-style-3.mp3",
+    "text": "So much quiet space. Lovely, eerie quiet.",
+    "kind": "voice"
+  },
+  "voice.damien.perfect-pictures-2": {
+    "file": "assets/audio/voice/damien/perfect-pictures-2.mp3",
+    "text": "Petals that have given up. Exquisite.",
+    "kind": "voice"
+  },
+  "voice.damien.perfect-pictures-3": {
+    "file": "assets/audio/voice/damien/perfect-pictures-3.mp3",
+    "text": "Dry and fragile. Like my hopes. Perfect.",
+    "kind": "voice"
+  },
+  "voice.damien.decoy-picture-2": {
+    "file": "assets/audio/voice/damien/decoy-picture-2.mp3",
+    "text": "Who brought this cheerful picture into my shop?",
+    "kind": "voice"
+  },
+  "voice.damien.decoy-picture-3": {
+    "file": "assets/audio/voice/damien/decoy-picture-3.mp3",
+    "text": "Remove it. It’s too… alive.",
+    "kind": "voice"
+  },
+  "voice.damien.deal-breaker-decoration-2": {
+    "file": "assets/audio/voice/damien/deal-breaker-decoration-2.mp3",
+    "text": "Hearts? Absolutely not. My heart is closed.",
+    "kind": "voice"
+  },
+  "voice.damien.deal-breaker-decoration-3": {
+    "file": "assets/audio/voice/damien/deal-breaker-decoration-3.mp3",
+    "text": "Too festive. My roses are in mourning.",
+    "kind": "voice"
+  },
+  "voice.damien.must-have-added-2": {
+    "file": "assets/audio/voice/damien/must-have-added-2.mp3",
+    "text": "A gallery. Let them gaze upon the wilted.",
+    "kind": "voice"
+  },
+  "voice.damien.must-have-added-3": {
+    "file": "assets/audio/voice/damien/must-have-added-3.mp3",
+    "text": "Yes. Show the arrangements. Darkly.",
+    "kind": "voice"
+  },
+  "voice.brenda.perfect-palette-2": {
+    "file": "assets/audio/voice/brenda/perfect-palette-2.mp3",
+    "text": "Soft green. I can hear birds.",
+    "kind": "voice"
+  },
+  "voice.brenda.perfect-palette-3": {
+    "file": "assets/audio/voice/brenda/perfect-palette-3.mp3",
+    "text": "These colours breathe in… and out.",
+    "kind": "voice"
+  },
+  "voice.brenda.deal-breaker-palette-2": {
+    "file": "assets/audio/voice/brenda/deal-breaker-palette-2.mp3",
+    "text": "So loud. My crystals are vibrating.",
+    "kind": "voice"
+  },
+  "voice.brenda.deal-breaker-palette-3": {
+    "file": "assets/audio/voice/brenda/deal-breaker-palette-3.mp3",
+    "text": "These colours need a nap. So do I.",
+    "kind": "voice"
+  },
+  "voice.brenda.perfect-heading-2": {
+    "file": "assets/audio/voice/brenda/perfect-heading-2.mp3",
+    "text": "Gentle letters. They hug you.",
+    "kind": "voice"
+  },
+  "voice.brenda.perfect-heading-3": {
+    "file": "assets/audio/voice/brenda/perfect-heading-3.mp3",
+    "text": "That font has done yoga. You can tell.",
+    "kind": "voice"
+  },
+  "voice.brenda.deal-breaker-heading-2": {
+    "file": "assets/audio/voice/brenda/deal-breaker-heading-2.mp3",
+    "text": "That font is so stressed. Let it rest.",
+    "kind": "voice"
+  },
+  "voice.brenda.deal-breaker-heading-3": {
+    "file": "assets/audio/voice/brenda/deal-breaker-heading-3.mp3",
+    "text": "Those letters are shouting. Namaste, but no.",
+    "kind": "voice"
+  },
+  "voice.brenda.perfect-style-2": {
+    "file": "assets/audio/voice/brenda/perfect-style-2.mp3",
+    "text": "Soft corners everywhere. My shoulders just dropped.",
+    "kind": "voice"
+  },
+  "voice.brenda.perfect-style-3": {
+    "file": "assets/audio/voice/brenda/perfect-style-3.mp3",
+    "text": "Round and calm, like a pebble in a stream.",
+    "kind": "voice"
+  },
+  "voice.brenda.perfect-pictures-2": {
+    "file": "assets/audio/voice/brenda/perfect-pictures-2.mp3",
+    "text": "A lotus. My heart rate is going down.",
+    "kind": "voice"
+  },
+  "voice.brenda.perfect-pictures-3": {
+    "file": "assets/audio/voice/brenda/perfect-pictures-3.mp3",
+    "text": "Such a peaceful picture. I feel centred.",
+    "kind": "voice"
+  },
+  "voice.brenda.decoy-picture-2": {
+    "file": "assets/audio/voice/brenda/decoy-picture-2.mp3",
+    "text": "That picture has too much traffic in it.",
+    "kind": "voice"
+  },
+  "voice.brenda.decoy-picture-3": {
+    "file": "assets/audio/voice/brenda/decoy-picture-3.mp3",
+    "text": "I don’t feel calm looking at that. Let it go.",
+    "kind": "voice"
+  },
+  "voice.brenda.deal-breaker-decoration-2": {
+    "file": "assets/audio/voice/brenda/deal-breaker-decoration-2.mp3",
+    "text": "That pattern is too busy. Breathe, pattern, breathe.",
+    "kind": "voice"
+  },
+  "voice.brenda.deal-breaker-decoration-3": {
+    "file": "assets/audio/voice/brenda/deal-breaker-decoration-3.mp3",
+    "text": "My chakras just glitched.",
+    "kind": "voice"
+  },
+  "voice.brenda.must-have-added-2": {
+    "file": "assets/audio/voice/brenda/must-have-added-2.mp3",
+    "text": "My services, listed calmly. Beautiful.",
+    "kind": "voice"
+  },
+  "voice.brenda.must-have-added-3": {
+    "file": "assets/audio/voice/brenda/must-have-added-3.mp3",
+    "text": "Yes, show what I offer. Softly.",
+    "kind": "voice"
   }
 }
