@@ -687,13 +687,16 @@ body[data-client="brenda"] { --client: var(--client-brenda); }
 .modal-back { position: fixed; inset: 0; background: rgba(0,0,0,.55); display: grid; place-items: center; z-index: 30; padding: 16px; }
 .modal { width: min(860px, 100%); max-height: min(90dvh, 760px); overflow: auto; background: var(--color-surface-default); border: var(--border-ui); border-radius: 24px; box-shadow: var(--shadow-lift); padding: 24px; }
 .modal-small { width: min(460px, 100%); }
-.modal-small .modal-foot { justify-content: flex-end; margin-top: 8px; }
+.modal-small .modal-foot { justify-content: flex-end; margin-top: 20px; }
 .modal-head, .modal-foot { display: flex; justify-content: space-between; gap: 12px; align-items: center; }
+/* Same space above every window's bottom row, so the button never touches the content above it. */
+.modal-foot { margin-top: 24px; }
+.modal-head h2 { margin: 0; }
 /* The text next to a button may wrap; the button itself never does. */
 .modal-head > .btn, .modal-foot > .btn, .modal-head > .icon-btn { flex: none; white-space: nowrap; }
 .modal-foot > p { flex: 1 1 auto; min-width: 0; margin: 0; }
 /* Re-read the brief: the client sits on the right in three-quarter view, facing the brief */
-.reread { display: grid; grid-template-columns: minmax(0, 1fr) 240px; gap: 20px; align-items: end; margin: 16px 0 20px; }
+.reread { display: grid; grid-template-columns: minmax(0, 1fr) 240px; gap: 20px; align-items: end; margin: 16px 0 0; }
 .reread-text { display: grid; gap: 14px; align-self: center; }
 .reread .bubble-lg { max-width: none; }
 .reread-note { margin: 0; color: var(--color-text-default, inherit); }
