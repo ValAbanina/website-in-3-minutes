@@ -217,7 +217,6 @@ body[data-audio="off"] .needs-audio { display: none; }
   transform: translateX(calc(-50% + var(--nudge, 0px)));
   z-index: 5;
 }
-.cast-person .bubble::after { left: calc(50% - var(--nudge, 0px) - 9px); }
 .bubble {
   margin: 0;
   background: var(--color-surface-default);
@@ -230,22 +229,6 @@ body[data-audio="off"] .needs-audio { display: none; }
   box-shadow: var(--shadow-card);
   position: relative;
 }
-/* Every speech bubble gets a tail. By default it points down at the speaker below. */
-.bubble::after {
-  content: "";
-  position: absolute;
-  left: 36px;
-  bottom: -11px;
-  width: 18px;
-  height: 18px;
-  background: var(--color-surface-default);
-  border-right: var(--border-ui);
-  border-bottom: var(--border-ui);
-  transform: rotate(45deg);
-}
-/* Tail pointing up, for a bubble that sits below its speaker. */
-.bubble.tail-up::after { top: -11px; bottom: auto; border-right: 0; border-bottom: 0; border-left: var(--border-ui); border-top: var(--border-ui); }
-.bubble[role="status"]::after { display: none; }
 .cast-person .bubble { pointer-events: none; }
 .program-stripe { display: grid; grid-template-columns: 1.2fr .8fr 1fr; height: 14px; }
 .program-stripe span:nth-child(1) { background: var(--program-df); }
@@ -462,18 +445,6 @@ body[data-client="brenda"] { --client: var(--client-brenda); }
   animation: pop var(--dur-pop) var(--ease-overshoot) both;
   transform-origin: 36px 100%;
 }
-.dock-bubble .bubble::after {
-  content: "";
-  position: absolute;
-  left: 28px;
-  bottom: -11px;
-  width: 18px;
-  height: 18px;
-  background: var(--color-surface-default);
-  border-right: var(--border-ui);
-  border-bottom: var(--border-ui);
-  transform: rotate(45deg);
-}
 
 .stage-col {
   grid-column: 2;
@@ -648,18 +619,6 @@ body[data-client="brenda"] { --client: var(--client-brenda); }
   font-size: 26px;
   transform: rotate(-3deg);
 }
-.tu-say::after {
-  content: "";
-  position: absolute;
-  right: 26px;
-  bottom: -11px;
-  width: 18px;
-  height: 18px;
-  background: var(--color-surface-default);
-  border-right: var(--border-ui);
-  border-bottom: var(--border-ui);
-  transform: rotate(45deg);
-}
 .tu-side { display: grid; gap: 14px; align-content: center; min-width: 0; }
 .tu-title { margin: 0; line-height: .9; }
 .tu-lede { margin: 0; color: var(--color-text-on-dark); opacity: .85; }
@@ -685,7 +644,9 @@ body[data-client="brenda"] { --client: var(--client-brenda); }
   box-shadow: 3px 3px 0 #000;
   animation: stamp 420ms var(--ease-stamp) .7s both;
 }
-.tu-react { display: flex; align-items: center; gap: 14px; }
+.tu-react { display: flex; align-items: center; gap: 14px; transition: opacity var(--dur-pop) var(--ease-out), transform var(--dur-pop) var(--ease-out); }
+/* The client waits until the Deadline has finished speaking. */
+.tu-react:not(.is-on) { opacity: 0; transform: translateY(10px); visibility: hidden; }
 .tu-client {
   flex: none;
   width: 76px;
@@ -698,18 +659,6 @@ body[data-client="brenda"] { --client: var(--client-brenda); }
 }
 .tu .tu-client img { width: 100%; height: 135%; object-fit: cover; object-position: center top; }
 .tu-react .bubble { position: relative; margin: 0; font-size: 22px; }
-.tu-react .bubble::after {
-  content: "";
-  position: absolute;
-  left: -11px;
-  top: 50%;
-  width: 18px;
-  height: 18px;
-  background: var(--color-surface-default);
-  border-left: var(--border-ui);
-  border-bottom: var(--border-ui);
-  transform: translateY(-50%) rotate(45deg);
-}
 .tu-go { justify-self: start; }
 .screen-timesup .timer { margin-left: auto; }
 
@@ -740,28 +689,21 @@ body[data-client="brenda"] { --client: var(--client-brenda); }
 .modal-small { width: min(460px, 100%); }
 .modal-small .modal-foot { justify-content: flex-end; margin-top: 8px; }
 .modal-head, .modal-foot { display: flex; justify-content: space-between; gap: 12px; align-items: center; }
+/* The text next to a button may wrap; the button itself never does. */
+.modal-head > .btn, .modal-foot > .btn, .modal-head > .icon-btn { flex: none; white-space: nowrap; }
+.modal-foot > p { flex: 1 1 auto; min-width: 0; margin: 0; }
 /* Re-read the brief: the client sits on the right in three-quarter view, facing the brief */
 .reread { display: grid; grid-template-columns: minmax(0, 1fr) 240px; gap: 20px; align-items: end; margin: 16px 0 20px; }
 .reread-text { display: grid; gap: 14px; align-self: center; }
 .reread .bubble-lg { max-width: none; }
-.reread .bubble::after {
-  content: "";
-  position: absolute;
-  left: auto;
-  right: -11px;
-  bottom: 28px;
-  width: 18px;
-  height: 18px;
-  background: var(--color-surface-default);
-  border-top: var(--border-ui);
-  border-right: var(--border-ui);
-  transform: rotate(45deg);
-}
 .reread-note { margin: 0; color: var(--color-text-default, inherit); }
 .reread-art { background: var(--card); border: var(--border-ui); border-radius: var(--radius-md, 16px); overflow: hidden; display: flex; align-items: flex-end; }
 .reread-art .char { width: 100%; }
 .howto-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-.howto-grid article { background: var(--color-surface-muted); border-radius: var(--radius-md); padding: 12px; display: flex; gap: 8px; }
+.howto-grid article { background: var(--color-surface-muted); border-radius: var(--radius-md); padding: 12px 14px 12px 12px; display: grid; grid-template-columns: 72px minmax(0, 1fr); gap: 4px 12px; align-items: center; position: relative; }
+.howto-icon { width: 72px; height: 72px; display: block; }
+.howto-grid article .howto-n { position: absolute; left: 6px; top: 6px; width: 24px; height: 24px; font-size: 13px; }
+.howto-grid article p { margin: 0; }
 .howto-n { width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; background: var(--color-text-strong); color: var(--color-text-on-dark); font: var(--type-label); flex: none; }
 .howto-note { background: var(--color-brand-tint); border-radius: var(--radius-md); padding: 12px; }
 
@@ -839,7 +781,6 @@ body[data-client="brenda"] { --client: var(--client-brenda); }
   .reread-note { grid-column: 1; grid-row: 1; align-self: center; }
   .reread-art { grid-column: 2; grid-row: 1; }
   .reread .bubble-lg { grid-column: 1 / -1; grid-row: 2; }
-  .reread .bubble::after { top: -11px; right: 42px; bottom: auto; border-top: var(--border-ui); border-left: var(--border-ui); border-right: 0; }
   h1, body[data-screen="attract"] h1, body[data-screen="start"] h1, body[data-screen="timesup"] h1 {
     font: 800 42px/0.95 var(--font-display);
   }
@@ -900,7 +841,6 @@ body[data-client="brenda"] { --client: var(--client-brenda); }
   .brief-who .role { margin: 0; }
   .brief .bubble-lg { grid-column: 1 / -1; max-width: none; }
   /* On phones the brief sits under the client, so its tail points up at them. */
-  .brief .bubble-lg::after { top: -11px; bottom: auto; left: 64px; border-right: 0; border-bottom: 0; border-left: var(--border-ui); border-top: var(--border-ui); }
   /* No box: the steps sit on the client's colour, like the rest of the brief. */
   .brief-howto { grid-column: 1 / -1; padding: 4px 4px 0; color: var(--color-text-strong); }
   .brief-steps { margin-bottom: 4px; }
@@ -1079,8 +1019,7 @@ body.is-reordering .browser-page { touch-action: none; }
   .dock-meta { display: none; }
   .dock-art { width: 56px; height: 56px; box-shadow: 3px 3px 0 #000; }
   .dock-bubble { position: static; width: auto; max-width: min(360px, calc(100vw - 110px)); margin-top: 4px; }
-  .dock-bubble .bubble { font-size: 23px; transform-origin: 0 0; box-shadow: 3px 3px 0 #000; }
-  .dock-bubble .bubble::after { left: -10px; top: 16px; bottom: auto; border: 0; border-left: var(--border-ui); border-bottom: var(--border-ui); }
+  .dock-bubble .bubble { font-size: 23px; transform-origin: 0 0; --bubble-shadow: 3px 3px 0 #000; }
 }
 
 /* ---------- Phones held upright: the website first, options in a resizable bottom panel ---------- */
@@ -1352,4 +1291,47 @@ body[data-ink="light"] .screen-client :focus-visible,
     color: var(--color-text-default); padding: 10px 4px 9px; min-height: 44px; }
   .tab.is-on { background: transparent; color: var(--color-text-strong); border-bottom-color: var(--color-brand-primary); }
   .tab:hover:not(.is-on) { background: transparent; color: var(--color-text-strong); border-bottom-color: var(--color-border-soft); }
+}
+
+/* ---------- Speech bubble tails ----------
+   One system for every bubble: a real triangle (black outline + white fill) that joins the
+   bubble's border, and a drop-shadow so the shadow follows the tail too.
+   Directions: down (default), up, left, right. --tail moves it along the edge. */
+.bubble { --tail: 30px; box-shadow: none; filter: drop-shadow(var(--bubble-shadow, 6px 6px 0 #000)); }
+.bubble::before, .bubble::after { content: ""; position: absolute; pointer-events: none; border: 0; transform: none; }
+.bubble::before { background: var(--color-border-strong); }
+.bubble::after { background: var(--color-surface-default); }
+/* down */
+.bubble::before { left: var(--tail); top: 100%; right: auto; bottom: auto; width: 24px; height: 16px; clip-path: polygon(0 0, 100% 0, 50% 100%); }
+.bubble::after { left: calc(var(--tail) + 3px); top: calc(100% - 2px); right: auto; bottom: auto; width: 18px; height: 13px; clip-path: polygon(0 0, 100% 0, 50% 100%); }
+/* up */
+.bubble.tail-up::before { top: auto; bottom: 100%; clip-path: polygon(50% 0, 100% 100%, 0 100%); }
+.bubble.tail-up::after { top: auto; bottom: calc(100% - 2px); clip-path: polygon(50% 0, 100% 100%, 0 100%); }
+/* left (speaker on the left) */
+.tu-react .bubble::before { left: auto; right: 100%; top: var(--tail-y, 50%); width: 16px; height: 24px; margin-top: -12px; clip-path: polygon(100% 0, 100% 100%, 0 50%); }
+.tu-react .bubble::after { left: auto; right: calc(100% - 2px); top: var(--tail-y, 50%); width: 13px; height: 18px; margin-top: -9px; clip-path: polygon(100% 0, 100% 100%, 0 50%); }
+/* right (speaker on the right) */
+.reread .bubble::before { left: 100%; top: auto; bottom: 24px; width: 16px; height: 24px; clip-path: polygon(0 0, 100% 50%, 0 100%); }
+.reread .bubble::after { left: calc(100% - 2px); top: auto; bottom: 27px; width: 13px; height: 18px; clip-path: polygon(0 0, 100% 50%, 0 100%); }
+.bubble[role="status"]::before, .bubble[role="status"]::after { display: none; }
+
+/* Cast on the start screen: the tail follows the speaker when the bubble is nudged,
+   but never slides onto the rounded corners. */
+.cast-person .bubble { --tail: clamp(20px, calc(50% - var(--nudge, 0px) - 12px), calc(100% - 44px)); }
+.dock-bubble .bubble { --tail: 22px; }
+.tu-say { --tail: calc(100% - 50px); }
+.brief .bubble-lg, .verdict .bubble-lg { --tail: calc(50% - 12px); }
+
+@media (max-width: 767px) {
+  /* Brief and re-read on phones: the person is above the text, so the tail points up. */
+  .brief .bubble-lg::before, .reread .bubble::before { top: auto; bottom: 100%; width: 24px; height: 16px; margin: 0; clip-path: polygon(50% 0, 100% 100%, 0 100%); }
+  .brief .bubble-lg::after, .reread .bubble::after { top: auto; bottom: calc(100% - 2px); width: 18px; height: 13px; margin: 0; clip-path: polygon(50% 0, 100% 100%, 0 100%); }
+  .brief .bubble-lg { --tail: 52px; }
+  .reread .bubble::before { left: auto; right: 42px; }
+  .reread .bubble::after { left: auto; right: 45px; }
+}
+@media (max-width: 1023px) {
+  /* Builder on phones and tablets: the client's face is to the left of the bubble. */
+  .dock-bubble .bubble::before { left: auto; right: 100%; top: 14px; width: 16px; height: 24px; clip-path: polygon(100% 0, 100% 100%, 0 50%); }
+  .dock-bubble .bubble::after { left: auto; right: calc(100% - 2px); top: 17px; width: 13px; height: 18px; clip-path: polygon(100% 0, 100% 100%, 0 50%); }
 }

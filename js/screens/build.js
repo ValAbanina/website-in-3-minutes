@@ -515,14 +515,20 @@ export function bindDrag(root, handlers) {
       onDragStart();
     }
   });
-  const clearMark = () => root.querySelectorAll('.is-drop-before, .is-drop-end').forEach((el) => el.classList.remove('is-drop-before', 'is-drop-end'));
+  const clearMark = () => root.querySelectorAll('.is-drop-before, .is-drop-after, .is-drop-end')
+    .forEach((el) => el.classList.remove('is-drop-before', 'is-drop-after', 'is-drop-end'));
+  // Top half of a section drops above it, bottom half drops below it.
+  const dropAfter = (block, y) => {
+    const box = block.getBoundingClientRect();
+    return y > box.top + box.height / 2;
+  };
   root.addEventListener('dragover', (e) => {
     const zone = e.target.closest('[data-dropzone], .block');
     if (!zone) return;
     e.preventDefault();
     clearMark();
     const target = e.target.closest('.block');
-    if (target) target.classList.add('is-drop-before');
+    if (target) target.classList.add(dropAfter(target, e.clientY) ? 'is-drop-after' : 'is-drop-before');
     else zone.classList.add('is-drop-end');
   });
   root.addEventListener('dragleave', (e) => {
@@ -540,7 +546,7 @@ export function bindDrag(root, handlers) {
     onDrop({
       type,
       from: from === '' ? null : Number(from),
-      targetIndex: target ? Number(target.dataset.index) : null,
+      targetIndex: target ? Number(target.dataset.index) + (dropAfter(target, e.clientY) ? 1 : 0) : null,
     });
   });
 }

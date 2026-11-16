@@ -163,6 +163,7 @@ function finish(auto) {
     autoSent: !!auto,
     deadlineLine: Math.floor(Math.random() * game.deadline.lines.length),
     screen: auto ? 'timesup' : 'verdict',
+    tuReact: false,
     comment: null,
     timeLeft: auto ? 0 : s.timeLeft,
   });
@@ -563,13 +564,23 @@ function effects(next, prev) {
   if (next.screen === 'brief' && prev.screen !== 'brief' && client) audio.say(`voice.${client.id}.brief`);
     if (next.screen === 'timesup' && prev.screen !== 'timesup') {
       audio.play('deadline.gong');
-      audio.say(`voice.deadline.${(next.deadlineLine || 0) + 1}`);
-      // Then the client reacts, once the Deadline has finished speaking.
+      // The client reacts only after the Deadline has finished: first its voice ends,
+      // and there is always enough time to read its line (also with sound off).
       const reactTo = next.clientId;
-      window.setTimeout(() => {
-        const now = store.get();
-        if (now.screen === 'timesup' && now.clientId === reactTo) audio.say(`voice.${reactTo}.times-up`);
-      }, 3400);
+      const line = game.deadline.lines[next.deadlineLine || 0] || '';
+      const readMs = 1200 + line.length * 50;
+      const started = Date.now();
+      audio.say(`voice.deadline.${(next.deadlineLine || 0) + 1}`).then(() => {
+        const wait = Math.max(0, readMs - (Date.now() - started)) + 400;
+        window.setTimeout(() => {
+          const now = store.get();
+          if (now.screen !== 'timesup' || now.clientId !== reactTo) return;
+          store.set({ tuReact: true });
+          const react = document.querySelector('.tu-react');
+          if (react) { react.classList.add('is-on'); react.setAttribute('aria-hidden', 'false'); }
+          audio.say(`voice.${reactTo}.times-up`);
+        }, wait);
+      });
     }
   if (next.screen === 'verdict' && prev.screen !== 'verdict' && client && next.result) {
     audio.stopMusic();
@@ -595,7 +606,7 @@ function effects(next, prev) {
 
 function boot(data, cues) {
   game = data;
-  document.title = game.meta.title;
+  document.title = `${game.meta.title} | Langara Design Formation`;
   const seed = initialState(game.meta);
   try { seed.muted = sessionStorage.getItem('w5-muted') === '1'; } catch { /* private mode */ }
   store = createStore(seed);

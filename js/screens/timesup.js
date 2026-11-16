@@ -34,7 +34,7 @@ export function render(state, game, client) {
           <div class="tu-site-frame">${browserShell(sent, client, renderSite(sent, client, game))}</div>
           <span class="tu-stamp" aria-hidden="true">Sent as is</span>
         </figure>
-        <div class="tu-react moment-slide" style="--card:${esc(client.color || 'var(--color-surface-muted)')}">
+        <div class="tu-react${state.tuReact ? ' is-on' : ''}" aria-hidden="${state.tuReact ? 'false' : 'true'}" style="--card:${esc(client.color || 'var(--color-surface-muted)')}">
           ${characterHTML(client.id, 'meh', 'tu-client')}
           <p class="bubble">${esc(client.lines.timesUp)}</p>
         </div>

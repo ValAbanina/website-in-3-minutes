@@ -164,12 +164,17 @@ export function createAudio(cues, mixing) {
       if (!id || muted) return;
       startBuffer(id).catch(() => {});
     },
+    /** Speak a line. Resolves when it has finished playing (right away if muted or missing). */
     say(id) {
-      if (!id || muted) return;
+      if (!id || muted) return Promise.resolve(false);
       if (mixing?.oneVoiceAtATime !== false && voice?.source) {
         try { voice.source.stop(); } catch { /* ignore */ }
       }
-      startBuffer(id, { voiceTrack: true }).catch(() => {});
+      return startBuffer(id, { voiceTrack: true })
+        .then((source) => (source
+          ? new Promise((done) => source.addEventListener('ended', () => done(true), { once: true }))
+          : false))
+        .catch(() => false);
     },
     /** Resolves true when at least one audio file is listed in the manifest. */
     async ready() {

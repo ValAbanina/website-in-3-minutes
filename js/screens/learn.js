@@ -2,7 +2,7 @@ import { esc, infoUrl } from '../dom.js';
 import { logo, muteButton } from '../chrome.js';
 import { config } from '../../config.js';
 
-const EXPLORE = { df: 'Design Formation', dgmd: 'DGMD', aiap: 'AIAP' };
+const EXPLORE = { df: 'DF', dgmd: 'DGMD', aiap: 'AIAP' };
 const SKILLS = ['Typography', 'Colour theory', 'Composition', 'Visual hierarchy', 'Reading a client brief'];
 
 export function render(state, game) {
@@ -20,7 +20,7 @@ export function render(state, game) {
         <p>${esc(program.description)}</p>
         <ul class="chips">${learns}</ul>
         <div class="program-actions">
-          <a class="btn btn-primary" data-program="${esc(program.id)}" data-action="explore" href="${esc(program.url)}" target="_blank" rel="noopener">Explore ${esc(EXPLORE[program.id] || program.name)}</a>
+          <a class="btn btn-primary" data-program="${esc(program.id)}" data-action="explore" href="${esc(program.url)}" target="_blank" rel="noopener" aria-label="Explore ${esc(EXPLORE[program.id] || program.name)}: ${esc(program.name)} (opens in a new tab)">Explore ${esc(EXPLORE[program.id] || program.name)}</a>
           ${session
             ? `<a class="text-btn" data-program="${esc(program.id)}" data-action="info-session" href="${esc(session)}" target="_blank" rel="noopener">Book an info session</a>`
             : ''}

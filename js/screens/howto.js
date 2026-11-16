@@ -7,18 +7,22 @@ export function render() {
       </header>
       <div class="howto-grid">
         <article>
+          <img class="howto-icon" src="assets/svg/howto/step-1.svg" alt="" width="72" height="72">
           <span class="howto-n">1</span>
           <p>Pick a client and read their brief. Nobody says exactly what they want.</p>
         </article>
         <article>
+          <img class="howto-icon" src="assets/svg/howto/step-2.svg" alt="" width="72" height="72">
           <span class="howto-n">2</span>
           <p>Build a one-page site: add sections, drag to reorder, choose how many columns.</p>
         </article>
         <article>
+          <img class="howto-icon" src="assets/svg/howto/step-3.svg" alt="" width="72" height="72">
           <span class="howto-n">3</span>
           <p>Style it: colours, fonts, a style, pictures and patterns.</p>
         </article>
         <article>
+          <img class="howto-icon" src="assets/svg/howto/step-4.svg" alt="" width="72" height="72">
           <span class="howto-n">4</span>
           <p>Send it before the 5 minutes run out, or the Deadline sends it for you.</p>
         </article>
