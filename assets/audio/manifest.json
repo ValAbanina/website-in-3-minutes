@@ -1,0 +1,892 @@
+{
+  "voice.gerald.brief": {
+    "file": "assets/audio/voice/gerald/brief.mp3",
+    "text": "My clients trust me with their money. I’d like a website that makes them feel… calm. Nothing should move. Nothing should sparkle. Last year someone sent me an emoji and I had to lie down.",
+    "kind": "voice"
+  },
+  "voice.gerald.happy-1": {
+    "file": "assets/audio/voice/gerald/happy-1.mp3",
+    "text": "This is… orderly. I may frame it. Next to my other framed spreadsheet.",
+    "kind": "voice"
+  },
+  "voice.gerald.happy-2": {
+    "file": "assets/audio/voice/gerald/happy-2.mp3",
+    "text": "Balanced, like a good ledger. I’m experiencing what young people call “a vibe”.",
+    "kind": "voice"
+  },
+  "voice.gerald.happy-3": {
+    "file": "assets/audio/voice/gerald/happy-3.mp3",
+    "text": "My clients will trust this. I trust this. I’m emailing my mother.",
+    "kind": "voice"
+  },
+  "voice.gerald.meh-1": {
+    "file": "assets/audio/voice/gerald/meh-1.mp3",
+    "text": "It’s fine. Like a tie that’s slightly too wide. I’ll live.",
+    "kind": "voice"
+  },
+  "voice.gerald.meh-2": {
+    "file": "assets/audio/voice/gerald/meh-2.mp3",
+    "text": "It mostly adds up. There’s a rounding error somewhere and it’s bothering me.",
+    "kind": "voice"
+  },
+  "voice.gerald.meh-3": {
+    "file": "assets/audio/voice/gerald/meh-3.mp3",
+    "text": "Acceptable. Not deductible, but acceptable.",
+    "kind": "voice"
+  },
+  "voice.gerald.meltdown-1": {
+    "file": "assets/audio/voice/gerald/meltdown-1.mp3",
+    "text": "Why is it SPARKLING? My glasses just fogged up.",
+    "kind": "voice"
+  },
+  "voice.gerald.meltdown-2": {
+    "file": "assets/audio/voice/gerald/meltdown-2.mp3",
+    "text": "This website owes me an apology and possibly back taxes.",
+    "kind": "voice"
+  },
+  "voice.gerald.meltdown-3": {
+    "file": "assets/audio/voice/gerald/meltdown-3.mp3",
+    "text": "I need a quiet room, a pencil and a glass of room-temperature water.",
+    "kind": "voice"
+  },
+  "voice.gerald.times-up": {
+    "file": "assets/audio/voice/gerald/times-up.mp3",
+    "text": "Late? I have never filed anything late in thirty-one years.",
+    "kind": "voice"
+  },
+  "voice.gerald.hurry": {
+    "file": "assets/audio/voice/gerald/hurry.mp3",
+    "text": "Thirty seconds. I’m getting my calculator out.",
+    "kind": "voice"
+  },
+  "voice.gerald.perfect-palette": {
+    "file": "assets/audio/voice/gerald/perfect-palette.mp3",
+    "text": "Navy. The colour of reliable socks. Go on.",
+    "kind": "voice"
+  },
+  "voice.gerald.deal-breaker-palette": {
+    "file": "assets/audio/voice/gerald/deal-breaker-palette.mp3",
+    "text": "Is my screen broken or is this… pink?",
+    "kind": "voice"
+  },
+  "voice.gerald.perfect-heading": {
+    "file": "assets/audio/voice/gerald/perfect-heading.mp3",
+    "text": "A serif! Finally, a font with a pension plan.",
+    "kind": "voice"
+  },
+  "voice.gerald.deal-breaker-heading": {
+    "file": "assets/audio/voice/gerald/deal-breaker-heading.mp3",
+    "text": "That font looks like it would bounce a cheque.",
+    "kind": "voice"
+  },
+  "voice.gerald.perfect-style": {
+    "file": "assets/audio/voice/gerald/perfect-style.mp3",
+    "text": "Neat edges. Tidy borders. I feel audited in a good way.",
+    "kind": "voice"
+  },
+  "voice.gerald.perfect-pictures": {
+    "file": "assets/audio/voice/gerald/perfect-pictures.mp3",
+    "text": "Charts. Be still, my heart.",
+    "kind": "voice"
+  },
+  "voice.gerald.decoy-picture": {
+    "file": "assets/audio/voice/gerald/decoy-picture.mp3",
+    "text": "Who chose this picture? It isn’t itemised.",
+    "kind": "voice"
+  },
+  "voice.gerald.deal-breaker-decoration": {
+    "file": "assets/audio/voice/gerald/deal-breaker-decoration.mp3",
+    "text": "Is something… celebrating? Make it stop.",
+    "kind": "voice"
+  },
+  "voice.gerald.must-have-added": {
+    "file": "assets/audio/voice/gerald/must-have-added.mp3",
+    "text": "Ah, Margaret’s review. She’s very thorough.",
+    "kind": "voice"
+  },
+  "voice.gerald.rule-nav-first": {
+    "file": "assets/audio/voice/gerald/rule-nav-first.mp3",
+    "text": "Where’s the menu? I’m lost on my own website.",
+    "kind": "voice"
+  },
+  "voice.gerald.rule-footer-last": {
+    "file": "assets/audio/voice/gerald/rule-footer-last.mp3",
+    "text": "Why is the footer in the middle? Is the website falling over?",
+    "kind": "voice"
+  },
+  "voice.gerald.rule-needs-hero": {
+    "file": "assets/audio/voice/gerald/rule-needs-hero.mp3",
+    "text": "What is this website even for?",
+    "kind": "voice"
+  },
+  "voice.gerald.rule-not-too-short": {
+    "file": "assets/audio/voice/gerald/rule-not-too-short.mp3",
+    "text": "Is that it? I’ve seen longer receipts.",
+    "kind": "voice"
+  },
+  "voice.gerald.rule-not-too-long": {
+    "file": "assets/audio/voice/gerald/rule-not-too-long.mp3",
+    "text": "I scrolled so long I needed a snack.",
+    "kind": "voice"
+  },
+  "voice.gerald.rule-readable-body": {
+    "file": "assets/audio/voice/gerald/rule-readable-body.mp3",
+    "text": "I need my glasses for this. All of them.",
+    "kind": "voice"
+  },
+  "voice.gerald.rule-dont-overdecorate": {
+    "file": "assets/audio/voice/gerald/rule-dont-overdecorate.mp3",
+    "text": "My eyes! Everything is happening at once!",
+    "kind": "voice"
+  },
+  "voice.gerald.rule-dont-repeat": {
+    "file": "assets/audio/voice/gerald/rule-dont-repeat.mp3",
+    "text": "Didn’t I just see this? And this? And this?",
+    "kind": "voice"
+  },
+  "voice.kaia.brief": {
+    "file": "assets/audio/voice/kaia/brief.mp3",
+    "text": "Okay so Leafr matches houseplants with their soulmates. We’re pre-revenue but post-vibes. The site has to feel LOUD. If it looks like a bank, investors fall asleep, and honestly that’s on you.",
+    "kind": "voice"
+  },
+  "voice.kaia.happy-1": {
+    "file": "assets/audio/voice/kaia/happy-1.mp3",
+    "text": "OBSESSED. This is going in the pitch deck. You’re getting equity. (You’re not getting equity.)",
+    "kind": "voice"
+  },
+  "voice.kaia.happy-2": {
+    "file": "assets/audio/voice/kaia/happy-2.mp3",
+    "text": "This slaps. My co-founder is crying. Okay, he cries a lot, but still.",
+    "kind": "voice"
+  },
+  "voice.kaia.happy-3": {
+    "file": "assets/audio/voice/kaia/happy-3.mp3",
+    "text": "Ten out of ten. Disruptive. Iconic. Already posted it.",
+    "kind": "voice"
+  },
+  "voice.kaia.meh-1": {
+    "file": "assets/audio/voice/kaia/meh-1.mp3",
+    "text": "It’s giving… Tuesday. Can it be more Friday?",
+    "kind": "voice"
+  },
+  "voice.kaia.meh-2": {
+    "file": "assets/audio/voice/kaia/meh-2.mp3",
+    "text": "Cute! In a “my aunt made a website” kind of way.",
+    "kind": "voice"
+  },
+  "voice.kaia.meh-3": {
+    "file": "assets/audio/voice/kaia/meh-3.mp3",
+    "text": "Solid MVP. Emphasis on minimum.",
+    "kind": "voice"
+  },
+  "voice.kaia.meltdown-1": {
+    "file": "assets/audio/voice/kaia/meltdown-1.mp3",
+    "text": "Is this a PDF from 2009? My investors just unfollowed me.",
+    "kind": "voice"
+  },
+  "voice.kaia.meltdown-2": {
+    "file": "assets/audio/voice/kaia/meltdown-2.mp3",
+    "text": "This looks like a bank. I’d rather pivot to selling candles.",
+    "kind": "voice"
+  },
+  "voice.kaia.meltdown-3": {
+    "file": "assets/audio/voice/kaia/meltdown-3.mp3",
+    "text": "I’m literally shaking. Not in a good way. In a “call my therapist” way.",
+    "kind": "voice"
+  },
+  "voice.kaia.times-up": {
+    "file": "assets/audio/voice/kaia/times-up.mp3",
+    "text": "Missed the deadline? Honestly, very on-brand for a startup.",
+    "kind": "voice"
+  },
+  "voice.kaia.hurry": {
+    "file": "assets/audio/voice/kaia/hurry.mp3",
+    "text": "Thirty seconds! That’s like three pivots!",
+    "kind": "voice"
+  },
+  "voice.kaia.perfect-palette": {
+    "file": "assets/audio/voice/kaia/perfect-palette.mp3",
+    "text": "NEON. Yes. My retinas and I approve.",
+    "kind": "voice"
+  },
+  "voice.kaia.deal-breaker-palette": {
+    "file": "assets/audio/voice/kaia/deal-breaker-palette.mp3",
+    "text": "Navy? Are we filing taxes or changing the world?",
+    "kind": "voice"
+  },
+  "voice.kaia.perfect-heading": {
+    "file": "assets/audio/voice/kaia/perfect-heading.mp3",
+    "text": "Chunky font energy. Love that for us.",
+    "kind": "voice"
+  },
+  "voice.kaia.deal-breaker-heading": {
+    "file": "assets/audio/voice/kaia/deal-breaker-heading.mp3",
+    "text": "That font has a mortgage and a minivan.",
+    "kind": "voice"
+  },
+  "voice.kaia.perfect-style": {
+    "file": "assets/audio/voice/kaia/perfect-style.mp3",
+    "text": "Thick borders, hard shadows. It looks like it lifts.",
+    "kind": "voice"
+  },
+  "voice.kaia.perfect-pictures": {
+    "file": "assets/audio/voice/kaia/perfect-pictures.mp3",
+    "text": "Blobs! Abstract! Investors LOVE blobs.",
+    "kind": "voice"
+  },
+  "voice.kaia.decoy-picture": {
+    "file": "assets/audio/voice/kaia/decoy-picture.mp3",
+    "text": "Is that a stock photo? I can smell the stock photo.",
+    "kind": "voice"
+  },
+  "voice.kaia.no-decoration": {
+    "file": "assets/audio/voice/kaia/no-decoration.mp3",
+    "text": "No sparkles? Where’s the drama?",
+    "kind": "voice"
+  },
+  "voice.kaia.must-have-added": {
+    "file": "assets/audio/voice/kaia/must-have-added.mp3",
+    "text": "A big button! People love clicking big buttons.",
+    "kind": "voice"
+  },
+  "voice.kaia.rule-nav-first": {
+    "file": "assets/audio/voice/kaia/rule-nav-first.mp3",
+    "text": "Where’s the menu? I’m lost on my own website.",
+    "kind": "voice"
+  },
+  "voice.kaia.rule-footer-last": {
+    "file": "assets/audio/voice/kaia/rule-footer-last.mp3",
+    "text": "Why is the footer in the middle? Is the website falling over?",
+    "kind": "voice"
+  },
+  "voice.kaia.rule-needs-hero": {
+    "file": "assets/audio/voice/kaia/rule-needs-hero.mp3",
+    "text": "What is this website even for?",
+    "kind": "voice"
+  },
+  "voice.kaia.rule-not-too-short": {
+    "file": "assets/audio/voice/kaia/rule-not-too-short.mp3",
+    "text": "Is that it? I’ve seen longer receipts.",
+    "kind": "voice"
+  },
+  "voice.kaia.rule-not-too-long": {
+    "file": "assets/audio/voice/kaia/rule-not-too-long.mp3",
+    "text": "I scrolled so long I needed a snack.",
+    "kind": "voice"
+  },
+  "voice.kaia.rule-readable-body": {
+    "file": "assets/audio/voice/kaia/rule-readable-body.mp3",
+    "text": "I need my glasses for this. All of them.",
+    "kind": "voice"
+  },
+  "voice.kaia.rule-dont-overdecorate": {
+    "file": "assets/audio/voice/kaia/rule-dont-overdecorate.mp3",
+    "text": "My eyes! Everything is happening at once!",
+    "kind": "voice"
+  },
+  "voice.kaia.rule-dont-repeat": {
+    "file": "assets/audio/voice/kaia/rule-dont-repeat.mp3",
+    "text": "Didn’t I just see this? And this? And this?",
+    "kind": "voice"
+  },
+  "voice.rosa.brief": {
+    "file": "assets/audio/voice/rosa/brief.mp3",
+    "text": "My kids say I need a website. Fine. It should feel like my kitchen: warm, cozy, smells like fresh bread. Show the bread! If it looks like a hospital, I’m calling your mother.",
+    "kind": "voice"
+  },
+  "voice.rosa.happy-1": {
+    "file": "assets/audio/voice/rosa/happy-1.mp3",
+    "text": "Bellissimo! You’re too skinny. Sit, I’m bringing biscotti.",
+    "kind": "voice"
+  },
+  "voice.rosa.happy-2": {
+    "file": "assets/audio/voice/rosa/happy-2.mp3",
+    "text": "It smells like bread. I don’t know how, but it smells like bread.",
+    "kind": "voice"
+  },
+  "voice.rosa.happy-3": {
+    "file": "assets/audio/voice/rosa/happy-3.mp3",
+    "text": "My nonna would approve, and she approved of nothing.",
+    "kind": "voice"
+  },
+  "voice.rosa.meh-1": {
+    "file": "assets/audio/voice/rosa/meh-1.mp3",
+    "text": "Is nice. A little like store-bought bread. Edible, but I notice.",
+    "kind": "voice"
+  },
+  "voice.rosa.meh-2": {
+    "file": "assets/audio/voice/rosa/meh-2.mp3",
+    "text": "It’s okay. Like soup with no salt. I see you tried.",
+    "kind": "voice"
+  },
+  "voice.rosa.meh-3": {
+    "file": "assets/audio/voice/rosa/meh-3.mp3",
+    "text": "Good, but where is the bread? People come for the bread!",
+    "kind": "voice"
+  },
+  "voice.rosa.meltdown-1": {
+    "file": "assets/audio/voice/rosa/meltdown-1.mp3",
+    "text": "Madonna mia, why is it so DARK? Who died? Open a window!",
+    "kind": "voice"
+  },
+  "voice.rosa.meltdown-2": {
+    "file": "assets/audio/voice/rosa/meltdown-2.mp3",
+    "text": "This looks like a nightclub. I close at six!",
+    "kind": "voice"
+  },
+  "voice.rosa.meltdown-3": {
+    "file": "assets/audio/voice/rosa/meltdown-3.mp3",
+    "text": "I’m calling your mother. Right now. What’s her number?",
+    "kind": "voice"
+  },
+  "voice.rosa.times-up": {
+    "file": "assets/audio/voice/rosa/times-up.mp3",
+    "text": "Late? My dough rises faster than you work!",
+    "kind": "voice"
+  },
+  "voice.rosa.hurry": {
+    "file": "assets/audio/voice/rosa/hurry.mp3",
+    "text": "Hurry, the cornetti are getting cold!",
+    "kind": "voice"
+  },
+  "voice.rosa.perfect-palette": {
+    "file": "assets/audio/voice/rosa/perfect-palette.mp3",
+    "text": "Warm, like my oven. Now we’re cooking.",
+    "kind": "voice"
+  },
+  "voice.rosa.deal-breaker-palette": {
+    "file": "assets/audio/voice/rosa/deal-breaker-palette.mp3",
+    "text": "Why is it so cold? Put a sweater on this website.",
+    "kind": "voice"
+  },
+  "voice.rosa.perfect-heading": {
+    "file": "assets/audio/voice/rosa/perfect-heading.mp3",
+    "text": "Ooh, curly letters. Like my icing!",
+    "kind": "voice"
+  },
+  "voice.rosa.deal-breaker-heading": {
+    "file": "assets/audio/voice/rosa/deal-breaker-heading.mp3",
+    "text": "That font looks like it has never eaten a carb.",
+    "kind": "voice"
+  },
+  "voice.rosa.perfect-style": {
+    "file": "assets/audio/voice/rosa/perfect-style.mp3",
+    "text": "Soft and round, like a good loaf.",
+    "kind": "voice"
+  },
+  "voice.rosa.perfect-pictures": {
+    "file": "assets/audio/voice/rosa/perfect-pictures.mp3",
+    "text": "The bread! Finally somebody listens.",
+    "kind": "voice"
+  },
+  "voice.rosa.decoy-picture": {
+    "file": "assets/audio/voice/rosa/decoy-picture.mp3",
+    "text": "A skyscraper? Is my bakery a bank now?",
+    "kind": "voice"
+  },
+  "voice.rosa.nice-pattern": {
+    "file": "assets/audio/voice/rosa/nice-pattern.mp3",
+    "text": "Checks! Like my tablecloth!",
+    "kind": "voice"
+  },
+  "voice.rosa.must-have-added": {
+    "file": "assets/audio/voice/rosa/must-have-added.mp3",
+    "text": "Show all the bread. ALL of it.",
+    "kind": "voice"
+  },
+  "voice.rosa.rule-nav-first": {
+    "file": "assets/audio/voice/rosa/rule-nav-first.mp3",
+    "text": "Where’s the menu? I’m lost on my own website.",
+    "kind": "voice"
+  },
+  "voice.rosa.rule-footer-last": {
+    "file": "assets/audio/voice/rosa/rule-footer-last.mp3",
+    "text": "Why is the footer in the middle? Is the website falling over?",
+    "kind": "voice"
+  },
+  "voice.rosa.rule-needs-hero": {
+    "file": "assets/audio/voice/rosa/rule-needs-hero.mp3",
+    "text": "What is this website even for?",
+    "kind": "voice"
+  },
+  "voice.rosa.rule-not-too-short": {
+    "file": "assets/audio/voice/rosa/rule-not-too-short.mp3",
+    "text": "Is that it? I’ve seen longer receipts.",
+    "kind": "voice"
+  },
+  "voice.rosa.rule-not-too-long": {
+    "file": "assets/audio/voice/rosa/rule-not-too-long.mp3",
+    "text": "I scrolled so long I needed a snack.",
+    "kind": "voice"
+  },
+  "voice.rosa.rule-readable-body": {
+    "file": "assets/audio/voice/rosa/rule-readable-body.mp3",
+    "text": "I need my glasses for this. All of them.",
+    "kind": "voice"
+  },
+  "voice.rosa.rule-dont-overdecorate": {
+    "file": "assets/audio/voice/rosa/rule-dont-overdecorate.mp3",
+    "text": "My eyes! Everything is happening at once!",
+    "kind": "voice"
+  },
+  "voice.rosa.rule-dont-repeat": {
+    "file": "assets/audio/voice/rosa/rule-dont-repeat.mp3",
+    "text": "Didn’t I just see this? And this? And this?",
+    "kind": "voice"
+  },
+  "voice.damien.brief": {
+    "file": "assets/audio/voice/damien/brief.mp3",
+    "text": "Wilted & Co. sells flowers that have accepted their fate. The site must feel like a candlelit parlour at midnight. Show the bouquets. If I see pastel, I will simply… fade away.",
+    "kind": "voice"
+  },
+  "voice.damien.happy-1": {
+    "file": "assets/audio/voice/damien/happy-1.mp3",
+    "text": "Exquisitely gloomy. I shed a single tear. It was perfect.",
+    "kind": "voice"
+  },
+  "voice.damien.happy-2": {
+    "file": "assets/audio/voice/damien/happy-2.mp3",
+    "text": "Like a candle in a dark room. I’ve never felt so seen.",
+    "kind": "voice"
+  },
+  "voice.damien.happy-3": {
+    "file": "assets/audio/voice/damien/happy-3.mp3",
+    "text": "I would be buried in this website. Respectfully.",
+    "kind": "voice"
+  },
+  "voice.damien.meh-1": {
+    "file": "assets/audio/voice/damien/meh-1.mp3",
+    "text": "It’s dark, but dark like a car park. Not dark like a poem.",
+    "kind": "voice"
+  },
+  "voice.damien.meh-2": {
+    "file": "assets/audio/voice/damien/meh-2.mp3",
+    "text": "Mildly melancholy. I wanted devastating.",
+    "kind": "voice"
+  },
+  "voice.damien.meh-3": {
+    "file": "assets/audio/voice/damien/meh-3.mp3",
+    "text": "Fine. It’s the beige of black.",
+    "kind": "voice"
+  },
+  "voice.damien.meltdown-1": {
+    "file": "assets/audio/voice/damien/meltdown-1.mp3",
+    "text": "Pink? CONFETTI? I’ve never been so personally attacked by a website.",
+    "kind": "voice"
+  },
+  "voice.damien.meltdown-2": {
+    "file": "assets/audio/voice/damien/meltdown-2.mp3",
+    "text": "This is so cheerful my eyeliner is running.",
+    "kind": "voice"
+  },
+  "voice.damien.meltdown-3": {
+    "file": "assets/audio/voice/damien/meltdown-3.mp3",
+    "text": "Who invited balloons to my funeral? I mean shop.",
+    "kind": "voice"
+  },
+  "voice.damien.times-up": {
+    "file": "assets/audio/voice/damien/times-up.mp3",
+    "text": "Ah. The Deadline. We’ve met before.",
+    "kind": "voice"
+  },
+  "voice.damien.hurry": {
+    "file": "assets/audio/voice/damien/hurry.mp3",
+    "text": "Thirty seconds. Time is fleeting. Like petals.",
+    "kind": "voice"
+  },
+  "voice.damien.perfect-palette": {
+    "file": "assets/audio/voice/damien/perfect-palette.mp3",
+    "text": "Darkness. Velvet. Yes.",
+    "kind": "voice"
+  },
+  "voice.damien.deal-breaker-palette": {
+    "file": "assets/audio/voice/damien/deal-breaker-palette.mp3",
+    "text": "Pastels?! I’m fading… I’m fading…",
+    "kind": "voice"
+  },
+  "voice.damien.perfect-heading": {
+    "file": "assets/audio/voice/damien/perfect-heading.mp3",
+    "text": "Blackletter. Finally, a font that understands me.",
+    "kind": "voice"
+  },
+  "voice.damien.deal-breaker-heading": {
+    "file": "assets/audio/voice/damien/deal-breaker-heading.mp3",
+    "text": "That font smiles too much.",
+    "kind": "voice"
+  },
+  "voice.damien.perfect-style": {
+    "file": "assets/audio/voice/damien/perfect-style.mp3",
+    "text": "Clean, sharp, quiet. Like a well-kept crypt.",
+    "kind": "voice"
+  },
+  "voice.damien.perfect-pictures": {
+    "file": "assets/audio/voice/damien/perfect-pictures.mp3",
+    "text": "Dried flowers. They’ve accepted their fate. As have I.",
+    "kind": "voice"
+  },
+  "voice.damien.decoy-picture": {
+    "file": "assets/audio/voice/damien/decoy-picture.mp3",
+    "text": "Balloons. In my shop. I need to lie down.",
+    "kind": "voice"
+  },
+  "voice.damien.deal-breaker-decoration": {
+    "file": "assets/audio/voice/damien/deal-breaker-decoration.mp3",
+    "text": "Confetti is just glitter’s annoying cousin.",
+    "kind": "voice"
+  },
+  "voice.damien.must-have-added": {
+    "file": "assets/audio/voice/damien/must-have-added.mp3",
+    "text": "Show the bouquets, in all their withered glory.",
+    "kind": "voice"
+  },
+  "voice.damien.rule-nav-first": {
+    "file": "assets/audio/voice/damien/rule-nav-first.mp3",
+    "text": "Where’s the menu? I’m lost on my own website.",
+    "kind": "voice"
+  },
+  "voice.damien.rule-footer-last": {
+    "file": "assets/audio/voice/damien/rule-footer-last.mp3",
+    "text": "Why is the footer in the middle? Is the website falling over?",
+    "kind": "voice"
+  },
+  "voice.damien.rule-needs-hero": {
+    "file": "assets/audio/voice/damien/rule-needs-hero.mp3",
+    "text": "What is this website even for?",
+    "kind": "voice"
+  },
+  "voice.damien.rule-not-too-short": {
+    "file": "assets/audio/voice/damien/rule-not-too-short.mp3",
+    "text": "Is that it? I’ve seen longer receipts.",
+    "kind": "voice"
+  },
+  "voice.damien.rule-not-too-long": {
+    "file": "assets/audio/voice/damien/rule-not-too-long.mp3",
+    "text": "I scrolled so long I needed a snack.",
+    "kind": "voice"
+  },
+  "voice.damien.rule-readable-body": {
+    "file": "assets/audio/voice/damien/rule-readable-body.mp3",
+    "text": "I need my glasses for this. All of them.",
+    "kind": "voice"
+  },
+  "voice.damien.rule-dont-overdecorate": {
+    "file": "assets/audio/voice/damien/rule-dont-overdecorate.mp3",
+    "text": "My eyes! Everything is happening at once!",
+    "kind": "voice"
+  },
+  "voice.damien.rule-dont-repeat": {
+    "file": "assets/audio/voice/damien/rule-dont-repeat.mp3",
+    "text": "Didn’t I just see this? And this? And this?",
+    "kind": "voice"
+  },
+  "voice.brenda.brief": {
+    "file": "assets/audio/voice/brenda/brief.mp3",
+    "text": "Breathe in… my clients come to me to slow down. The website should feel like a long exhale: soft, natural, lots of space to list my sessions. Breathe out… and please, no shouting fonts.",
+    "kind": "voice"
+  },
+  "voice.brenda.happy-1": {
+    "file": "assets/audio/voice/brenda/happy-1.mp3",
+    "text": "Ahh. I can feel my shoulders dropping. This website is a hug.",
+    "kind": "voice"
+  },
+  "voice.brenda.happy-2": {
+    "file": "assets/audio/voice/brenda/happy-2.mp3",
+    "text": "Breathe in… breathe out… perfect. Namaste, little website.",
+    "kind": "voice"
+  },
+  "voice.brenda.happy-3": {
+    "file": "assets/audio/voice/brenda/happy-3.mp3",
+    "text": "This is so calm my tea brewed itself.",
+    "kind": "voice"
+  },
+  "voice.brenda.meh-1": {
+    "file": "assets/audio/voice/brenda/meh-1.mp3",
+    "text": "It’s… nice. My breathing is steady, but my aura is beige.",
+    "kind": "voice"
+  },
+  "voice.brenda.meh-2": {
+    "file": "assets/audio/voice/brenda/meh-2.mp3",
+    "text": "Almost zen. Zen-ish.",
+    "kind": "voice"
+  },
+  "voice.brenda.meh-3": {
+    "file": "assets/audio/voice/brenda/meh-3.mp3",
+    "text": "I’m calm. Mostly. A little bit of my chakra is frowning.",
+    "kind": "voice"
+  },
+  "voice.brenda.meltdown-1": {
+    "file": "assets/audio/voice/brenda/meltdown-1.mp3",
+    "text": "Too. Much. Going. On. My chakras are tightening.",
+    "kind": "voice"
+  },
+  "voice.brenda.meltdown-2": {
+    "file": "assets/audio/voice/brenda/meltdown-2.mp3",
+    "text": "This font is shouting at me. Why is it shouting?",
+    "kind": "voice"
+  },
+  "voice.brenda.meltdown-3": {
+    "file": "assets/audio/voice/brenda/meltdown-3.mp3",
+    "text": "I need a retreat from this website. A long one.",
+    "kind": "voice"
+  },
+  "voice.brenda.times-up": {
+    "file": "assets/audio/voice/brenda/times-up.mp3",
+    "text": "Rushing is the enemy of peace. And of good websites.",
+    "kind": "voice"
+  },
+  "voice.brenda.hurry": {
+    "file": "assets/audio/voice/brenda/hurry.mp3",
+    "text": "Thirty seconds. Breathe. Then hurry.",
+    "kind": "voice"
+  },
+  "voice.brenda.perfect-palette": {
+    "file": "assets/audio/voice/brenda/perfect-palette.mp3",
+    "text": "Sage green. My plants and I feel safe.",
+    "kind": "voice"
+  },
+  "voice.brenda.deal-breaker-palette": {
+    "file": "assets/audio/voice/brenda/deal-breaker-palette.mp3",
+    "text": "These colours are yelling. Ask them to use their inside voice.",
+    "kind": "voice"
+  },
+  "voice.brenda.perfect-heading": {
+    "file": "assets/audio/voice/brenda/perfect-heading.mp3",
+    "text": "Soft, round letters. Like a pillow.",
+    "kind": "voice"
+  },
+  "voice.brenda.deal-breaker-heading": {
+    "file": "assets/audio/voice/brenda/deal-breaker-heading.mp3",
+    "text": "That font just did a cartwheel in my meditation room.",
+    "kind": "voice"
+  },
+  "voice.brenda.perfect-style": {
+    "file": "assets/audio/voice/brenda/perfect-style.mp3",
+    "text": "Rounded corners. No sharp edges in my life, please.",
+    "kind": "voice"
+  },
+  "voice.brenda.perfect-pictures": {
+    "file": "assets/audio/voice/brenda/perfect-pictures.mp3",
+    "text": "Lotus flowers. I’m breathing deeper already.",
+    "kind": "voice"
+  },
+  "voice.brenda.decoy-picture": {
+    "file": "assets/audio/voice/brenda/decoy-picture.mp3",
+    "text": "A skyscraper? I come here to escape those.",
+    "kind": "voice"
+  },
+  "voice.brenda.deal-breaker-decoration": {
+    "file": "assets/audio/voice/brenda/deal-breaker-decoration.mp3",
+    "text": "Confetti? In this economy? In this aura?",
+    "kind": "voice"
+  },
+  "voice.brenda.must-have-added": {
+    "file": "assets/audio/voice/brenda/must-have-added.mp3",
+    "text": "Yes, list my sessions. Gently.",
+    "kind": "voice"
+  },
+  "voice.brenda.rule-nav-first": {
+    "file": "assets/audio/voice/brenda/rule-nav-first.mp3",
+    "text": "Where’s the menu? I’m lost on my own website.",
+    "kind": "voice"
+  },
+  "voice.brenda.rule-footer-last": {
+    "file": "assets/audio/voice/brenda/rule-footer-last.mp3",
+    "text": "Why is the footer in the middle? Is the website falling over?",
+    "kind": "voice"
+  },
+  "voice.brenda.rule-needs-hero": {
+    "file": "assets/audio/voice/brenda/rule-needs-hero.mp3",
+    "text": "What is this website even for?",
+    "kind": "voice"
+  },
+  "voice.brenda.rule-not-too-short": {
+    "file": "assets/audio/voice/brenda/rule-not-too-short.mp3",
+    "text": "Is that it? I’ve seen longer receipts.",
+    "kind": "voice"
+  },
+  "voice.brenda.rule-not-too-long": {
+    "file": "assets/audio/voice/brenda/rule-not-too-long.mp3",
+    "text": "I scrolled so long I needed a snack.",
+    "kind": "voice"
+  },
+  "voice.brenda.rule-readable-body": {
+    "file": "assets/audio/voice/brenda/rule-readable-body.mp3",
+    "text": "I need my glasses for this. All of them.",
+    "kind": "voice"
+  },
+  "voice.brenda.rule-dont-overdecorate": {
+    "file": "assets/audio/voice/brenda/rule-dont-overdecorate.mp3",
+    "text": "My eyes! Everything is happening at once!",
+    "kind": "voice"
+  },
+  "voice.brenda.rule-dont-repeat": {
+    "file": "assets/audio/voice/brenda/rule-dont-repeat.mp3",
+    "text": "Didn’t I just see this? And this? And this?",
+    "kind": "voice"
+  },
+  "voice.deadline.1": {
+    "file": "assets/audio/voice/deadline/line-1.mp3",
+    "text": "Pencils down. I’ll take it from here.",
+    "kind": "voice"
+  },
+  "ui.click": {
+    "file": "assets/audio/sfx/ui-click.mp3",
+    "text": "Soft rubbery button tap, short, dry, friendly UI click, no reverb",
+    "kind": "sfx"
+  },
+  "ui.toggle": {
+    "file": "assets/audio/sfx/ui-toggle.mp3",
+    "text": "Two-note bip-bop going up, cute toggle switch sound, short",
+    "kind": "sfx"
+  },
+  "ui.hover-soft": {
+    "file": "assets/audio/sfx/ui-hover-soft.mp3",
+    "text": "Tiny wooden tick, very short and quiet, UI hover",
+    "kind": "sfx"
+  },
+  "ui.sticker": {
+    "file": "assets/audio/sfx/ui-sticker.mp3",
+    "text": "Vinyl sticker slapped onto a card with a little paper peel, playful",
+    "kind": "sfx"
+  },
+  "ui.roulette": {
+    "file": "assets/audio/sfx/ui-roulette.mp3",
+    "text": "Game-show prize wheel ticking, slowing down and stopping, short",
+    "kind": "sfx"
+  },
+  "ui.pick": {
+    "file": "assets/audio/sfx/ui-pick.mp3",
+    "text": "Bubbly pop, short, bright, satisfying selection sound",
+    "kind": "sfx"
+  },
+  "ui.rewind": {
+    "file": "assets/audio/sfx/ui-rewind.mp3",
+    "text": "Quick cassette tape rewind, cartoon, very short",
+    "kind": "sfx"
+  },
+  "ui.send": {
+    "file": "assets/audio/sfx/ui-send.mp3",
+    "text": "Paper airplane whoosh flying away, light and quick",
+    "kind": "sfx"
+  },
+  "ui.count": {
+    "file": "assets/audio/sfx/ui-count.mp3",
+    "text": "One bright arcade coin pickup blip, clearly audible, cheerful, very short",
+    "kind": "sfx"
+  },
+  "ui.start": {
+    "file": "assets/audio/sfx/ui-start.mp3",
+    "text": "Bright marimba upbeat flourish, three notes rising, game start",
+    "kind": "sfx"
+  },
+  "build.drop": {
+    "file": "assets/audio/sfx/build-drop.mp3",
+    "text": "Solid wooden block placed firmly on a wooden table, one clear loud thunk, close-up, dry, satisfying",
+    "kind": "sfx"
+  },
+  "build.remove": {
+    "file": "assets/audio/sfx/build-remove.mp3",
+    "text": "Short reverse whoosh, object disappearing, cartoon",
+    "kind": "sfx"
+  },
+  "build.slide": {
+    "file": "assets/audio/sfx/build-slide.mp3",
+    "text": "Smooth short slide of a card across a desk",
+    "kind": "sfx"
+  },
+  "build.snap": {
+    "file": "assets/audio/sfx/build-snap.mp3",
+    "text": "Plastic building brick snapping into place, small click",
+    "kind": "sfx"
+  },
+  "mood.up": {
+    "file": "assets/audio/sfx/mood-up.mp3",
+    "text": "Rising three-note chime, happy, short, glockenspiel",
+    "kind": "sfx"
+  },
+  "mood.down": {
+    "file": "assets/audio/sfx/mood-down.mp3",
+    "text": "Falling two-note uh-oh, cartoon, short",
+    "kind": "sfx"
+  },
+  "mood.dealbreaker": {
+    "file": "assets/audio/sfx/mood-dealbreaker.mp3",
+    "text": "Vinyl record scratch, comedic stop",
+    "kind": "sfx"
+  },
+  "timer.tick": {
+    "file": "assets/audio/sfx/timer-tick.mp3",
+    "text": "One loud crisp mechanical clock tick, close-up, dry, clearly audible, no reverb",
+    "kind": "sfx"
+  },
+  "timer.heartbeat": {
+    "file": "assets/audio/sfx/timer-heartbeat.mp3",
+    "text": "Low double heartbeat thump, tense, cartoon",
+    "kind": "sfx"
+  },
+  "deadline.gong": {
+    "file": "assets/audio/sfx/deadline-gong.mp3",
+    "text": "Big dramatic gong hit with a silly cartoon echo, comedic doom",
+    "kind": "sfx"
+  },
+  "verdict.stamp": {
+    "file": "assets/audio/sfx/verdict-stamp.mp3",
+    "text": "Heavy rubber stamp slammed on paper on a wooden desk, thud",
+    "kind": "sfx"
+  },
+  "verdict.happy": {
+    "file": "assets/audio/sfx/verdict-happy.mp3",
+    "text": "Short celebratory brass fanfare with a party horn toot and a small crowd cheer, comedic, 2 seconds",
+    "kind": "sfx"
+  },
+  "verdict.meh": {
+    "file": "assets/audio/sfx/verdict-meh.mp3",
+    "text": "Unimpressed hmm trombone, single descending note, comedic",
+    "kind": "sfx"
+  },
+  "verdict.meltdown": {
+    "file": "assets/audio/sfx/verdict-meltdown.mp3",
+    "text": "Sad trombone wah wah wah waaah, comedic failure",
+    "kind": "sfx"
+  },
+  "music.lobby": {
+    "file": "assets/audio/music/music-lobby.mp3",
+    "text": "Playful, bouncy instrumental theme for a funny design game title screen. Ukulele, marimba, handclaps, light drums, whistled hook, 100 bpm, cheerful and a little cheeky. Loops cleanly: no intro swell, no ending.",
+    "kind": "music"
+  },
+  "music.build": {
+    "file": "assets/audio/music/music-build.mp3",
+    "text": "Light, curious puzzle-game background music for focused work. Pizzicato strings, marimba, soft brushed drums, 104 bpm, playful but unobtrusive, sits under speech. Loops cleanly: no intro, no ending.",
+    "kind": "music"
+  },
+  "music.build-fast": {
+    "file": "assets/audio/music/music-build-fast.mp3",
+    "text": "Urgent, comedic race-against-the-clock game music. Fast pizzicato, ticking woodblock, driving drums, 132 bpm, tense but silly, sits under speech. Loops cleanly: no intro, no ending.",
+    "kind": "music"
+  },
+  "music.end": {
+    "file": "assets/audio/music/music-end.mp3",
+    "text": "Warm, feel-good closing theme for a game's results screen. Ukulele, glockenspiel, gentle claps, 96 bpm, proud and friendly, like a well-earned coffee break. Loops cleanly: no big ending.",
+    "kind": "music"
+  },
+  "voice.deadline.2": {
+    "file": "assets/audio/voice/deadline/line-2.mp3",
+    "text": "Done is better than perfect. Also, done is mandatory.",
+    "kind": "voice"
+  },
+  "voice.deadline.3": {
+    "file": "assets/audio/voice/deadline/line-3.mp3",
+    "text": "I don’t do extensions.",
+    "kind": "voice"
+  },
+  "voice.deadline.4": {
+    "file": "assets/audio/voice/deadline/line-4.mp3",
+    "text": "Shipping it as is. Good luck.",
+    "kind": "voice"
+  },
+  "voice.deadline.5": {
+    "file": "assets/audio/voice/deadline/line-5.mp3",
+    "text": "Your final-final-v3 is now just final.",
+    "kind": "voice"
+  }
+}
