@@ -1342,3 +1342,8 @@ body[data-ink="light"] .screen-client :focus-visible,
   .dock-bubble .bubble::before { left: auto; right: 100%; top: 14px; width: 16px; height: 24px; clip-path: polygon(100% 0, 100% 100%, 0 50%); }
   .dock-bubble .bubble::after { left: auto; right: calc(100% - 2px); top: 17px; width: 13px; height: 18px; clip-path: polygon(100% 0, 100% 100%, 0 50%); }
 }
+/* Start screen: the two buttons are always the same size. Side by side on larger screens, stacked on phones. */
+.stage-copy .row-actions { display: grid; grid-template-columns: 1fr 1fr; width: fit-content; max-width: 100%; margin-inline: auto; }
+@media (max-width: 599px) {
+  .stage-copy .row-actions { grid-template-columns: 1fr; width: min(100%, 320px); }
+}
