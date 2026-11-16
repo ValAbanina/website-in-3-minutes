@@ -13,7 +13,7 @@
   },
 
   "flow": [
-    { "id": "attract", "screen": "00 Attract loop", "next": "start", "notes": "Shown after 60s idle. Clients take turns speaking (3.5s each). Silent until first tap." },
+    { "id": "attract", "screen": "00 Attract loop", "next": "start", "notes": "Shown after 60s idle (never while building: the clock ends that round). Clients take turns speaking (3.5s each). Silent until first tap." },
     { "id": "start", "screen": "01 Start", "next": "pick", "actions": ["Start the clock", "How to play"] },
     { "id": "howto", "screen": "01b How to play", "type": "modal", "actions": ["Got it"] },
     { "id": "pick", "screen": "02 Pick a client", "next": "brief", "notes": "Arrow keys browse, Enter picks. 'Surprise me' picks a random client not played this session." },
@@ -235,15 +235,15 @@
         "timesUp": "Late? I have never filed anything late in thirty-one years.",
         "hurry": "Thirty seconds. I’m getting my calculator out.",
         "triggers": {
-          "perfectPalette": "Navy. The colour of reliable socks. Go on.",
-          "dealBreakerPalette": "Is my screen broken or is this… pink?",
-          "perfectHeading": "A serif! Finally, a font with a pension plan.",
-          "dealBreakerHeading": "That font looks like it would bounce a cheque.",
-          "perfectStyle": "Neat edges. Tidy borders. I feel audited in a good way.",
-          "perfectPictures": "Charts. Be still, my heart.",
-          "decoyPicture": "Who chose this picture? It isn’t itemised.",
-          "dealBreakerDecoration": "Is something… celebrating? Make it stop.",
-          "mustHaveAdded": "Ah, Margaret’s review. She’s very thorough."
+          "perfectPalette": ["Navy. The colour of reliable socks. Go on.", "Navy. Sensible. Like a good filing cabinet.", "Ah, the colour of a balanced budget."],
+          "dealBreakerPalette": ["Is my screen broken or is this… pink?", "This colour scheme would never pass an audit.", "Margaret will think I’ve been hacked."],
+          "perfectHeading": ["A serif! Finally, a font with a pension plan.", "Serifs. Little feet. Very stable.", "That font has read the whole tax code. Twice."],
+          "dealBreakerHeading": ["That font looks like it would bounce a cheque.", "That font files its taxes late. I can tell.", "I wouldn’t trust that font with a receipt."],
+          "perfectStyle": ["Neat edges. Tidy borders. I feel audited in a good way.", "Straight lines. Everything in its column. Lovely.", "It looks like a well-kept ledger. High praise."],
+          "perfectPictures": ["Charts. Be still, my heart.", "A bar chart going up. My favourite genre.", "Numbers, in picture form. Wonderful."],
+          "decoyPicture": ["Who chose this picture? It isn’t itemised.", "That picture is not tax-deductible.", "I fail to see how this relates to quarterly filings."],
+          "dealBreakerDecoration": ["Is something… celebrating? Make it stop.", "Confetti is not a business expense.", "Please. I have a reputation."],
+          "mustHaveAdded": ["Ah, Margaret’s review. She’s very thorough.", "Client reviews. Very reassuring. Very legal.", "Good. People trust people who trust me."]
         }
       }
     },
@@ -292,15 +292,15 @@
         "timesUp": "Missed the deadline? Honestly, very on-brand for a startup.",
         "hurry": "Thirty seconds! That’s like three pivots!",
         "triggers": {
-          "perfectPalette": "NEON. Yes. My retinas and I approve.",
-          "dealBreakerPalette": "Navy? Are we filing taxes or changing the world?",
-          "perfectHeading": "Chunky font energy. Love that for us.",
-          "dealBreakerHeading": "That font has a mortgage and a minivan.",
-          "perfectStyle": "Thick borders, hard shadows. It looks like it lifts.",
-          "perfectPictures": "Blobs! Abstract! Investors LOVE blobs.",
-          "decoyPicture": "Is that a stock photo? I can smell the stock photo.",
-          "noDecoration": "No sparkles? Where’s the drama?",
-          "mustHaveAdded": "A big button! People love clicking big buttons."
+          "perfectPalette": ["NEON. Yes. My retinas and I approve.", "These colours have serious unicorn energy.", "Bright! Loud! Disruptive! Ship it!"],
+          "dealBreakerPalette": ["Navy? Are we filing taxes or changing the world?", "This palette feels like a quarterly report. Pivot!", "Those colours are giving waiting room."],
+          "perfectHeading": ["Chunky font energy. Love that for us.", "Big bold letters. Very series A.", "That font could pitch on stage. Love it."],
+          "dealBreakerHeading": ["That font has a mortgage and a minivan.", "That font still uses a fax machine.", "Serifs? We’re a startup, not a law firm."],
+          "perfectStyle": ["Thick borders, hard shadows. It looks like it lifts.", "Bold outlines! People will screenshot this.", "Chunky and loud. Very on brand. Our brand is loud."],
+          "perfectPictures": ["Blobs! Abstract! Investors LOVE blobs.", "Abstract shapes mean we’re innovative. It’s science.", "It looks like the future. Somehow."],
+          "decoyPicture": ["Is that a stock photo? I can smell the stock photo.", "That picture is giving bank lobby.", "Cute picture, but does it scale?"],
+          "noDecoration": ["No sparkles? Where’s the drama?", "Plain? We need more energy! More!", "Where’s the sparkle? I promised investors sparkle."],
+          "mustHaveAdded": ["A big button! People love clicking big buttons.", "A sign-up button! That’s our whole business model.", "Big button, big growth. That’s the plan."]
         }
       }
     },
@@ -349,15 +349,15 @@
         "timesUp": "Late? My dough rises faster than you work!",
         "hurry": "Hurry, the cornetti are getting cold!",
         "triggers": {
-          "perfectPalette": "Warm, like my oven. Now we’re cooking.",
-          "dealBreakerPalette": "Why is it so cold? Put a sweater on this website.",
-          "perfectHeading": "Ooh, curly letters. Like my icing!",
-          "dealBreakerHeading": "That font looks like it has never eaten a carb.",
-          "perfectStyle": "Soft and round, like a good loaf.",
-          "perfectPictures": "The bread! Finally somebody listens.",
-          "decoyPicture": "A skyscraper? Is my bakery a bank now?",
-          "nicePattern": "Checks! Like my tablecloth!",
-          "mustHaveAdded": "Show all the bread. ALL of it."
+          "perfectPalette": ["Warm, like my oven. Now we’re cooking.", "Golden, like a crust. Perfetto.", "These colours smell like cinnamon."],
+          "dealBreakerPalette": ["Why is it so cold? Put a sweater on this website.", "So grey! Who turned off the oven?", "This is the colour of a fridge. I’m a bakery!"],
+          "perfectHeading": ["Ooh, curly letters. Like my icing!", "Swirly letters, like cream on a cannoli!", "That font is smiling. Good, it should."],
+          "dealBreakerHeading": ["That font looks like it has never eaten a carb.", "That font is too serious. Give it a biscotti.", "Those letters look like a tax form."],
+          "perfectStyle": ["Soft and round, like a good loaf.", "Round corners, like a fresh roll. Bene!", "Soft! Nothing sharp in my bakery except the knives."],
+          "perfectPictures": ["The bread! Finally somebody listens.", "Bread on the website! Now people will come.", "Look at that loaf. I could cry."],
+          "decoyPicture": ["A skyscraper? Is my bakery a bank now?", "This picture has no flour in it. Change it.", "What is this? Where is the bread?"],
+          "nicePattern": ["A pretty pattern! Like my tablecloth!", "Ooh, cosy. Like a picnic in Napoli.", "My nonna had curtains just like this."],
+          "mustHaveAdded": ["Show all the bread. ALL of it.", "Pictures of the pastries! People eat with their eyes.", "Yes, a gallery! Put the cornetti in the front."]
         }
       }
     },
@@ -407,15 +407,15 @@
         "timesUp": "Ah. The Deadline. We’ve met before.",
         "hurry": "Thirty seconds. Time is fleeting. Like petals.",
         "triggers": {
-          "perfectPalette": "Darkness. Velvet. Yes.",
-          "dealBreakerPalette": "Pastels?! I’m fading… I’m fading…",
-          "perfectHeading": "Blackletter. Finally, a font that understands me.",
-          "dealBreakerHeading": "That font smiles too much.",
-          "perfectStyle": "Clean, sharp, quiet. Like a well-kept crypt.",
-          "perfectPictures": "Dried flowers. They’ve accepted their fate. As have I.",
-          "decoyPicture": "Balloons. In my shop. I need to lie down.",
-          "dealBreakerDecoration": "Confetti is just glitter’s annoying cousin.",
-          "mustHaveAdded": "Show the bouquets, in all their withered glory."
+          "perfectPalette": ["Darkness. Velvet. Yes.", "Deep plum. Like a bruise on a rose. Perfect.", "These colours look like midnight. I’m home."],
+          "dealBreakerPalette": ["Pastels?! I’m fading… I’m fading…", "So bright. Do you want me to evaporate?", "This palette is far too cheerful. Who hurt you?"],
+          "perfectHeading": ["Blackletter. Finally, a font that understands me.", "Gothic letters. My ancestors approve.", "That font was carved by candlelight."],
+          "dealBreakerHeading": ["That font smiles too much.", "That font goes to brunch. I can tell.", "Too bubbly. It sounds like a party I wasn’t invited to."],
+          "perfectStyle": ["Clean, sharp, quiet. Like a well-kept crypt.", "Minimal. Empty. Like my calendar.", "So much quiet space. Lovely, eerie quiet."],
+          "perfectPictures": ["Dried flowers. They’ve accepted their fate. As have I.", "Petals that have given up. Exquisite.", "Dry and fragile. Like my hopes. Perfect."],
+          "decoyPicture": ["Balloons. In my shop. I need to lie down.", "Who brought this cheerful picture into my shop?", "Remove it. It’s too… alive."],
+          "dealBreakerDecoration": ["Confetti is just glitter’s annoying cousin.", "Hearts? Absolutely not. My heart is closed.", "Too festive. My roses are in mourning."],
+          "mustHaveAdded": ["Show the bouquets, in all their withered glory.", "A gallery. Let them gaze upon the wilted.", "Yes. Show the arrangements. Darkly."]
         }
       }
     },
@@ -463,15 +463,15 @@
         "timesUp": "Rushing is the enemy of peace. And of good websites.",
         "hurry": "Thirty seconds. Breathe. Then hurry.",
         "triggers": {
-          "perfectPalette": "Sage green. My plants and I feel safe.",
-          "dealBreakerPalette": "These colours are yelling. Ask them to use their inside voice.",
-          "perfectHeading": "Soft, round letters. Like a pillow.",
-          "dealBreakerHeading": "That font just did a cartwheel in my meditation room.",
-          "perfectStyle": "Rounded corners. No sharp edges in my life, please.",
-          "perfectPictures": "Lotus flowers. I’m breathing deeper already.",
-          "decoyPicture": "A skyscraper? I come here to escape those.",
-          "dealBreakerDecoration": "Confetti? In this economy? In this aura?",
-          "mustHaveAdded": "Yes, list my sessions. Gently."
+          "perfectPalette": ["Sage green. My plants and I feel safe.", "Soft green. I can hear birds.", "These colours breathe in… and out."],
+          "dealBreakerPalette": ["These colours are yelling. Ask them to use their inside voice.", "So loud. My crystals are vibrating.", "These colours need a nap. So do I."],
+          "perfectHeading": ["Soft, round letters. Like a pillow.", "Gentle letters. They hug you.", "That font has done yoga. You can tell."],
+          "dealBreakerHeading": ["That font just did a cartwheel in my meditation room.", "That font is so stressed. Let it rest.", "Those letters are shouting. Namaste, but no."],
+          "perfectStyle": ["Rounded corners. No sharp edges in my life, please.", "Soft corners everywhere. My shoulders just dropped.", "Round and calm, like a pebble in a stream."],
+          "perfectPictures": ["Lotus flowers. I’m breathing deeper already.", "A lotus. My heart rate is going down.", "Such a peaceful picture. I feel centred."],
+          "decoyPicture": ["A skyscraper? I come here to escape those.", "That picture has too much traffic in it.", "I don’t feel calm looking at that. Let it go."],
+          "dealBreakerDecoration": ["Confetti? In this economy? In this aura?", "That pattern is too busy. Breathe, pattern, breathe.", "My chakras just glitched."],
+          "mustHaveAdded": ["Yes, list my sessions. Gently.", "My services, listed calmly. Beautiful.", "Yes, show what I offer. Softly."]
         }
       }
     }

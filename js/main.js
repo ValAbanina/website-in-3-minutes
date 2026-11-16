@@ -3,7 +3,7 @@ import { createStore, initialState } from './state.js';
 import { score } from './scoring.js';
 import { createAudio } from './audio.js';
 import { createStats } from './stats.js';
-import { createComments } from './comments.js';
+import { createComments, triggerLine, triggerLines } from './comments.js';
 import { clientById, onClientInk, deviceKind, esc } from './dom.js';
 import { placeCastBubble } from './chrome.js';
 import { defaultSection } from './site/render.js';
@@ -80,15 +80,18 @@ function leaveDialog(client) {
 function pickVerdict(client, result, state) {
   const mood = result.outcome?.id || 'meh';
   const triggers = client.lines.triggers || {};
-  const kebab = (v) => String(v).replace(/[A-Z]/g, (m) => `-${m.toLowerCase()}`);
   if (result.dealBreakers.length) {
     const map = { palette: 'dealBreakerPalette', headingFont: 'dealBreakerHeading', decoration: 'dealBreakerDecoration' };
     const key = result.dealBreakers.map((id) => map[id]).find((k) => k && triggers[k]);
-    if (key) return { line: triggers[key], voice: `voice.${client.id}.${kebab(key)}` };
+    if (key) {
+      const pick = triggerLine(client, key, Math.floor(Math.random() * triggerLines(client, key).length));
+      return { line: pick.text, voice: pick.voice };
+    }
   }
   const picture = game.kit.pictures.find((p) => p.id === state.picture);
   if (mood === 'meltdown' && picture?.decoy && triggers.decoyPicture) {
-    return { line: triggers.decoyPicture, voice: `voice.${client.id}.decoy-picture` };
+    const pick = triggerLine(client, 'decoyPicture', Math.floor(Math.random() * triggerLines(client, 'decoyPicture').length));
+    return { line: pick.text, voice: pick.voice };
   }
   const pool = client.lines[mood] || client.lines.meltdown || [''];
   const i = Math.floor(Math.random() * pool.length);
@@ -570,7 +573,10 @@ function effects(next, prev) {
       const line = game.deadline.lines[next.deadlineLine || 0] || '';
       const readMs = 1200 + line.length * 50;
       const started = Date.now();
-      audio.say(`voice.deadline.${(next.deadlineLine || 0) + 1}`).then(() => {
+      // Safety: if the voice never reports that it ended (sound blocked, tab asleep), go on after 9 seconds anyway.
+      const spoken = audio.say(`voice.deadline.${(next.deadlineLine || 0) + 1}`);
+      const atMost = new Promise((done) => window.setTimeout(done, 9000));
+      Promise.race([spoken, atMost]).then(() => {
         const wait = Math.max(0, readMs - (Date.now() - started)) + 400;
         window.setTimeout(() => {
           const now = store.get();
@@ -679,7 +685,8 @@ function boot(data, cues) {
   const bump = () => {
     window.clearTimeout(idle);
     idle = window.setTimeout(() => {
-      if (store.get().screen === 'attract') {
+      // While building, the 5-minute clock ends the round (Time's up, then the verdict), so never reset mid-game.
+      if (store.get().screen === 'attract' || store.get().screen === 'build') {
         bump();
         return;
       }
@@ -695,6 +702,8 @@ function boot(data, cues) {
     document.addEventListener(type, bump, { passive: true });
   });
   document.addEventListener('scroll', bump, { passive: true, capture: true });
+  // A new screen (for example Time's up after the clock runs out) restarts the idle countdown.
+  store.subscribe((next, prev) => { if (next.screen !== prev?.screen) bump(); });
   bump();
 
   window.setInterval(() => {
