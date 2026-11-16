@@ -16,14 +16,14 @@ export function render() {
         </article>
         <article>
           <span class="howto-n">3</span>
-          <p>Style it: colours, fonts, a style, pictures and decoration.</p>
+          <p>Style it: colours, fonts, a style, pictures and patterns.</p>
         </article>
         <article>
           <span class="howto-n">4</span>
           <p>Send it before the 5 minutes run out, or the Deadline sends it for you.</p>
         </article>
       </div>
-      <p class="howto-note"><strong>Watch the mood meter.</strong> It reacts to every choice, so experiment. A deal-breaker sends it straight to zero.</p>
+      <p class="howto-note"><strong>No hints while you build.</strong> Read the brief closely: you find out what the client thinks only after you send it.</p>
       <footer class="modal-foot">
         <p>Keyboard works too: Tab to move, Enter to choose, arrows to reorder sections.</p>
         <button type="button" class="btn btn-primary" data-action="close-howto">Got it</button>

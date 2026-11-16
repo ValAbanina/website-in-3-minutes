@@ -20,8 +20,6 @@ function design(over = {}) {
     body: 'lato',
     style: null,
     picture: null,
-    heroDecor: 'none',
-    pattern: 'none',
     ...over,
   };
 }
@@ -35,8 +33,8 @@ const gerald = score(design({
     { type: 'nav', layout: 'simple' },
     { type: 'hero', layout: 'split' },
     { type: 'about', layout: 'image-left' },
-    { type: 'stats', columns: 4 },
-    { type: 'testimonial', layout: 'single' },
+    { type: 'stats', columns: 4, pattern: 'grid' },
+    { type: 'testimonial', layout: 'single', pattern: 'pinstripes' },
     { type: 'footer', layout: 'simple' },
   ],
   palette: 'navy-ledger',
@@ -44,8 +42,6 @@ const gerald = score(design({
   body: 'source-serif-4',
   style: 'classic',
   picture: 'office-handshake',
-  heroDecor: 'none',
-  pattern: 'grid',
 }), client('gerald'), game);
 
 assert.equal(gerald.points, 11, `Gerald points ${gerald.points}`);
@@ -59,13 +55,19 @@ assert.deepEqual(
 );
 
 const rosa = score(design({
+  sections: [
+    { type: 'nav', layout: 'simple' },
+    { type: 'hero', layout: 'split', pattern: 'squiggle' },
+    { type: 'about', layout: 'image-left' },
+    { type: 'features', layout: 'cards', columns: 3 },
+    { type: 'pricing', columns: 3 },
+    { type: 'footer', layout: 'simple' },
+  ],
   palette: 'warm-bakery',
   heading: 'bricolage-grotesque',
   body: 'nunito',
   style: 'neo-brutalist',
   picture: 'fresh-bread',
-  heroDecor: 'squiggle',
-  pattern: 'none',
 }), client('rosa'), game);
 
 assert.equal(rosa.points, 6, `Rosa points ${rosa.points}`);
@@ -95,8 +97,6 @@ const kaia = score(design({
   body: 'lato',
   style: 'playful',
   picture: 'neon-blobs',
-  heroDecor: 'none',
-  pattern: 'none',
 }), client('kaia'), game);
 
 assert.equal(kaia.points, 5, `Kaia points ${kaia.points}`);
@@ -110,16 +110,34 @@ assert.equal(pointsOf(kaia, 'style'), 1);
 assert.equal(pointsOf(kaia, 'pictures'), 2);
 assert.equal(pointsOf(kaia, 'mustHave'), 1);
 
+assert.equal(pointsOf(kaia, 'decoration'), 0, 'Kaia wants patterns, a plain page misses');
+
 const floored = score(design({
   sections: [],
   body: 'caveat',
-  heroDecor: 'confetti',
-  pattern: 'checks',
 }), client('gerald'), game);
 assert.equal(floored.points, 0);
 assert.ok(floored.rulesBroken.includes('readable-body'));
-assert.ok(floored.rulesBroken.includes('dont-overdecorate'));
 assert.ok(floored.rulesBroken.includes('not-too-short'));
+
+// Patterns: every pattern used must be one the client likes; three or more is too busy; a disliked one is a deal-breaker.
+const busy = design({
+  sections: [
+    { type: 'nav', layout: 'simple' },
+    { type: 'hero', layout: 'split', pattern: 'gingham' },
+    { type: 'about', layout: 'image-left', pattern: 'hearts' },
+    { type: 'features', layout: 'cards', columns: 3, pattern: 'checks' },
+    { type: 'pricing', columns: 3 },
+    { type: 'footer', layout: 'simple' },
+  ],
+});
+const rosaBusy = score(busy, client('rosa'), game);
+assert.equal(pointsOf(rosaBusy, 'decoration'), 1, 'Rosa likes gingham, hearts and checks');
+assert.ok(rosaBusy.rulesBroken.includes('dont-overdecorate'));
+const geraldBusy = score(busy, client('gerald'), game);
+assert.ok(geraldBusy.dealBreakers.includes('decoration'), 'Hearts are a deal-breaker for Gerald');
+const geraldPlain = score(design(), client('gerald'), game);
+assert.equal(pointsOf(geraldPlain, 'decoration'), 1, 'Gerald is happy with no patterns');
 
 const repeat = score(design({
   sections: [

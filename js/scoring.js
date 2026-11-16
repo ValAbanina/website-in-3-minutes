@@ -1,7 +1,5 @@
 /** Pure scoring. Reads rules from game-data.json; no DOM, no hard-coded clients. */
 
-const PATTERN_SECTIONS = new Set(['features', 'stats', 'testimonial', 'pricing', 'team', 'faq', 'about']);
-
 function find(list, id) {
   return (list || []).find((item) => item.id === id) || null;
 }
@@ -17,6 +15,16 @@ function joinNames(names) {
   return `${clean.slice(0, -1).join(', ')} or ${clean[clean.length - 1]}`;
 }
 
+/** The different patterns on the page, in page order, not counting "None". */
+export function usedPatterns(sections) {
+  const seen = [];
+  for (const s of sections || []) {
+    const id = s?.pattern || 'none';
+    if (id !== 'none' && !seen.includes(id)) seen.push(id);
+  }
+  return seen;
+}
+
 function tierIcon(tier, deal) {
   if (deal) return 'deal';
   if (tier === 'perfect') return 'check';
@@ -25,7 +33,7 @@ function tierIcon(tier, deal) {
 }
 
 /**
- * @param {object} state design fields: sections, palette, heading, body, style, picture, heroDecor, pattern
+ * @param {object} state design fields: sections (each may have its own pattern), palette, heading, body, style, picture
  * @param {object} client one entry from game.clients
  * @param {object} game the full game-data object (for kit names and rules)
  */
@@ -42,8 +50,6 @@ export function score(state, client, game) {
   const body = find(kit.bodyFonts, state.body);
   const style = find(kit.styles, state.style);
   const picture = find(kit.pictures, state.picture);
-  const decor = find(kit.heroDecor, state.heroDecor || 'none');
-  const pattern = find(kit.sectionPatterns, state.pattern || 'none');
 
   const perfectPalette = find(kit.palettes, wish.palette.perfect);
   const perfectHeading = find(kit.headingFonts, wish.headingFont.perfect);
@@ -151,22 +157,20 @@ export function score(state, client, game) {
     dealBreaker: pictureDeal,
   });
 
-  const lovedDecor = wish.decoration?.heroDecor || [];
-  const lovedPatterns = wish.decoration?.patterns || [];
-  const decorId = state.heroDecor || 'none';
-  const patternId = state.pattern || 'none';
-  const decorOk = lovedDecor.includes(decorId);
-  const patternOk = lovedPatterns.includes(patternId);
-  const decorPts = decorOk && patternOk ? game.scoring.points.decoration.allFit : 0;
-  const decorName = decor?.name || 'None';
-  const patternName = pattern?.name || 'None';
-  const wantedDecor = joinNames(lovedDecor.map((id) => find(kit.heroDecor, id)?.name || id));
-  const wantedPatterns = joinNames(lovedPatterns.map((id) => find(kit.sectionPatterns, id)?.name || id));
-  let decorText = `Decoration: ${decorName}, with ${patternName}`;
-  if (!decorOk && patternOk) decorText = `Decoration: ${decorName}. ${who} wanted ${wantedDecor}`;
-  else if (decorOk && !patternOk) decorText = `Decoration: ${patternName}. ${who} wanted ${wantedPatterns}`;
-  else if (!decorOk && !patternOk) decorText = `Decoration: ${decorName}. ${who} wanted ${wantedDecor}`;
-  const decorDeal = (deals.heroDecor || []).includes(decorId);
+  // Patterns: each section can have its own. Every pattern used has to be one the client likes;
+  // a page with no patterns at all only counts if they like "None".
+  const lovedPatterns = wish.patterns || [];
+  const used = usedPatterns(sections);
+  const patternNames = (ids) => joinNames(ids.map((id) => find(kit.patterns, id)?.name || id));
+  const wantedPatterns = patternNames(lovedPatterns.filter((id) => id !== 'none').slice(0, 3));
+  const unloved = used.filter((id) => !lovedPatterns.includes(id));
+  const decorOk = used.length ? !unloved.length : lovedPatterns.includes('none');
+  const decorPts = decorOk ? game.scoring.points.decoration.allFit : 0;
+  let decorText;
+  if (!used.length) decorText = decorOk ? 'Patterns: none, nice and calm' : `Patterns: none. ${who} wanted ${wantedPatterns || 'some'}`;
+  else if (decorOk) decorText = `Patterns: ${patternNames(used).replace(/ or /, ' and ')}`;
+  else decorText = `Patterns: ${patternNames(unloved).replace(/ or /, ' and ')}. ${who} wanted ${wantedPatterns || 'none'}`;
+  const decorDeal = used.some((id) => (deals.patterns || []).includes(id));
   rows.push({
     id: 'decoration',
     text: decorText,
@@ -198,9 +202,7 @@ export function score(state, client, game) {
   if (types.length < 6) brokenIds.push('not-too-short');
   if (types.length > 13) brokenIds.push('not-too-long');
   if (state.body === 'caveat') brokenIds.push('readable-body');
-  const loudDecor = decorId === 'confetti' || decorId === 'sparkles';
-  const loudPattern = patternId === 'checks' || patternId === 'stripes';
-  if (loudDecor && loudPattern) brokenIds.push('dont-overdecorate');
+  if (used.length >= 3) brokenIds.push('dont-overdecorate');
   let run = 1;
   for (let i = 1; i < types.length; i += 1) {
     run = types[i] === types[i - 1] ? run + 1 : 1;
@@ -246,7 +248,6 @@ export function score(state, client, game) {
     rulesBroken: brokenIds,
     meter,
     mood,
-    patternSections: PATTERN_SECTIONS,
   };
 }
 

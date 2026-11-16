@@ -317,6 +317,7 @@ body[data-client="damien"] { --client: var(--client-damien); }
 body[data-client="brenda"] { --client: var(--client-brenda); }
 .screen-client { min-height: 100dvh; }
 .brief, .verdict { display: grid; grid-template-columns: .9fr 1.1fr; gap: 24px; align-items: end; }
+.brief { align-items: center; }
 .brief-card, .report {
   background: var(--color-surface-default);
   color: var(--color-text-default);
@@ -328,18 +329,21 @@ body[data-client="brenda"] { --client: var(--client-brenda); }
 }
 .brief-card h1, .report h1 { font: var(--type-h1); }
 .role { color: var(--color-text-default); }
-.brief-steps { margin: 0 0 16px; padding-left: 0; list-style: none; display: grid; gap: 8px; }
-.brief-steps li { display: flex; gap: 8px; align-items: center; }
+.brief-who h1 { margin: 0 0 6px; }
+.brief-who .role { margin: 0 0 24px; }
+.brief-steps { margin: 0 0 24px; padding-left: 0; list-style: none; display: grid; gap: 10px; }
+.brief-steps li { display: flex; gap: 12px; align-items: center; }
 .brief-steps li::before {
   counter-increment: step;
   content: counter(step);
+  flex: none; /* keeps the number a circle when the text wraps */
   width: 28px; height: 28px; border-radius: 50%;
   display: grid; place-items: center;
   background: var(--color-text-strong); color: var(--color-text-on-dark);
   font: var(--type-label);
 }
 .brief-steps { counter-reset: step; }
-.brief-howto h2 { margin-bottom: 8px; }
+.brief-howto h2 { font: var(--type-callout); color: var(--color-text-strong); margin: 0 0 12px; }
 .brief-go { display: grid; gap: 10px; }
 .brief-buttons { display: flex; flex-wrap: nowrap; gap: 12px; align-items: center; }
 .brief-go .btn { margin-bottom: 0; white-space: nowrap; }
@@ -353,14 +357,6 @@ body[data-client="brenda"] { --client: var(--client-brenda); }
 .build-status { margin-left: auto; display: flex; align-items: center; gap: 12px; min-width: 0; }
 .build-status .btn { margin-bottom: 5px; white-space: nowrap; }
 .send-short { display: none; }
-.meter { min-width: 168px; }
-.meter-top { display: flex; justify-content: space-between; gap: 8px; font: var(--type-label); white-space: nowrap; }
-.meter-track { height: 12px; border-radius: var(--radius-pill); background: var(--color-surface-muted); border: 2px solid var(--color-border-strong); overflow: hidden; }
-.meter-fill { display: block; height: 100%; width: 0; transition: width var(--dur-move) var(--ease-out); }
-.meter[data-mood="happy"] .meter-fill { background: var(--mood-happy); }
-.meter[data-mood="meh"] .meter-fill { background: var(--mood-meh); }
-.meter[data-mood="meltdown"] .meter-fill,
-.meter[data-mood="dealbreaker"] .meter-fill { background: var(--mood-meltdown); }
 .timer {
   margin: 0;
   min-width: 92px;
@@ -554,7 +550,7 @@ body[data-client="brenda"] { --client: var(--client-brenda); }
   border-left: 1px solid var(--color-border-default);
 }
 .tabs { flex: none; display: flex; gap: 4px; padding: 12px 12px 10px; border-bottom: 1px solid var(--color-border-default); }
-.tab { flex: 1 1 0; min-width: 0; justify-content: center; padding: 8px 4px; border-radius: var(--radius-pill); white-space: nowrap; }
+.tab { flex: 1 1 auto; width: auto; min-width: 0; justify-content: center; padding: 8px 6px; border-radius: var(--radius-pill); white-space: nowrap; }
 .tab.is-on { background: var(--color-text-strong); color: var(--color-text-on-dark); }
 .tab-sections { display: none; }
 .panel-body { flex: 1; min-height: 0; overflow-y: auto; overflow-x: hidden; padding: 12px 12px 20px; }
@@ -578,10 +574,10 @@ body[data-client="brenda"] { --client: var(--client-brenda); }
 .pic-mini img { width: 100%; height: auto; aspect-ratio: 320 / 220; object-fit: contain; }
 .pic-mini span { padding: 4px 6px 6px; text-align: center; font: var(--type-body-small); }
 .pic-mini img.is-broken { display: none; }
-.decor-mini { height: 36px; border-radius: 8px; background:
-  radial-gradient(currentColor 1.5px, transparent 1.6px) 0 0 / 10px 10px;
-  color: var(--color-text-strong); }
-.decor-mini[data-decor="none"] { background: var(--color-surface-muted); }
+/* Pattern swatch: the same tile the website uses, shown in the text colour on a light tile. */
+.pattern-mini { position: relative; height: 56px; border-radius: 8px; overflow: hidden; background: var(--color-surface-muted); }
+.pattern-mini i { position: absolute; inset: 0; background: var(--color-text-default); opacity: .6;
+  -webkit-mask-repeat: repeat; mask-repeat: repeat; -webkit-mask-position: 0 0; mask-position: 0 0; }
 .sheet-only .text-btn { margin-top: 8px; }
 
 .report h1 { display: flex; gap: 8px; align-items: baseline; flex-wrap: wrap; font: var(--type-h2); margin-bottom: 12px; padding-right: 150px; }
@@ -740,7 +736,7 @@ body[data-client="brenda"] { --client: var(--client-brenda); }
 .lede { max-width: 70ch; }
 
 .modal-back { position: fixed; inset: 0; background: rgba(0,0,0,.55); display: grid; place-items: center; z-index: 30; padding: 16px; }
-.modal { width: min(860px, 100%); max-height: min(90dvh, 760px); overflow: auto; background: var(--color-surface-default); border: var(--border-ui); border-radius: 24px; box-shadow: var(--shadow-lift); padding: 20px; }
+.modal { width: min(860px, 100%); max-height: min(90dvh, 760px); overflow: auto; background: var(--color-surface-default); border: var(--border-ui); border-radius: 24px; box-shadow: var(--shadow-lift); padding: 24px; }
 .modal-small { width: min(460px, 100%); }
 .modal-small .modal-foot { justify-content: flex-end; margin-top: 8px; }
 .modal-head, .modal-foot { display: flex; justify-content: space-between; gap: 12px; align-items: center; }
@@ -751,6 +747,7 @@ body[data-client="brenda"] { --client: var(--client-brenda); }
 .reread .bubble::after {
   content: "";
   position: absolute;
+  left: auto;
   right: -11px;
   bottom: 28px;
   width: 18px;
@@ -806,7 +803,7 @@ body[data-client="brenda"] { --client: var(--client-brenda); }
 @media (prefers-reduced-motion: reduce) {
   .btn:hover, .pill:hover, .btn:active, .pill:active, .card.is-on, .program:hover { transform: none; transition: none; }
   .dock-bubble .bubble { animation: none; }
-  .client-dock, .meter-fill { transition: none; }
+  .client-dock { transition: none; }
   .panel { transition: none !important; }
   .swipe-toast.is-on, .browser-page[class*="swipe-in"] .overview-holder { animation: none; }
   .timer.is-panic { animation: none; }
@@ -832,7 +829,6 @@ body[data-client="brenda"] { --client: var(--client-brenda); }
   .build-bar .steps { gap: 4px; }
   .send-long { display: none; }
   .send-short { display: inline; }
-  .meter { min-width: 140px; }
   .builder { grid-template-columns: 200px minmax(0, 1fr) 288px; }
 }
 
@@ -901,17 +897,15 @@ body[data-client="brenda"] { --client: var(--client-brenda); }
   .brief-art img { width: 150px; height: 175px; object-fit: contain; object-position: center bottom; }
   .brief-who { grid-column: 2; grid-row: 1; align-self: center; }
   .brief-who h1 { font: 800 26px/1.05 var(--font-display); }
+  .brief-who .role { margin: 0; }
   .brief .bubble-lg { grid-column: 1 / -1; max-width: none; }
   /* On phones the brief sits under the client, so its tail points up at them. */
   .brief .bubble-lg::after { top: -11px; bottom: auto; left: 64px; border-right: 0; border-bottom: 0; border-left: var(--border-ui); border-top: var(--border-ui); }
-  .brief-howto {
-    grid-column: 1 / -1;
-    background: var(--color-surface-default);
-    color: var(--color-text-default);
-    border: var(--border-ui);
-    border-radius: 16px;
-    padding: 16px 18px;
-  }
+  /* No box: the steps sit on the client's colour, like the rest of the brief. */
+  .brief-howto { grid-column: 1 / -1; padding: 4px 4px 0; color: var(--color-text-strong); }
+  .brief-steps { margin-bottom: 4px; }
+  body[data-ink="light"] .brief-howto { color: var(--color-text-on-dark); }
+  body[data-ink="light"] .brief-steps li::before { background: var(--color-surface-default); color: var(--color-text-strong); }
   .brief-howto h2 { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); }
   .brief-go { grid-column: 1 / -1; }
   .brief-buttons .btn { flex: 1 1 0; min-width: 0; justify-content: center; padding-left: 10px; padding-right: 10px; }
@@ -962,10 +956,8 @@ body[data-client="brenda"] { --client: var(--client-brenda); }
 .float-btn[aria-pressed="true"] { background: var(--color-text-strong); color: var(--color-text-on-dark); }
 .section-bar .bar-done { padding: 4px 14px; background: rgba(255, 255, 255, .14); }
 
-.pic-target-note { margin: 0 0 12px; padding: 10px 12px; border-radius: var(--radius-md); background: var(--color-brand-tint); border: 2px solid var(--color-brand-primary); }
-.pic-target-note p { margin: 0 0 4px; }
-.pic-target-actions { display: flex; flex-wrap: wrap; gap: 0 14px; }
-.pic-target-actions .text-btn { min-height: 40px; }
+.panel-for { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 0 0 10px; font: var(--type-label); color: var(--color-text-strong); }
+.panel-for .text-btn { min-height: 44px; font: var(--type-body-small); text-decoration: underline; }
 
 /* Phones only: the choice bar and step ticks. */
 .choice-bar, .tab-done { display: none; }
@@ -1044,11 +1036,6 @@ body.is-reordering .browser-page { touch-action: none; }
   .build-status { gap: 6px; }
   .bar-history { display: inline-flex; gap: 2px; }
   .build-tools { display: none; }
-  #build-meter { min-width: 0; flex: 0 1 190px; }
-  .meter { min-width: 0; }
-  .meter-top span:first-child { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0, 0, 0, 0); }
-  .meter-top { min-width: 0; }
-  .meter-top strong { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
   .timer { min-width: 70px; padding: 2px 10px; }
   .timer-k { font-size: 11px; line-height: 1.1; }
   .timer-num { font-size: 22px; }
@@ -1100,8 +1087,7 @@ body.is-reordering .browser-page { touch-action: none; }
 @media (max-width: 743px) and (orientation: portrait) {
   .build-bar { min-height: 56px; padding: max(6px, env(safe-area-inset-top)) 8px 6px; gap: 6px; }
   .build-bar .logo { display: none; }
-  .build-status { flex: 1; margin-left: 0; gap: 4px; }
-  #build-meter { flex: 1 1 auto; }
+  .build-status { flex: 1; margin-left: 0; gap: 4px; justify-content: flex-end; }
   .btn-send, #build-timer { flex: none; }
   .bar-redo { display: none; }
   .btn-send { padding: 6px 14px; }
@@ -1297,12 +1283,12 @@ body.is-reordering .browser-page { touch-action: none; }
 }
 
 /* ---------- Button hierarchy ----------
-   1. Main action (.btn-primary, the cover pill): pink or white, black border, hard shadow. One per screen.
+   1. Main action (.btn-primary, the cover pill): solid pink (white on the dark cover), flat. One per screen.
    2. Everyday controls (other buttons, tabs, tiles, toggles): white, thin light border, flat.
    3. Small controls (.text-btn, .icon-btn-plain): no box.
    Characters, bubbles, client cards, the brief, the verdict and stamps keep the bold cartoon style. */
 .btn:not(.btn-primary), .icon-btn, .step, .section-tile, .choice, .tab, .float-btn, .preview-toggle,
-.chips li, .qr, .brief-howto, .cb-arrow {
+.chips li, .qr, .cb-arrow {
   border: var(--border-soft);
   box-shadow: none;
 }
@@ -1316,7 +1302,14 @@ body.is-reordering .browser-page { touch-action: none; }
 .btn:not(.btn-primary):hover { box-shadow: none; transform: none; }
 .btn:not(.btn-primary):active { background: #E6E6E6; box-shadow: none; transform: translateY(1px); }
 .btn:not(.btn-primary):disabled { box-shadow: none; background: var(--color-surface-default); }
-.btn-primary:disabled { box-shadow: var(--shadow-press); }
+/* Flat main action: no black border, no hard shadow, no lift. */
+.btn-primary, .pill { border: 1.5px solid transparent; box-shadow: none; transition: background var(--dur-hover) ease; }
+.btn-primary { border-color: var(--color-brand-primary); }
+.btn-primary:hover, .pill:hover { box-shadow: none; transform: none; }
+.btn-primary:hover { background: #B81F70; border-color: #B81F70; }
+.pill:hover { background: var(--color-surface-muted); }
+.btn-primary:active, .pill:active { box-shadow: none; transform: translateY(1px); }
+.btn-primary:disabled { box-shadow: none; }
 .icon-btn-plain { border-color: transparent; background: transparent; }
 .cb-arrow:active { transform: translateY(1px); background: var(--color-surface-muted); }
 /* Selected things are marked with colour, not heavier borders. */
@@ -1331,3 +1324,32 @@ body.is-reordering .browser-page { touch-action: none; }
 .stage-dark .btn:not(.btn-primary), .topbar-dark .icon-btn { border-color: rgba(255, 255, 255, .35); }
 /* Phones: the bottom sheet floats over the page, so it keeps a faint shadow but a light edge. */
 @media (max-width: 743px) and (orientation: portrait) { .panel { border-top: var(--border-soft); } }
+/* Phones: which section the Patterns step is changing. */
+.cb-for { margin: 0 0 6px; font: var(--type-body-small); font-size: 13px; color: var(--color-text-default); text-align: center; }
+.cb-for strong { color: var(--color-text-strong); }
+
+/* Focus ring that stays visible (3:1 or better) on every background.
+   Pink on white UI, black on the light client colours, light pink on dark screens. */
+.screen-client :focus-visible { outline-color: var(--color-text-strong); }
+body[data-ink="light"] .screen-client :focus-visible,
+.stage-dark :focus-visible, .screen-timesup :focus-visible, .topbar-dark :focus-visible { outline-color: var(--color-brand-highlight-on-dark); }
+.screen-client .brief-card :focus-visible, .screen-client .report :focus-visible, .modal :focus-visible,
+.screen-timesup .tu-site :focus-visible { outline-color: var(--color-brand-highlight-on-light); }
+/* Very narrow phones (320px): let the two brief buttons stack rather than spill off the screen. */
+@media (max-width: 359px) {
+  .brief-buttons { flex-wrap: wrap; }
+  .brief-buttons .btn { flex: 1 1 100%; }
+}
+/* Number and mark badges are always circles, even when the text next to them wraps. */
+.step-n, .score-mark, .howto-n, .tile-count, .brief-steps li::before { flex: none; aspect-ratio: 1; }
+/* Timer: room around the numbers. */
+.timer { padding: 6px 14px; row-gap: 2px; }
+.timer-num { line-height: 1.05; }
+/* Desktop options panel: simple text tabs with an underline, not five more boxes. */
+@media (min-width: 1200px) {
+  .tabs { gap: 2px; padding: 8px 12px 0; }
+  .tab { flex: 1 1 auto; border: 0; border-bottom: 3px solid transparent; border-radius: 0; background: transparent;
+    color: var(--color-text-default); padding: 10px 4px 9px; min-height: 44px; }
+  .tab.is-on { background: transparent; color: var(--color-text-strong); border-bottom-color: var(--color-brand-primary); }
+  .tab:hover:not(.is-on) { background: transparent; color: var(--color-text-strong); border-bottom-color: var(--color-border-soft); }
+}

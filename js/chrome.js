@@ -31,19 +31,6 @@ export function progress(screen) {
   }).join('')}</ol>`;
 }
 
-export function meterBlock(client, result, liveLabel) {
-  const label = liveLabel || (result.mood === 'dealbreaker'
-    ? 'Deal-breaker!'
-    : (result.outcome?.label || 'Meltdown'));
-  const pct = Math.max(0, Math.min(100, (result.meter / result.max) * 100));
-  return `<div class="meter" data-mood="${esc(result.mood)}">
-    <div class="meter-top"><span>${esc(firstName(client))}'s mood</span><strong>${esc(label)}</strong></div>
-    <div class="meter-track" role="meter" aria-valuemin="0" aria-valuemax="${result.max}" aria-valuenow="${result.meter}" aria-valuetext="${esc(label)}. Score ${result.points} out of ${result.max}.">
-      <span class="meter-fill" style="width:${pct}%"></span>
-    </div>
-  </div>`;
-}
-
 export function timerBlock(seconds, meta) {
   let mode = 'calm';
   if (seconds <= meta.panicAtSeconds) mode = 'panic';

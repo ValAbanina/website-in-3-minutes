@@ -1,4 +1,4 @@
-import { score } from './scoring.js';
+import { score, usedPatterns } from './scoring.js';
 
 function kebab(value) {
   return String(value).replace(/[A-Z]/g, (m) => `-${m.toLowerCase()}`);
@@ -62,11 +62,12 @@ export function createComments({ store, game, audio }) {
       const pic = game.kit.pictures.find((p) => p.id === next.picture);
       if (pic?.decoy) voice('decoyPicture');
     }
-    if (next.heroDecor !== prev.heroDecor) {
-      if ((client.dealBreakers.heroDecor || []).includes(next.heroDecor)) voice('dealBreakerDecoration');
-      if (next.heroDecor === 'none') voice('noDecoration');
-    }
-    if (next.pattern !== prev.pattern && next.pattern === 'checks') voice('nicePattern');
+    const beforePats = usedPatterns(prev.sections);
+    const afterPats = usedPatterns(next.sections);
+    const added = afterPats.filter((id) => !beforePats.includes(id));
+    if (added.some((id) => (client.dealBreakers.patterns || []).includes(id))) voice('dealBreakerDecoration');
+    else if (added.some((id) => (client.wishlist.patterns || []).includes(id))) voice('nicePattern');
+    if (beforePats.length && !afterPats.length) voice('noDecoration');
 
     const prevTypes = (prev.sections || []).map((s) => s.type);
     const nextTypes = (next.sections || []).map((s) => s.type);

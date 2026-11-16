@@ -1,6 +1,6 @@
 const DESIGN_KEYS = [
   'sections', 'selectedSection', 'palette', 'heading', 'body', 'style',
-  'picture', 'heroDecor', 'pattern',
+  'picture',
 ];
 
 export function initialState(meta) {
@@ -14,8 +14,6 @@ export function initialState(meta) {
     body: null,
     style: null,
     picture: null,
-    heroDecor: 'none',
-    pattern: 'none',
     tab: 'colour',
     previewMode: 'desktop',
     overview: false,
@@ -47,8 +45,6 @@ function designSnapshot(state) {
     body: state.body,
     style: state.style,
     picture: state.picture,
-    heroDecor: state.heroDecor,
-    pattern: state.pattern,
   };
 }
 

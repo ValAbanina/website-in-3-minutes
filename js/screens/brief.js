@@ -24,7 +24,7 @@ export function render(state, game, client) {
           <h2>How it works</h2>
           <ol class="brief-steps">
             <li>Add sections, drag to reorder, pick columns.</li>
-            <li>Choose colours, fonts, style, pictures, decor.</li>
+            <li>Choose colours, fonts, style, pictures, patterns.</li>
             <li>Send it to ${esc(who)} before the clock runs out.</li>
           </ol>
         </div>

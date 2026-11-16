@@ -1,5 +1,5 @@
 import { esc, firstName, prefersReducedMotion } from '../dom.js';
-import { logo, muteButton, progress, meterBlock, timerBlock } from '../chrome.js';
+import { logo, muteButton, progress, timerBlock } from '../chrome.js';
 import { characterHTML } from '../characters.js';
 import { score } from '../scoring.js';
 import { browserShell, renderSite, columnOptions, sectionBar, applyZoom } from '../site/render.js';
@@ -9,7 +9,7 @@ const TABS = [
   ['type', 'Type'],
   ['style', 'Style'],
   ['images', 'Images'],
-  ['decor', 'Decor'],
+  ['decor', 'Patterns'],
 ];
 
 /** Small line icons for the tool row on phones and tablets. */
@@ -19,7 +19,7 @@ const ICONS = {
   type: '<path d="M3 19 8 5h1l5 14M5 14h7"/><path d="M15 12.5c.6-1 1.6-1.5 2.8-1.5 1.7 0 2.7 1 2.7 2.7V19M20.5 15.5c-3.5-.3-5.5.4-5.5 2 0 1 .8 1.7 2 1.7 1.8 0 3.5-1.4 3.5-3.2"/>',
   style: '<rect x="4" y="4" width="16" height="16" rx="5"/><path d="M8 15h8"/>',
   images: '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 16 5-5 4 4 3-3 6 6"/><circle cx="16" cy="9" r="1.5"/>',
-  decor: '<path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M6 18l2.5-2.5M15.5 8.5 18 6"/>',
+  decor: '<rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8" cy="8" r="1.4"/><circle cx="16" cy="8" r="1.4"/><circle cx="12" cy="12" r="1.4"/><circle cx="8" cy="16" r="1.4"/><circle cx="16" cy="16" r="1.4"/>',
   undo: '<path d="M9 14 4 9l5-5"/><path d="M4 9h10a6 6 0 0 1 0 12h-3"/>',
   redo: '<path d="m15 14 5-5-5-5"/><path d="M20 9H10a6 6 0 0 0 0 12h3"/>',
   whole: '<path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/><rect x="8" y="8" width="8" height="8" rx="1"/>',
@@ -32,13 +32,13 @@ function icon(name) {
 /** The order players work through on phones. */
 export const STEPS = ['sections', 'colour', 'type', 'style', 'images', 'decor'];
 
-/** What each step lets you swipe through. Type and Decor each hold two lists. */
+/** What each step lets you swipe through. Type holds two lists. */
 const STEP_LISTS = {
   colour: [['palette', 'Colour', (kit) => kit.palettes]],
   type: [['heading', 'Heading', (kit) => kit.headingFonts], ['body', 'Body text', (kit) => kit.bodyFonts]],
   style: [['style', 'Style', (kit) => kit.styles]],
   images: [['picture', 'Picture', (kit) => kit.pictures]],
-  decor: [['heroDecor', 'Hero decor', (kit) => kit.heroDecor], ['pattern', 'Pattern', (kit) => kit.sectionPatterns]],
+  decor: [['pattern', 'Pattern', (kit) => kit.patterns]],
 };
 
 function itemName(item) {
@@ -57,7 +57,8 @@ export function cycleValue(state, game, dir) {
   const list = currentList(state, game);
   if (!list) return null;
   const ids = list.items.map((item) => item.id);
-  const target = list.key === 'picture' ? pictureTarget(state, game) : null;
+  const target = list.key === 'picture' ? pictureTarget(state, game) : (list.key === 'pattern' ? patternTarget(state, game) : null);
+  if (list.key === 'pattern' && !target) return null;
   const at = ids.indexOf(target ? target.current : state[list.key]);
   const next = at < 0 ? (dir > 0 ? 0 : ids.length - 1) : (at + dir + ids.length) % ids.length;
   return { key: list.key, value: ids[next], name: itemName(list.items[next]) };
@@ -75,13 +76,30 @@ export function pictureTarget(state, game) {
   return { ...t, section, own, current: own || state.picture, where };
 }
 
+/** The section to put a pattern on if none is selected: the first one after the navigation. */
+export function defaultPatternIndex(state) {
+  if (!state.sections.length) return null;
+  const i = state.sections.findIndex((s) => s.type !== 'nav');
+  return i < 0 ? 0 : i;
+}
+
+/** The section whose pattern the Patterns step changes: the selected one, or the first after the navigation. */
+export function patternTarget(state, game) {
+  const picked = state.selectedSection;
+  const index = Number.isInteger(picked) && state.sections[picked] ? picked : defaultPatternIndex(state);
+  if (index === null) return null;
+  const section = state.sections[index];
+  const meta = game.kit.sections.find((m) => m.id === section.type);
+  return { index, section, name: meta?.name || section.type, current: section.pattern || 'none' };
+}
+
 export function stepDone(state, step) {
   if (step === 'sections') return state.sections.length > 0;
   if (step === 'colour') return !!state.palette;
   if (step === 'type') return !!(state.heading && state.body);
   if (step === 'style') return !!state.style;
   if (step === 'images') return !!state.picture;
-  if (step === 'decor') return (state.heroDecor || 'none') !== 'none' || (state.pattern || 'none') !== 'none';
+  if (step === 'decor') return state.sections.some((s) => (s.pattern || 'none') !== 'none');
   return false;
 }
 
@@ -100,18 +118,20 @@ export function choiceBarHTML(state, game) {
     </div>`;
   }
   const list = currentList(state, game);
-  const target = list.key === 'picture' ? pictureTarget(state, game) : null;
+  const patTarget = list.key === 'pattern' ? patternTarget(state, game) : null;
+  if (list.key === 'pattern' && !patTarget) {
+    return `<div class="cb-row">
+      <p class="cb-hint"><strong>Add sections first</strong><span>Then each section can have its own pattern.</span></p>
+      ${next}
+    </div>`;
+  }
+  const target = list.key === 'picture' ? pictureTarget(state, game) : patTarget;
   const at2 = list.items.findIndex((item) => item.id === (target ? target.current : state[list.key]));
   const name = at2 >= 0 ? itemName(list.items[at2]) : 'Not chosen yet';
   const count = at2 >= 0 ? `${at2 + 1} of ${list.items.length}` : `${list.items.length} to try`;
   const word = list.label.toLowerCase();
-  const spotToggle = target
-    ? `<div class="cb-lists" role="group" aria-label="Which pictures to change">
-        <button type="button" aria-pressed="true">This picture</button>
-        <button type="button" data-action="clear-pic-target" aria-pressed="false">Whole page</button>
-      </div>`
-    : '';
-  const toggle = spotToggle || (list.lists.length > 1
+  const forSection = patTarget ? `<p class="cb-for">${esc(patTarget.name)} section</p>` : '';
+  const toggle = forSection || (list.lists.length > 1
     ? `<div class="cb-lists" role="group" aria-label="Which ${esc(state.tab)} choice">${list.lists.map(([key, label]) => `<button type="button" data-action="set-list" data-key="${key}" aria-pressed="${key === list.key}">${esc(label)}</button>`).join('')}</div>`
     : '');
   return `${toggle}<div class="cb-row">
@@ -146,17 +166,13 @@ function choice(on, key, value, inner, label) {
 
 export function isUntouched(state) {
   return !state.sections.length && !state.palette && !state.heading && !state.body
-    && !state.style && !state.picture
-    && (state.heroDecor || 'none') === 'none' && (state.pattern || 'none') === 'none';
+    && !state.style && !state.picture;
 }
 
 /** What the client shows while you build. Kinder than the final verdict: nothing is judged before you start. */
-export function liveMood(state, result) {
-  if (isUntouched(state)) return { label: 'Waiting for you', face: 'neutral' };
-  if (result.mood === 'dealbreaker') return { label: 'Deal-breaker!', face: 'meltdown' };
-  if (result.mood === 'happy') return { label: 'Happy', face: 'happy' };
-  if (result.mood === 'meh') return { label: 'Getting there', face: 'meh' };
-  return { label: 'Not convinced yet', face: 'neutral' };
+export function liveMood() {
+  // No score while building: the player finds out how the client feels only after Send.
+  return { label: '', face: 'neutral' };
 }
 
 export function libraryHTML(state, client, game) {
@@ -239,21 +255,22 @@ function panelBody(state, game) {
       `<span class="pic-mini"><img src="assets/svg/pictures/${esc(p.id)}.svg" alt=""></span>`,
       p.name,
     )).join('');
-    const intro = target
-      ? `<div class="pic-target-note">
-          <p>Changing <strong>one picture</strong> in ${esc(target.where)}.</p>
-          <div class="pic-target-actions">
-            ${target.own ? '<button type="button" class="text-btn" data-action="reset-picture">Use the page picture here</button>' : ''}
-            <button type="button" class="text-btn" data-action="clear-pic-target">Change the page picture instead</button>
-          </div>
-        </div>`
-      : '<p>This picture fills the page. Tap any picture on the page to change just that one.</p>';
-    return `<h2>Images</h2>${intro}<div class="choice-grid choice-grid-pics">${chips}</div>`;
+    return `<h2>Images</h2><div class="choice-grid choice-grid-pics">${chips}</div>`;
   }
   if (state.tab === 'decor') {
-    const decor = game.kit.heroDecor.map((d) => choice(state.heroDecor === d.id, 'heroDecor', d.id, `<span class="decor-mini" data-decor="${esc(d.id)}"></span>`, d.name)).join('');
-    const patterns = game.kit.sectionPatterns.map((d) => choice(state.pattern === d.id, 'pattern', d.id, `<span class="decor-mini" data-decor="${esc(d.id)}"></span>`, d.name)).join('');
-    return `<h2>Decoration</h2><h3>Hero decor</h3><div class="choice-grid">${decor}</div><h3>Section pattern</h3><div class="choice-grid">${patterns}</div>`;
+    const target = patternTarget(state, game);
+    if (!target) return '<h2>Patterns</h2><p>Add sections first. Then each section can have its own pattern.</p>';
+    const chips = game.kit.patterns.map((d) => choice(
+      target.current === d.id,
+      'pattern',
+      d.id,
+      `<span class="pattern-mini" data-pattern="${esc(d.id)}">${d.asset ? `<i style="-webkit-mask-image:url('${esc(d.asset)}');mask-image:url('${esc(d.asset)}')"></i>` : ''}</span>`,
+      d.name,
+    )).join('');
+    const others = state.sections.length > 1
+      ? '<button type="button" class="text-btn" data-action="pattern-all">Use on all sections</button>'
+      : '';
+    return `<h2>Patterns</h2><p class="panel-for"><span>${esc(target.name)} section</span>${others}</p><div class="choice-grid">${chips}</div>`;
   }
   const chips = game.kit.palettes.map((p) => choice(
     state.palette === p.id,
@@ -274,8 +291,6 @@ function designKey(state) {
     body: state.body,
     style: state.style,
     picture: state.picture,
-    heroDecor: state.heroDecor,
-    pattern: state.pattern,
     previewMode: state.previewMode,
     overview: state.overview,
     picTarget: state.picTarget,
@@ -299,7 +314,6 @@ export function mount(section, state) {
 export function render(state, game, client) {
   const result = score(state, client, game);
   const who = firstName(client);
-  const live = liveMood(state, result);
   const tabs = [['sections', 'Sections'], ...TABS].map(([id, label]) => {
     const on = state.tab === id;
     const done = stepDone(state, id);
@@ -310,7 +324,6 @@ export function render(state, game, client) {
       ${logo()}
       ${progress('build')}
       <div class="build-status">
-        <div id="build-meter">${meterBlock(client, result, live.label)}</div>
         <div id="build-timer">${timerBlock(state.timeLeft, game.meta)}</div>
         <span class="bar-history">
           <button type="button" class="icon-btn icon-btn-plain" data-action="undo" aria-label="Undo" ${state.canUndo ? '' : 'disabled'}>${icon('undo')}</button>
@@ -355,7 +368,7 @@ export function render(state, game, client) {
 function focusKey(el) {
   if (!el?.dataset?.action) return null;
   const d = el.dataset;
-  return `[data-action="${d.action}"]${d.key ? `[data-key="${d.key}"]` : ''}${d.dir ? `[data-dir="${d.dir}"]` : ''}${d.layout ? `[data-layout="${d.layout}"]` : ''}${d.columns ? `[data-columns="${d.columns}"]` : ''}`;
+  return `[data-action="${d.action}"]${d.key ? `[data-key="${d.key}"]` : ''}${d.value ? `[data-value="${d.value}"]` : ''}${d.type ? `[data-type="${d.type}"]` : ''}${d.dir ? `[data-dir="${d.dir}"]` : ''}${d.layout ? `[data-layout="${d.layout}"]` : ''}${d.columns ? `[data-columns="${d.columns}"]` : ''}`;
 }
 
 function paintDock(root, state, client, result) {
@@ -389,8 +402,6 @@ export function sync(root, state, prev, game, client, history) {
   }
   if (changed) {
     const result = score(state, client, game);
-    const meter = root.querySelector('#build-meter');
-    if (meter) meter.innerHTML = meterBlock(client, result, liveMood(state, result).label);
 
     const active = document.activeElement;
     const preview = root.querySelector('#build-preview');
@@ -437,10 +448,12 @@ export function sync(root, state, prev, game, client, history) {
       }
     }
     if (library) library.innerHTML = libraryHTML(state, client, game);
-    if ((state.tab === 'sections' || state.tab === 'images') && body) {
+    if ((state.tab === 'sections' || state.tab === 'images' || state.tab === 'decor') && body) {
       const keep = body.scrollTop;
+      const key = body.contains(active) ? focusKey(active) : null;
       body.innerHTML = panelBody(state, game);
       body.scrollTop = keep;
+      if (key) body.querySelector(key)?.focus();
     }
     if (tileType && tileHome) tileHome.querySelector(`.section-tile[data-type="${tileType}"]`)?.focus();
 
@@ -610,6 +623,8 @@ export function bindSheet(root) {
     /** Make room to see the website again, e.g. after picking a section to edit. */
     peek() { if (compact() && sheetSnap !== 'peek') setSnap('peek'); },
     open(name = 'half') { if (compact()) setSnap(name); },
+    /** True when the sheet is pulled up past its small peek height. */
+    isOpen() { return compact() && sheetSnap !== 'peek'; },
   };
 }
 

@@ -357,10 +357,20 @@ function onClick(event) {
   else if (action === 'open-all') sheet?.open('half');
   else if (action === 'next-step') {
     const at = build.STEPS.indexOf(state.tab);
-    store.set({ tab: build.STEPS[Math.min(at + 1, build.STEPS.length - 1)], choiceKey: null, selectedSection: null, picTarget: null });
+    const tab = build.STEPS[Math.min(at + 1, build.STEPS.length - 1)];
+    // The Patterns step starts on the first section after the navigation, so a tap on a pattern shows at once.
+    store.set({ tab, choiceKey: null, selectedSection: tab === 'decor' ? build.defaultPatternIndex(state) : null, picTarget: null });
     sheet?.peek();
   }
-  else if (action === 'set-tab') store.set({ tab: btn.dataset.tab, choiceKey: null, overview: false, ...(btn.dataset.tab === 'images' ? {} : { picTarget: null }) });
+  else if (action === 'pattern-all') setPattern(null, true);
+  else if (action === 'set-tab') {
+    // Phones: tapping a tab opens the sheet with all its choices; tapping the open tab again closes it.
+    const same = state.tab === btn.dataset.tab;
+    const patternPick = btn.dataset.tab === 'decor' && state.selectedSection === null ? { selectedSection: build.defaultPatternIndex(state) } : {};
+    store.set({ tab: btn.dataset.tab, choiceKey: null, overview: false, ...(btn.dataset.tab === 'images' ? {} : { picTarget: null }), ...patternPick });
+    if (same && sheet?.isOpen()) sheet.peek();
+    else sheet?.open('half');
+  }
   else if (action === 'set-preview') store.set({ previewMode: btn.dataset.preview });
   else if (action === 'undo') {
     const prev = state;
@@ -384,8 +394,6 @@ function onClick(event) {
       body: null,
       style: null,
       picture: null,
-      heroDecor: 'none',
-      pattern: 'none',
     }, { history: true });
     rememberDesign(prev);
     audio.play('ui.rewind');
@@ -454,7 +462,28 @@ function cycleChoice(dir) {
   setChoice(next.key, next.value);
 }
 
+/** Put a pattern on one section (the selected one, or the first after the navigation). */
+function setPattern(value, all = false) {
+  const prev = store.get();
+  const target = build.patternTarget(prev, game);
+  if (!target) return;
+  const id = value ?? target.current;
+  const sections = prev.sections.map((s, i) => (all || i === target.index ? { ...s, pattern: id } : s));
+  if (JSON.stringify(sections) === JSON.stringify(prev.sections)) {
+    if (prev.selectedSection !== target.index) store.set({ selectedSection: target.index });
+    return;
+  }
+  store.set({ sections, selectedSection: target.index }, { history: true });
+  rememberDesign(prev);
+  stats.send('choice_changed', { category: all ? 'pattern-all' : 'pattern', value: id });
+  audio.play('ui.pick');
+}
+
 function setChoice(key, value) {
+  if (key === 'pattern') {
+    setPattern(value);
+    return;
+  }
   const prev = store.get();
   const target = key === 'picture' ? build.pictureTarget(prev, game) : null;
   if (target) {
