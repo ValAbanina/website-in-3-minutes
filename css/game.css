@@ -1347,3 +1347,5 @@ body[data-ink="light"] .screen-client :focus-visible,
 @media (max-width: 599px) {
   .stage-copy .row-actions { grid-template-columns: 1fr; width: min(100%, 320px); }
 }
+/* Icons inside buttons are drawn (SVG), never emoji, so they look the same on every phone. */
+.btn-ico { flex: none; margin-right: 8px; vertical-align: -4px; }
