@@ -1295,3 +1295,39 @@ body.is-reordering .browser-page { touch-action: none; }
   .tu-site-frame { height: 120px; }
   .tu-say { font-size: 18px; }
 }
+
+/* ---------- Button hierarchy ----------
+   1. Main action (.btn-primary, the cover pill): pink or white, black border, hard shadow. One per screen.
+   2. Everyday controls (other buttons, tabs, tiles, toggles): white, thin light border, flat.
+   3. Small controls (.text-btn, .icon-btn-plain): no box.
+   Characters, bubbles, client cards, the brief, the verdict and stamps keep the bold cartoon style. */
+.btn:not(.btn-primary), .icon-btn, .step, .section-tile, .choice, .tab, .float-btn, .preview-toggle,
+.chips li, .qr, .brief-howto, .cb-arrow {
+  border: var(--border-soft);
+  box-shadow: none;
+}
+.btn:not(.btn-primary) { transition: background var(--dur-hover) ease, border-color var(--dur-hover) ease; }
+@media (hover: hover) {
+  .btn:not(.btn-primary):hover, .icon-btn:hover:not(:disabled), .float-btn:hover, .choice:hover, .tab:hover:not(.is-on) {
+    background: var(--color-surface-muted);
+    border-color: var(--color-border-default);
+  }
+}
+.btn:not(.btn-primary):hover { box-shadow: none; transform: none; }
+.btn:not(.btn-primary):active { background: #E6E6E6; box-shadow: none; transform: translateY(1px); }
+.btn:not(.btn-primary):disabled { box-shadow: none; background: var(--color-surface-default); }
+.btn-primary:disabled { box-shadow: var(--shadow-press); }
+.icon-btn-plain { border-color: transparent; background: transparent; }
+.cb-arrow:active { transform: translateY(1px); background: var(--color-surface-muted); }
+/* Selected things are marked with colour, not heavier borders. */
+.section-tile.is-on { border-color: var(--color-brand-primary); }
+.tab.is-on, .step.is-now { border-color: var(--color-text-strong); }
+.choice.is-on { border-color: transparent; }
+/* The player's website sits flat; a thin border is enough to separate it. */
+.browser { border: var(--border-soft); box-shadow: none; }
+.overview-holder { box-shadow: 0 0 0 1px var(--color-border-soft); }
+.tu-site-frame .browser { border: var(--border-ui); }
+/* Dark screens: quiet buttons stay readable. */
+.stage-dark .btn:not(.btn-primary), .topbar-dark .icon-btn { border-color: rgba(255, 255, 255, .35); }
+/* Phones: the bottom sheet floats over the page, so it keeps a faint shadow but a light edge. */
+@media (max-width: 743px) and (orientation: portrait) { .panel { border-top: var(--border-soft); } }
