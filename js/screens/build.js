@@ -57,9 +57,22 @@ export function cycleValue(state, game, dir) {
   const list = currentList(state, game);
   if (!list) return null;
   const ids = list.items.map((item) => item.id);
-  const at = ids.indexOf(state[list.key]);
+  const target = list.key === 'picture' ? pictureTarget(state, game) : null;
+  const at = ids.indexOf(target ? target.current : state[list.key]);
   const next = at < 0 ? (dir > 0 ? 0 : ids.length - 1) : (at + dir + ids.length) % ids.length;
   return { key: list.key, value: ids[next], name: itemName(list.items[next]) };
+}
+
+/** The one picture spot the player tapped, if any, with a friendly description of where it is. */
+export function pictureTarget(state, game) {
+  const t = state.picTarget;
+  const section = t ? state.sections[t.index] : null;
+  if (!section) return null;
+  const meta = game.kit.sections.find((m) => m.id === section.type);
+  const name = meta?.name || section.type;
+  const own = section.pictures?.[t.slot] || null;
+  const where = section.type === 'gallery' ? `the ${name} (picture ${t.slot + 1})` : `the ${name}`;
+  return { ...t, section, own, current: own || state.picture, where };
 }
 
 export function stepDone(state, step) {
@@ -87,13 +100,20 @@ export function choiceBarHTML(state, game) {
     </div>`;
   }
   const list = currentList(state, game);
-  const at2 = list.items.findIndex((item) => item.id === state[list.key]);
+  const target = list.key === 'picture' ? pictureTarget(state, game) : null;
+  const at2 = list.items.findIndex((item) => item.id === (target ? target.current : state[list.key]));
   const name = at2 >= 0 ? itemName(list.items[at2]) : 'Not chosen yet';
   const count = at2 >= 0 ? `${at2 + 1} of ${list.items.length}` : `${list.items.length} to try`;
   const word = list.label.toLowerCase();
-  const toggle = list.lists.length > 1
-    ? `<div class="cb-lists" role="group" aria-label="Which ${esc(state.tab)} choice">${list.lists.map(([key, label]) => `<button type="button" data-action="set-list" data-key="${key}" aria-pressed="${key === list.key}">${esc(label)}</button>`).join('')}</div>`
+  const spotToggle = target
+    ? `<div class="cb-lists" role="group" aria-label="Which pictures to change">
+        <button type="button" aria-pressed="true">This picture</button>
+        <button type="button" data-action="clear-pic-target" aria-pressed="false">Whole page</button>
+      </div>`
     : '';
+  const toggle = spotToggle || (list.lists.length > 1
+    ? `<div class="cb-lists" role="group" aria-label="Which ${esc(state.tab)} choice">${list.lists.map(([key, label]) => `<button type="button" data-action="set-list" data-key="${key}" aria-pressed="${key === list.key}">${esc(label)}</button>`).join('')}</div>`
+    : '');
   return `${toggle}<div class="cb-row">
     <button type="button" class="cb-arrow" data-action="cycle-choice" data-dir="-1" aria-label="Previous ${esc(word)}">‹</button>
     <button type="button" class="cb-label" data-action="open-all" aria-label="${esc(list.label)}: ${esc(name)}, ${count}. Show all choices"><strong>${esc(name)}</strong><span>${count} · swipe the page, or tap for all</span></button>
@@ -210,14 +230,25 @@ function panelBody(state, game) {
     return `<h2>Style</h2><p>Corners, borders and shadows replace the plain boxes.</p><div class="choice-grid">${chips}</div>`;
   }
   if (state.tab === 'images') {
+    const target = pictureTarget(state, game);
+    const current = target ? target.current : state.picture;
     const chips = game.kit.pictures.map((p) => choice(
-      state.picture === p.id,
+      current === p.id,
       'picture',
       p.id,
       `<span class="pic-mini"><img src="assets/svg/pictures/${esc(p.id)}.svg" alt=""></span>`,
       p.name,
     )).join('');
-    return `<h2>Images</h2><p>One picture is used across the page.</p><div class="choice-grid choice-grid-pics">${chips}</div>`;
+    const intro = target
+      ? `<div class="pic-target-note">
+          <p>Changing <strong>one picture</strong> in ${esc(target.where)}.</p>
+          <div class="pic-target-actions">
+            ${target.own ? '<button type="button" class="text-btn" data-action="reset-picture">Use the page picture here</button>' : ''}
+            <button type="button" class="text-btn" data-action="clear-pic-target">Change the page picture instead</button>
+          </div>
+        </div>`
+      : '<p>This picture fills the page. Tap any picture on the page to change just that one.</p>';
+    return `<h2>Images</h2>${intro}<div class="choice-grid choice-grid-pics">${chips}</div>`;
   }
   if (state.tab === 'decor') {
     const decor = game.kit.heroDecor.map((d) => choice(state.heroDecor === d.id, 'heroDecor', d.id, `<span class="decor-mini" data-decor="${esc(d.id)}"></span>`, d.name)).join('');
@@ -247,6 +278,7 @@ function designKey(state) {
     pattern: state.pattern,
     previewMode: state.previewMode,
     overview: state.overview,
+    picTarget: state.picTarget,
   });
 }
 
@@ -405,7 +437,11 @@ export function sync(root, state, prev, game, client, history) {
       }
     }
     if (library) library.innerHTML = libraryHTML(state, client, game);
-    if (state.tab === 'sections' && body) body.innerHTML = panelBody(state, game);
+    if ((state.tab === 'sections' || state.tab === 'images') && body) {
+      const keep = body.scrollTop;
+      body.innerHTML = panelBody(state, game);
+      body.scrollTop = keep;
+    }
     if (tileType && tileHome) tileHome.querySelector(`.section-tile[data-type="${tileType}"]`)?.focus();
 
     paintDock(root, state, client, result);

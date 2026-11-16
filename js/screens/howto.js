@@ -20,7 +20,7 @@ export function render() {
         </article>
         <article>
           <span class="howto-n">4</span>
-          <p>Send it before the 5:00 clock runs out, or the Deadline sends it for you.</p>
+          <p>Send it before the 5 minutes run out, or the Deadline sends it for you.</p>
         </article>
       </div>
       <p class="howto-note"><strong>Watch the mood meter.</strong> It reacts to every choice, so experiment. A deal-breaker sends it straight to zero.</p>

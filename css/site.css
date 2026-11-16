@@ -114,6 +114,8 @@
 
 .pic { cursor: pointer; margin: 0; position: relative; aspect-ratio: 320 / 220; border-radius: var(--kit-radius-image); overflow: hidden; background: var(--kit-surface); }
 .pic:hover { outline: 3px dashed var(--kit-accent, #000); outline-offset: -6px; }
+/* The picture spot the player is changing right now. */
+.pic.is-target, .pic.is-target:hover { outline: 4px solid #D72885; outline-offset: -4px; box-shadow: 0 0 0 4px rgba(215, 40, 133, .25); }
 .pic img { width: 100%; height: 100%; object-fit: contain; display: block; border-radius: var(--kit-radius-image); }
 .hero-bg .pic img,
 .banner-image .pic img { object-fit: cover; }

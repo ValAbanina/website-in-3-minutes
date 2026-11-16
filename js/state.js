@@ -21,6 +21,7 @@ export function initialState(meta) {
     overview: false,
     choiceKey: null,
     deadlineLine: 0,
+    picTarget: null,
     timeLeft: meta?.timerSeconds ?? 300,
     startedAt: null,
     autoSent: false,

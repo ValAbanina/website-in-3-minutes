@@ -24,17 +24,29 @@ function copyFor(client, type) {
   return client.site?.[key] || {};
 }
 
-/* In the builder, tapping any picture opens the Images tab so the player can choose one. */
-const PICK = 'data-action="set-tab" data-tab="images" title="Choose a picture"';
+/*
+ * Each picture spot on the page can hold its own picture. Spots without one show
+ * the page picture. In the builder, tapping a picture lets the player change just that spot.
+ */
+let renderingIndex = 0;
+let renderingState = null;
 
-function pictureFigure(game, pictureId) {
+function pictureFor(state, section, slot) {
+  return section?.pictures?.[slot] || state.picture;
+}
+
+function pictureFigure(game, pictureId, slot = 0) {
+  const target = renderingState?.picTarget;
+  const isTarget = !!target && target.index === renderingIndex && target.slot === slot;
+  const PICK = `data-action="pick-picture" data-index="${renderingIndex}" data-slot="${slot}" title="Change this picture"`;
+  const cls = isTarget ? ' is-target' : '';
   if (!pictureId) {
-    return `<figure class="pic pic-empty" ${PICK}><span class="pic-fallback"><span>Picture</span><strong>Choose one</strong></span></figure>`;
+    return `<figure class="pic pic-empty${cls}" ${PICK}><span class="pic-fallback"><span>Picture</span><strong>Choose one</strong></span></figure>`;
   }
   const pic = game.kit.pictures.find((p) => p.id === pictureId);
   const name = pic?.name || pictureId;
   const kind = 'Picture';
-  return `<figure class="pic" ${PICK}>
+  return `<figure class="pic${cls}" ${PICK}>
     <img src="assets/svg/pictures/${esc(pictureId)}.svg" alt="${esc(name)}">
     <span class="pic-fallback"><span>${esc(kind)}</span><strong>${esc(name)}</strong></span>
   </figure>`;
@@ -119,7 +131,7 @@ function renderHero(copy, section, state, game) {
       ${copy.body ? `<p class="lede">${esc(copy.body)}</p>` : ''}
       ${copy.button ? `<span class="kit-btn">${esc(copy.button)}</span>` : ''}
     </div>`;
-  const pic = pictureFigure(game, state.picture);
+  const pic = pictureFigure(game, pictureFor(state, section, 0), 0);
   if (layout === 'centered') {
     return `${decor}<div class="hero hero-centered">${text}${pic}</div>`;
   }
@@ -130,7 +142,7 @@ function renderHero(copy, section, state, game) {
 }
 
 function renderAbout(copy, section, state, game) {
-  const pic = pictureFigure(game, state.picture);
+  const pic = pictureFigure(game, pictureFor(state, section, 0), 0);
   const text = `<div>
     ${copy.eyebrow ? `<p class="eyebrow">${esc(copy.eyebrow)}</p>` : ''}
     <h2>${esc(copy.title || 'About')}</h2>
@@ -168,7 +180,7 @@ function renderTestimonial(copy, section) {
 
 function renderGallery(copy, section, state, game) {
   const count = Math.max(3, Number(section.columns) || 3);
-  const cells = Array.from({ length: count }, () => `<div class="kit-card gal">${pictureFigure(game, state.picture)}</div>`).join('');
+  const cells = Array.from({ length: count }, (_, slot) => `<div class="kit-card gal">${pictureFigure(game, pictureFor(state, section, slot), slot)}</div>`).join('');
   return `<h2>${esc(copy.title || 'Gallery')}</h2><div class="cols gallery" data-columns="${esc(section.columns || '')}">${cells}</div>`;
 }
 
@@ -222,7 +234,7 @@ function renderContact(copy, section) {
 function renderBanner(copy, section, state, game) {
   const layout = section.layout || 'big-statement';
   if (layout === 'image') {
-    return `<div class="banner banner-image">${pictureFigure(game, state.picture)}<h2>${esc(copy.statement || copy.title || '')}</h2></div>`;
+    return `<div class="banner banner-image">${pictureFigure(game, pictureFor(state, section, 0), 0)}<h2>${esc(copy.statement || copy.title || '')}</h2></div>`;
   }
   if (layout === 'marquee') {
     const line = esc(copy.statement || copy.title || '');
@@ -288,14 +300,12 @@ export function renderSite(state, client, game) {
     return `<div class="site ${narrow ? 'is-narrow' : ''}" ${attrs}><div class="site-empty"><p><strong>The page is empty.</strong><br>Add a section from the Sections list. Navigation is a good start.</p></div></div>`;
   }
   const total = state.sections.length;
-  const html = state.sections.map((section, index) => block(
-    section,
-    index,
-    total,
-    state,
-    innerFor(section, state, client, game),
-    game,
-  )).join('');
+  renderingState = state;
+  const html = state.sections.map((section, index) => {
+    renderingIndex = index;
+    return block(section, index, total, state, innerFor(section, state, client, game), game);
+  }).join('');
+  renderingState = null;
   return `<div class="site ${narrow ? 'is-narrow' : ''}" ${attrs}>${html}</div>`;
 }
 

@@ -5,6 +5,7 @@ import { createAudio } from './audio.js';
 import { createStats } from './stats.js';
 import { createComments } from './comments.js';
 import { clientById, onClientInk, deviceKind, esc } from './dom.js';
+import { placeCastBubble } from './chrome.js';
 import { defaultSection } from './site/render.js';
 import { shareResult } from './share.js';
 import * as attract from './screens/attract.js';
@@ -138,7 +139,7 @@ function addSection(type, index = null) {
   const after = picked === null || picked === undefined ? sections.length : Math.min(picked + 1, sections.length);
   const at = index === null ? after : index;
   sections.splice(at, 0, section);
-  store.set({ sections, selectedSection: at }, { history: true });
+  store.set({ sections, picTarget: null, selectedSection: at }, { history: true });
   rememberDesign(prev);
   audio.play('build.drop');
   stats.send('section_changed', { action: 'add', section: type, layout: section.layout || '', columns: section.columns || '' });
@@ -189,7 +190,7 @@ function onDrop(info) {
   if (info.from < to) to -= 1;
   to = Math.max(0, Math.min(to, sections.length));
   sections.splice(to, 0, item);
-  store.set({ sections, selectedSection: to }, { history: true });
+  store.set({ sections, picTarget: null, selectedSection: to }, { history: true });
   rememberDesign(prev);
   audio.play('build.slide');
   stats.send('section_changed', { action: 'reorder', section: item.type, layout: item.layout || '', columns: item.columns || '' });
@@ -311,15 +312,37 @@ function onClick(event) {
   }
   else if (action === 'add-section') addSection(btn.dataset.type);
   else if (action === 'select-section') {
-    store.set({ selectedSection: Number(btn.dataset.index), overview: false });
+    const index = Number(btn.dataset.index);
+    store.set({ selectedSection: index, overview: false, ...(state.picTarget && state.picTarget.index !== index ? { picTarget: null } : {}) });
     sheet?.peek();
-  } else if (action === 'deselect') store.set({ selectedSection: null });
+  } else if (action === 'deselect') store.set({ selectedSection: null, picTarget: null });
+  else if (action === 'pick-picture') {
+    const index = Number(btn.dataset.index);
+    const slot = Number(btn.dataset.slot) || 0;
+    if (state.overview) {
+      store.set({ overview: false, selectedSection: index });
+      return;
+    }
+    store.set({ selectedSection: index, picTarget: { index, slot }, tab: 'images', choiceKey: null });
+    sheet?.peek();
+  } else if (action === 'clear-pic-target') store.set({ picTarget: null });
+  else if (action === 'reset-picture') {
+    const target = build.pictureTarget(state, game);
+    if (target?.own) {
+      const sections = state.sections.slice();
+      const section = { ...sections[target.index], pictures: { ...sections[target.index].pictures } };
+      delete section.pictures[target.slot];
+      sections[target.index] = section;
+      store.set({ sections }, { history: true });
+      audio.play('ui.pick');
+    }
+  }
   else if (action === 'toggle-overview') store.set({ overview: !state.overview });
   else if (action === 'remove-section') {
     const prev = state;
     const index = state.selectedSection ?? 0;
     const sections = state.sections.filter((_, i) => i !== index);
-    store.set({ sections, selectedSection: sections.length ? Math.min(index, sections.length - 1) : null }, { history: true });
+    store.set({ sections, picTarget: null, selectedSection: sections.length ? Math.min(index, sections.length - 1) : null }, { history: true });
     rememberDesign(prev);
     audio.play('build.remove');
     stats.send('section_changed', { action: 'remove', section: state.sections[index]?.type || '', layout: '', columns: '' });
@@ -334,10 +357,10 @@ function onClick(event) {
   else if (action === 'open-all') sheet?.open('half');
   else if (action === 'next-step') {
     const at = build.STEPS.indexOf(state.tab);
-    store.set({ tab: build.STEPS[Math.min(at + 1, build.STEPS.length - 1)], choiceKey: null, selectedSection: null });
+    store.set({ tab: build.STEPS[Math.min(at + 1, build.STEPS.length - 1)], choiceKey: null, selectedSection: null, picTarget: null });
     sheet?.peek();
   }
-  else if (action === 'set-tab') store.set({ tab: btn.dataset.tab, choiceKey: null, overview: false });
+  else if (action === 'set-tab') store.set({ tab: btn.dataset.tab, choiceKey: null, overview: false, ...(btn.dataset.tab === 'images' ? {} : { picTarget: null }) });
   else if (action === 'set-preview') store.set({ previewMode: btn.dataset.preview });
   else if (action === 'undo') {
     const prev = state;
@@ -393,7 +416,7 @@ function moveSection(dir) {
   const sections = prev.sections.slice();
   const [item] = sections.splice(index, 1);
   sections.splice(to, 0, item);
-  store.set({ sections, selectedSection: to }, { history: true });
+  store.set({ sections, picTarget: null, selectedSection: to }, { history: true });
   rememberDesign(prev);
   audio.play('build.slide');
   stats.send('section_changed', { action: 'reorder', section: item.type, layout: item.layout || '', columns: item.columns || '' });
@@ -433,6 +456,20 @@ function cycleChoice(dir) {
 
 function setChoice(key, value) {
   const prev = store.get();
+  const target = key === 'picture' ? build.pictureTarget(prev, game) : null;
+  if (target) {
+    // Change only the picture spot the player tapped.
+    if (target.current === value && target.own) return;
+    const sections = prev.sections.slice();
+    const section = { ...sections[target.index] };
+    section.pictures = { ...(section.pictures || {}), [target.slot]: value };
+    sections[target.index] = section;
+    store.set({ sections, ...(prev.picture ? {} : { picture: value }) }, { history: true });
+    rememberDesign(prev);
+    stats.send('choice_changed', { category: 'picture-spot', value });
+    audio.play('ui.pick');
+    return;
+  }
   if (prev[key] === value) return;
   store.set({ [key]: value }, { history: true });
   rememberDesign(prev);
@@ -627,6 +664,8 @@ function boot(data, cues) {
     if (left !== state.timeLeft) store.set({ timeLeft: left });
   }, 250);
 
+  window.addEventListener('resize', () => placeCastBubble());
+
   window.setInterval(() => {
     const state = store.get();
     if (state.screen !== 'attract' && state.screen !== 'start') return;
@@ -644,6 +683,7 @@ function boot(data, cues) {
         bubble.textContent = line;
       } else if (bubble) bubble.remove();
     });
+    placeCastBubble();
     document.getElementById('live').textContent = `${client.name}. ${line}`;
   }, 3500);
 

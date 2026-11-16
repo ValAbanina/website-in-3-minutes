@@ -64,6 +64,22 @@ export function cast(game, activeId, line) {
   return `<div class="cast" data-cast>${people}</div><div class="program-stripe" aria-hidden="true"><span></span><span></span><span></span></div>`;
 }
 
+/**
+ * Keep the cast's speech bubble on screen. The bubble shifts sideways if it would
+ * run off an edge; its tail moves the other way so it still points at the speaker.
+ */
+export function placeCastBubble(root = document) {
+  const bubble = root.querySelector('.cast-person.is-speaking .bubble');
+  if (!bubble) return;
+  bubble.style.setProperty('--nudge', '0px');
+  const box = bubble.getBoundingClientRect();
+  const margin = 12;
+  let nudge = 0;
+  if (box.left < margin) nudge = margin - box.left;
+  else if (box.right > window.innerWidth - margin) nudge = window.innerWidth - margin - box.right;
+  bubble.style.setProperty('--nudge', `${Math.round(nudge)}px`);
+}
+
 export function pickyDots(n) {
   return `<span class="dots" aria-label="Picky ${n} out of 5">${Array.from({ length: 5 }, (_, i) => `<i class="${i < n ? 'is-on' : ''}"></i>`).join('')}</span>`;
 }

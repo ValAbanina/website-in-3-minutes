@@ -14,7 +14,7 @@ export function render(state, game, client) {
   const who = firstName(client);
   const said = deadlineLine(state, game);
   // A frozen, whole-page picture of exactly what was sent.
-  const sent = { ...state, overview: false, selectedSection: null, previewMode: 'desktop' };
+  const sent = { ...state, overview: false, selectedSection: null, picTarget: null, previewMode: 'desktop' };
   return `<div class="screen screen-timesup">
     <header class="topbar topbar-dark">
       ${logo()}

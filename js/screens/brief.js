@@ -28,10 +28,12 @@ export function render(state, game, client) {
             <li>Send it to ${esc(who)} before the clock runs out.</li>
           </ol>
         </div>
-        <button type="button" class="btn needs-audio" data-action="play-brief">Play ${esc(who)}'s voice</button>
         <div class="brief-go">
-          <button type="button" class="btn btn-primary" data-action="to-build">Start building</button>
-          <p>The 5:00 clock starts when you tap.</p>
+          <div class="brief-buttons">
+            <button type="button" class="btn needs-audio" data-action="play-brief" aria-label="Play ${esc(who)}'s voice"><span aria-hidden="true">▶</span> Hear ${esc(who)}</button>
+            <button type="button" class="btn btn-primary" data-action="to-build">Start building</button>
+          </div>
+          <p>You get 5 minutes. The clock starts when you tap Start building.</p>
         </div>
       </article>
     </div>
