@@ -568,9 +568,107 @@ body[data-client="brenda"] { --client: var(--client-brenda); }
 }
 .stamp.is-in { animation: stamp 420ms var(--ease-stamp) both; }
 
-.timesup .bubble { color: var(--color-text-strong); }
-.timesup { display: grid; grid-template-columns: .8fr 1.2fr; gap: 24px; align-items: center; padding: 24px; }
-.deadline-art { width: min(220px, 56vw); }
+/* Time's up: the Deadline in a spotlight, and the website exactly as it was sent. */
+.tu {
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+  align-items: center;
+  gap: clamp(16px, 4vw, 56px);
+  padding: 4px clamp(16px, 4vw, 56px) 24px;
+}
+.tu .bubble { color: var(--color-text-strong); }
+.tu-stage { position: relative; display: grid; justify-items: center; align-self: end; }
+.tu-rays {
+  position: absolute;
+  inset: -6% -24% 0;
+  z-index: 0;
+  background:
+    radial-gradient(closest-side at 50% 58%, rgba(255, 255, 255, .16), transparent 72%),
+    repeating-conic-gradient(from 0deg at 50% 58%, rgba(215, 40, 133, .28) 0 7deg, transparent 7deg 18deg);
+  -webkit-mask: radial-gradient(closest-side at 50% 58%, #000 25%, transparent 78%);
+  mask: radial-gradient(closest-side at 50% 58%, #000 25%, transparent 78%);
+  animation: tu-spin 40s linear infinite;
+}
+@keyframes tu-spin { to { transform: rotate(360deg); } }
+.tu-deadline { position: relative; z-index: 1; width: auto; }
+.tu .tu-deadline img { width: auto; height: min(62dvh, 600px); }
+.tu-say {
+  position: absolute;
+  z-index: 2;
+  top: 3%;
+  left: 0;
+  max-width: min(300px, 70%);
+  font-size: 26px;
+  transform: rotate(-3deg);
+}
+.tu-say::after {
+  content: "";
+  position: absolute;
+  right: 26px;
+  bottom: -11px;
+  width: 18px;
+  height: 18px;
+  background: var(--color-surface-default);
+  border-right: var(--border-ui);
+  border-bottom: var(--border-ui);
+  transform: rotate(45deg);
+}
+.tu-side { display: grid; gap: 14px; align-content: center; min-width: 0; }
+.tu-title { margin: 0; line-height: .9; }
+.tu-lede { margin: 0; color: var(--color-text-on-dark); opacity: .85; }
+.tu-site { position: relative; margin: 4px 0 0; }
+.tu-site-frame { height: clamp(170px, 30dvh, 300px); pointer-events: none; }
+.tu-site-frame .browser { border-color: #000; box-shadow: 0 10px 0 rgba(0, 0, 0, .35); }
+.tu-site-frame .browser-bar { min-height: 34px; }
+.tu-site .browser-page { overflow: hidden; }
+.tu-site .browser-bar { color: var(--color-text-default); }
+.tu-stage { overflow: clip; overflow-clip-margin: 0; }
+.tu-stamp {
+  position: absolute;
+  right: -8px;
+  top: 36%;
+  padding: 6px 14px;
+  border: 5px solid var(--stamp-meltdown);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, .94);
+  color: var(--stamp-meltdown);
+  font: 800 clamp(26px, 3.4vw, 44px)/1 var(--font-display);
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  box-shadow: 3px 3px 0 #000;
+  animation: stamp 420ms var(--ease-stamp) .7s both;
+}
+.tu-react { display: flex; align-items: center; gap: 14px; }
+.tu-client {
+  flex: none;
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: var(--border-ui);
+  background: var(--card);
+  box-shadow: 3px 3px 0 #000;
+}
+.tu .tu-client img { width: 100%; height: 135%; object-fit: cover; object-position: center top; }
+.tu-react .bubble { position: relative; margin: 0; font-size: 22px; }
+.tu-react .bubble::after {
+  content: "";
+  position: absolute;
+  left: -11px;
+  top: 50%;
+  width: 18px;
+  height: 18px;
+  background: var(--color-surface-default);
+  border-left: var(--border-ui);
+  border-bottom: var(--border-ui);
+  transform: translateY(-50%) rotate(45deg);
+}
+.tu-go { justify-self: start; }
 .screen-timesup .timer { margin-left: auto; }
 
 .program-row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
@@ -668,11 +766,13 @@ body[data-client="brenda"] { --client: var(--client-brenda); }
   .timer.is-panic { animation: none; }
   .stamp { opacity: 1; transform: rotate(-8deg); animation: none; }
   .moment-rise, .moment-slide { animation: none; }
+  .tu-rays { animation: none; }
+  .tu-stamp { animation: none; transform: rotate(-8deg); }
   .confetti { display: none; }
 }
 
 @media (max-width: 1199px) {
-  .brief, .verdict, .timesup { grid-template-columns: 1fr; }
+  .brief, .verdict { grid-template-columns: 1fr; }
   .program-row { grid-template-columns: 1fr; }
   .card-row { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); overflow: visible; }
   .card { grid-column: span 2; }
@@ -759,7 +859,6 @@ body[data-client="brenda"] { --client: var(--client-brenda); }
   body[data-ink="light"] .brief-who .role,
   body[data-ink="light"] .brief-go p { color: var(--color-text-on-dark); }
   .verdict-art { width: min(220px, 56vw); }
-  .deadline-art { width: min(176px, 45vw); }
 }
 
 @media (min-width: 768px) {
@@ -1100,4 +1199,32 @@ body.is-reordering .browser-page { touch-action: none; }
   .tab { min-height: 50px; }
   .tab-l { font-size: 11px; }
   .client-dock { top: calc(56px + env(safe-area-inset-top)); }
+}
+
+/* Time's up on phones: the Deadline on top, then what was sent, button always in reach. */
+@media (max-width: 760px) {
+  .tu { grid-template-columns: minmax(0, 1fr); align-items: start; gap: 12px; padding: 0 16px calc(96px + env(safe-area-inset-bottom)); }
+  .tu-stage { align-self: start; }
+  .tu .tu-deadline img { height: 30dvh; }
+  .tu-say { top: 6%; left: 0; max-width: 58%; font-size: 18px; padding: 8px 12px; }
+  .tu-title { font-size: 52px; }
+  .tu-site-frame { height: 180px; }
+  .tu-stamp { right: 4px; font-size: 26px; }
+  .tu-client { width: 60px; height: 60px; }
+  .tu-react .bubble { font-size: 18px; }
+  .tu-go {
+    position: fixed;
+    left: 16px;
+    right: 16px;
+    bottom: max(16px, env(safe-area-inset-bottom));
+    z-index: 5;
+    justify-content: center;
+  }
+}
+/* Phones held sideways: shorter everything. */
+@media (max-height: 500px) and (orientation: landscape) {
+  .tu .tu-deadline img { height: 62dvh; }
+  .tu-title { font-size: 44px; }
+  .tu-site-frame { height: 120px; }
+  .tu-say { font-size: 18px; }
 }

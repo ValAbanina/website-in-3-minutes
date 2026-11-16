@@ -321,7 +321,7 @@ export function browserShell(state, client, siteHtml) {
  * - "width": laid out at a small desktop width and shrunk to fit the phone's width, scrolling down.
  * - "page": the whole page shrunk until it fits, so players can judge the full design.
  */
-export function applyZoom(page, mode, mobile) {
+export function applyZoom(page, mode, mobile, virtualWidth) {
   const holder = page?.querySelector('.overview-holder');
   const scale = page?.querySelector('.overview-scale');
   if (!holder || !scale) return;
@@ -332,7 +332,7 @@ export function applyZoom(page, mode, mobile) {
     scale.removeAttribute('style');
     return;
   }
-  let width = mode === 'width' ? 680 : 1200;
+  let width = virtualWidth || (mode === 'width' ? 680 : 1200);
   if (mobile) width = 390;
   scale.style.width = `${width}px`;
   scale.style.transform = 'none';

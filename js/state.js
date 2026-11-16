@@ -20,6 +20,7 @@ export function initialState(meta) {
     previewMode: 'desktop',
     overview: false,
     choiceKey: null,
+    deadlineLine: 0,
     timeLeft: meta?.timerSeconds ?? 300,
     startedAt: null,
     autoSent: false,

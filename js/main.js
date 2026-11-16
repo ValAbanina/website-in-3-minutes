@@ -160,6 +160,7 @@ function finish(auto) {
     verdictVoice: said.voice,
     elapsed,
     autoSent: !!auto,
+    deadlineLine: Math.floor(Math.random() * game.deadline.lines.length),
     screen: auto ? 'timesup' : 'verdict',
     comment: null,
     timeLeft: auto ? 0 : s.timeLeft,
@@ -496,7 +497,13 @@ function effects(next, prev) {
   if (next.screen === 'brief' && prev.screen !== 'brief' && client) audio.say(`voice.${client.id}.brief`);
     if (next.screen === 'timesup' && prev.screen !== 'timesup') {
       audio.play('deadline.gong');
-      audio.say('voice.deadline.1');
+      audio.say(`voice.deadline.${(next.deadlineLine || 0) + 1}`);
+      // Then the client reacts, once the Deadline has finished speaking.
+      const reactTo = next.clientId;
+      window.setTimeout(() => {
+        const now = store.get();
+        if (now.screen === 'timesup' && now.clientId === reactTo) audio.say(`voice.${reactTo}.times-up`);
+      }, 3400);
     }
   if (next.screen === 'verdict' && prev.screen !== 'verdict' && client && next.result) {
     audio.stopMusic();

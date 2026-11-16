@@ -462,7 +462,13 @@
   "deadline": {
     "name": "The Deadline",
     "description": "A friendly grim reaper with a scythe and an alarm clock. Appears when the timer hits 0:00 and sends the website exactly as it is.",
-    "lines": ["Pencils down. I’ll take it from here."]
+    "lines": [
+      "Pencils down. I’ll take it from here.",
+      "Done is better than perfect. Also, done is mandatory.",
+      "I don’t do extensions.",
+      "Shipping it as is. Good luck.",
+      "Your final-final-v3 is now just final."
+    ]
   },
 
   "share": {
