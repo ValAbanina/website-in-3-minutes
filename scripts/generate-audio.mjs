@@ -57,7 +57,11 @@ if (args.only !== 'sfx') {
     c.lines.meltdown.forEach((t, i) => add(`meltdown-${i + 1}`, t));
     add('times-up', c.lines.timesUp);
     add('hurry', c.lines.hurry);
-    for (const [k, t] of Object.entries(c.lines.triggers)) add(k.replace(/[A-Z]/g, m => '-' + m.toLowerCase()), t);
+    // Each moment has up to three lines: the first keeps the original file name, the others add -2, -3.
+    for (const [k, value] of Object.entries(c.lines.triggers)) {
+      const key = k.replace(/[A-Z]/g, m => '-' + m.toLowerCase());
+      (Array.isArray(value) ? value : [value]).forEach((t, i) => add(i === 0 ? key : `${key}-${i + 1}`, t));
+    }
     for (const r of game.scoring.everyonesRules) add(`rule-${r.id}`, r.comment);
   }
   if (!args.client || args.client === 'deadline') {

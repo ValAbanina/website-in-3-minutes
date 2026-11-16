@@ -3,7 +3,7 @@ import { createStore, initialState } from './state.js';
 import { score } from './scoring.js';
 import { createAudio } from './audio.js';
 import { createStats } from './stats.js';
-import { createComments } from './comments.js';
+import { createComments, triggerLine, triggerLines } from './comments.js';
 import { clientById, onClientInk, deviceKind, esc } from './dom.js';
 import { placeCastBubble } from './chrome.js';
 import { defaultSection } from './site/render.js';
@@ -80,15 +80,18 @@ function leaveDialog(client) {
 function pickVerdict(client, result, state) {
   const mood = result.outcome?.id || 'meh';
   const triggers = client.lines.triggers || {};
-  const kebab = (v) => String(v).replace(/[A-Z]/g, (m) => `-${m.toLowerCase()}`);
   if (result.dealBreakers.length) {
     const map = { palette: 'dealBreakerPalette', headingFont: 'dealBreakerHeading', decoration: 'dealBreakerDecoration' };
     const key = result.dealBreakers.map((id) => map[id]).find((k) => k && triggers[k]);
-    if (key) return { line: triggers[key], voice: `voice.${client.id}.${kebab(key)}` };
+    if (key) {
+      const pick = triggerLine(client, key, Math.floor(Math.random() * triggerLines(client, key).length));
+      return { line: pick.text, voice: pick.voice };
+    }
   }
   const picture = game.kit.pictures.find((p) => p.id === state.picture);
   if (mood === 'meltdown' && picture?.decoy && triggers.decoyPicture) {
-    return { line: triggers.decoyPicture, voice: `voice.${client.id}.decoy-picture` };
+    const pick = triggerLine(client, 'decoyPicture', Math.floor(Math.random() * triggerLines(client, 'decoyPicture').length));
+    return { line: pick.text, voice: pick.voice };
   }
   const pool = client.lines[mood] || client.lines.meltdown || [''];
   const i = Math.floor(Math.random() * pool.length);

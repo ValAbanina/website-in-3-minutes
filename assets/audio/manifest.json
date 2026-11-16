@@ -384,11 +384,6 @@
     "text": "A skyscraper? Is my bakery a bank now?",
     "kind": "voice"
   },
-  "voice.rosa.nice-pattern": {
-    "file": "assets/audio/voice/rosa/nice-pattern.mp3",
-    "text": "Checks! Like my tablecloth!",
-    "kind": "voice"
-  },
   "voice.rosa.must-have-added": {
     "file": "assets/audio/voice/rosa/must-have-added.mp3",
     "text": "Show all the bread. ALL of it.",
