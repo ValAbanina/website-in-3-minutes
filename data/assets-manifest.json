@@ -39,19 +39,6 @@
       "glass-skyscraper": "30:433",
       "party-balloons": "30:439"
     },
-    "patterns": {
-      "waves": "30:343",
-      "dots": "30:334",
-      "stripes": "30:337",
-      "grid": "30:340",
-      "checks": "30:346"
-    },
-    "decor": {
-      "dots": "5:104",
-      "squiggle": "5:114",
-      "confetti": "5:118",
-      "sparkles": "5:132"
-    },
     "logos": {
       "df-on-dark": "24:319",
       "dgmd-on-dark": "24:398",

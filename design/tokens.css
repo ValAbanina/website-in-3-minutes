@@ -71,6 +71,9 @@
   --shadow-card: 6px 6px 0 #000;
   --shadow-lift: 10px 12px 0 #000;
   --border-ui: 2px solid #000;
+  /* Quiet controls: everyday buttons, tabs, tiles. Bold border + hard shadow are only for the main action and game moments. */
+  --color-border-soft: #D2D2D2;
+  --border-soft: 1.5px solid var(--color-border-soft);
 
   /* Spacing (4px base) */
   --space-2xs: 4px; --space-xs: 8px; --space-sm: 12px; --space-md: 16px;

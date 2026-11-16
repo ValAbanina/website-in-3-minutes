@@ -45,14 +45,21 @@
 .block + .block { border-top: var(--kit-border-width) solid var(--kit-border); }
 .block-inner { position: relative; z-index: 1; }
 .block.is-selected { outline: 2px solid var(--color-brand-highlight-on-light); outline-offset: -2px; }
+/* Each section's own pattern. The SVG tile is a mask, so the pattern takes the palette's colour. */
 .kit-pattern {
   position: absolute;
   inset: 0;
-  opacity: .12;
+  z-index: 0;
+  opacity: .16;
   pointer-events: none;
-  color: var(--kit-accent-2);
-  background-size: 180px auto;
+  background: var(--kit-accent-2, currentColor);
+  -webkit-mask-repeat: repeat;
+  mask-repeat: repeat;
+  -webkit-mask-position: 0 0;
+  mask-position: 0 0;
 }
+/* Wireframe (no palette yet): show the pattern in the text colour. */
+.site[data-palette=""] .kit-pattern { background: var(--kit-text, #000); opacity: .1; }
 
 .kit-btn, .site .kit-btn {
   display: inline-flex;
@@ -106,14 +113,11 @@
 .hero-bg .pic { position: absolute; inset: 0; margin: 0; }
 .hero-bg-copy { position: relative; z-index: 1; padding: 32px; background: color-mix(in srgb, var(--kit-bg) 82%, transparent); }
 
-.hero-decor { position: absolute; inset: 8px; pointer-events: none; z-index: 0; background-repeat: no-repeat; background-position: center; background-size: contain; }
-.hero-decor[data-decor="dots"] { background-image: url("../assets/svg/decor/dots.svg"); }
-.hero-decor[data-decor="squiggle"] { background-image: url("../assets/svg/decor/squiggle.svg"); }
-.hero-decor[data-decor="confetti"] { background-image: url("../assets/svg/decor/confetti.svg"); }
-.hero-decor[data-decor="sparkles"] { background-image: url("../assets/svg/decor/sparkles.svg"); }
 
 .pic { cursor: pointer; margin: 0; position: relative; aspect-ratio: 320 / 220; border-radius: var(--kit-radius-image); overflow: hidden; background: var(--kit-surface); }
 .pic:hover { outline: 3px dashed var(--kit-accent, #000); outline-offset: -6px; }
+/* The picture spot the player is changing right now. */
+.pic.is-target, .pic.is-target:hover { outline: 4px solid #D72885; outline-offset: -4px; box-shadow: 0 0 0 4px rgba(215, 40, 133, .25); }
 .pic img { width: 100%; height: 100%; object-fit: contain; display: block; border-radius: var(--kit-radius-image); }
 .hero-bg .pic img,
 .banner-image .pic img { object-fit: cover; }
@@ -134,6 +138,18 @@
 .pic img.is-broken + .pic-fallback,
 .pic-empty .pic-fallback { display: grid; }
 .pic-fallback strong { color: var(--kit-text); font-size: 16px; }
+.pic-empty .pic-fallback svg { color: var(--kit-muted); }
+/* "Change image" chip: shows on hover, on the selected section and on the picture being changed. */
+.pic-change {
+  position: absolute; left: 50%; bottom: 10px; transform: translateX(-50%);
+  display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px;
+  border-radius: 999px; background: rgba(20, 20, 20, .82); color: #fff;
+  font: 700 14px/1.2 'Roboto', system-ui, sans-serif; white-space: nowrap;
+  opacity: 0; transition: opacity 120ms ease; pointer-events: none;
+}
+.pic:hover .pic-change, .pic:focus-visible .pic-change, .block.is-selected .pic-change, .pic.is-target .pic-change { opacity: 1; }
+.pic.is-target .pic-change { background: #D72885; }
+@media (prefers-reduced-motion: reduce) { .pic-change { transition: none; } }
 
 .stat { padding: 8px 0; border-top: var(--kit-border-width) solid var(--kit-border); }
 .stat strong { display: block; font-family: var(--kit-font-heading); font-size: clamp(32px, 4vw, 56px); font-weight: var(--kit-heading-weight); }

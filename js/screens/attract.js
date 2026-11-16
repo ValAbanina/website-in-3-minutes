@@ -1,5 +1,5 @@
 import { punchyLine } from '../dom.js';
-import { logo, muteButton, cast } from '../chrome.js';
+import { logo, cast, placeCastBubble } from '../chrome.js';
 
 export function render(state, game) {
   const active = game.clients[0];
@@ -7,7 +7,6 @@ export function render(state, game) {
   return `<div class="stage stage-dark" data-action="to-start">
     <header class="topbar topbar-dark">
       ${logo()}
-      ${muteButton(state.muted)}
     </header>
     <div class="stage-copy moment-rise">
       <h1>Can you build a website in 5 minutes?</h1>
@@ -22,4 +21,10 @@ export function render(state, game) {
 export function lineFor(game, index) {
   const client = game.clients[index % game.clients.length];
   return { client, line: punchyLine(client.brief) };
+}
+
+export function mount(section) {
+  placeCastBubble(section);
+  // Fonts can change the bubble's width once they arrive.
+  document.fonts?.ready.then(() => placeCastBubble(section));
 }

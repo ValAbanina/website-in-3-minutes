@@ -24,34 +24,45 @@ function copyFor(client, type) {
   return client.site?.[key] || {};
 }
 
-/* In the builder, tapping any picture opens the Images tab so the player can choose one. */
-const PICK = 'data-action="set-tab" data-tab="images" title="Choose a picture"';
+/*
+ * Each picture spot on the page can hold its own picture. Spots without one show
+ * the page picture. In the builder, tapping a picture lets the player change just that spot.
+ */
+let renderingIndex = 0;
+let renderingState = null;
 
-function pictureFigure(game, pictureId) {
+function pictureFor(state, section, slot) {
+  return section?.pictures?.[slot] || state.picture;
+}
+
+function pictureFigure(game, pictureId, slot = 0) {
+  const target = renderingState?.picTarget;
+  const isTarget = !!target && target.index === renderingIndex && target.slot === slot;
+  const PICK = `data-action="pick-picture" data-index="${renderingIndex}" data-slot="${slot}"`;
+  const cls = isTarget ? ' is-target' : '';
+  // The label on the picture itself says what tapping it does.
+  const ICON = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 16 5-5 4 4 3-3 6 6"/></svg>';
   if (!pictureId) {
-    return `<figure class="pic pic-empty" ${PICK}><span class="pic-fallback"><span>Picture</span><strong>Choose one</strong></span></figure>`;
+    return `<figure class="pic pic-empty${cls}" ${PICK}><span class="pic-fallback">${ICON}<strong>Add image</strong></span></figure>`;
   }
   const pic = game.kit.pictures.find((p) => p.id === pictureId);
   const name = pic?.name || pictureId;
-  const kind = 'Picture';
-  return `<figure class="pic" ${PICK}>
+  return `<figure class="pic${cls}" ${PICK}>
     <img src="assets/svg/pictures/${esc(pictureId)}.svg" alt="${esc(name)}">
-    <span class="pic-fallback"><span>${esc(kind)}</span><strong>${esc(name)}</strong></span>
+    <span class="pic-fallback"><strong>${esc(name)}</strong></span>
+    <span class="pic-change" aria-hidden="true">${ICON}${isTarget ? 'Pick an image' : 'Change image'}</span>
   </figure>`;
 }
 
+/** A section's own pattern, tinted with the palette (the SVG tile is used as a mask). */
 function patternLayer(game, patternId) {
   if (!patternId || patternId === 'none') return '';
-  const pat = game.kit.sectionPatterns.find((p) => p.id === patternId);
-  if (!pat) return '';
-  if (pat.asset) {
-    return `<div class="kit-pattern" style="background-image:url('${esc(pat.asset)}')" aria-hidden="true"></div>`;
-  }
-  if (pat.css) return `<div class="kit-pattern" style="background:${esc(pat.css)}" aria-hidden="true"></div>`;
-  return '';
+  const pat = game.kit.patterns.find((p) => p.id === patternId);
+  if (!pat?.asset) return '';
+  // Set the mask on the element itself: a relative url() inside a custom property would resolve against the stylesheet.
+  const url = `url('${esc(pat.asset)}')`;
+  return `<div class="kit-pattern" data-pattern="${esc(pat.id)}" style="-webkit-mask-image:${url};mask-image:${url}" aria-hidden="true"></div>`;
 }
-
-const PATTERNED = new Set(['features', 'stats', 'testimonial', 'pricing', 'team', 'faq', 'about']);
 
 export function sectionBar(state, game) {
   const index = state.selectedSection;
@@ -90,7 +101,7 @@ export function sectionBar(state, game) {
 
 function block(section, index, total, state, inner, game) {
   const selected = state.selectedSection === index;
-  const pattern = PATTERNED.has(section.type) ? patternLayer(game, state.pattern) : '';
+  const pattern = patternLayer(game, section.pattern);
   const meta = game.kit.sections.find((s) => s.id === section.type);
   const label = `${meta?.name || section.type} section, ${index + 1} of ${total}`;
   return `<section class="block block-${esc(section.type)}${selected ? ' is-selected' : ''}" data-index="${index}" data-action="select-section" data-layout="${esc(section.layout || '')}" data-type="${esc(section.type)}" draggable="true" tabindex="0" role="button" aria-pressed="${selected}" aria-label="${esc(label)}">
@@ -110,27 +121,24 @@ function renderNav(copy, section) {
 
 function renderHero(copy, section, state, game) {
   const layout = section.layout || 'split';
-  const decor = state.heroDecor && state.heroDecor !== 'none'
-    ? `<div class="hero-decor" data-decor="${esc(state.heroDecor)}" aria-hidden="true"></div>`
-    : '';
   const text = `<div class="hero-copy">
       ${copy.eyebrow ? `<p class="eyebrow">${esc(copy.eyebrow)}</p>` : ''}
       <h2 class="display">${esc(copy.title || 'Headline')}</h2>
       ${copy.body ? `<p class="lede">${esc(copy.body)}</p>` : ''}
       ${copy.button ? `<span class="kit-btn">${esc(copy.button)}</span>` : ''}
     </div>`;
-  const pic = pictureFigure(game, state.picture);
+  const pic = pictureFigure(game, pictureFor(state, section, 0), 0);
   if (layout === 'centered') {
-    return `${decor}<div class="hero hero-centered">${text}${pic}</div>`;
+    return `<div class="hero hero-centered">${text}${pic}</div>`;
   }
   if (layout === 'image-background') {
-    return `${decor}<div class="hero hero-bg">${pic}<div class="hero-bg-copy">${text}</div></div>`;
+    return `<div class="hero hero-bg">${pic}<div class="hero-bg-copy">${text}</div></div>`;
   }
-  return `${decor}<div class="hero hero-split">${text}${pic}</div>`;
+  return `<div class="hero hero-split">${text}${pic}</div>`;
 }
 
 function renderAbout(copy, section, state, game) {
-  const pic = pictureFigure(game, state.picture);
+  const pic = pictureFigure(game, pictureFor(state, section, 0), 0);
   const text = `<div>
     ${copy.eyebrow ? `<p class="eyebrow">${esc(copy.eyebrow)}</p>` : ''}
     <h2>${esc(copy.title || 'About')}</h2>
@@ -168,7 +176,7 @@ function renderTestimonial(copy, section) {
 
 function renderGallery(copy, section, state, game) {
   const count = Math.max(3, Number(section.columns) || 3);
-  const cells = Array.from({ length: count }, () => `<div class="kit-card gal">${pictureFigure(game, state.picture)}</div>`).join('');
+  const cells = Array.from({ length: count }, (_, slot) => `<div class="kit-card gal">${pictureFigure(game, pictureFor(state, section, slot), slot)}</div>`).join('');
   return `<h2>${esc(copy.title || 'Gallery')}</h2><div class="cols gallery" data-columns="${esc(section.columns || '')}">${cells}</div>`;
 }
 
@@ -222,7 +230,7 @@ function renderContact(copy, section) {
 function renderBanner(copy, section, state, game) {
   const layout = section.layout || 'big-statement';
   if (layout === 'image') {
-    return `<div class="banner banner-image">${pictureFigure(game, state.picture)}<h2>${esc(copy.statement || copy.title || '')}</h2></div>`;
+    return `<div class="banner banner-image">${pictureFigure(game, pictureFor(state, section, 0), 0)}<h2>${esc(copy.statement || copy.title || '')}</h2></div>`;
   }
   if (layout === 'marquee') {
     const line = esc(copy.statement || copy.title || '');
@@ -288,14 +296,12 @@ export function renderSite(state, client, game) {
     return `<div class="site ${narrow ? 'is-narrow' : ''}" ${attrs}><div class="site-empty"><p><strong>The page is empty.</strong><br>Add a section from the Sections list. Navigation is a good start.</p></div></div>`;
   }
   const total = state.sections.length;
-  const html = state.sections.map((section, index) => block(
-    section,
-    index,
-    total,
-    state,
-    innerFor(section, state, client, game),
-    game,
-  )).join('');
+  renderingState = state;
+  const html = state.sections.map((section, index) => {
+    renderingIndex = index;
+    return block(section, index, total, state, innerFor(section, state, client, game), game);
+  }).join('');
+  renderingState = null;
   return `<div class="site ${narrow ? 'is-narrow' : ''}" ${attrs}>${html}</div>`;
 }
 
@@ -311,7 +317,7 @@ export function browserShell(state, client, siteHtml) {
     .join('-');
   return `<div class="browser ${state.previewMode === 'mobile' ? 'is-phone' : ''}">
     <div class="browser-bar"><span>${esc(host || 'preview')}.ca</span></div>
-    <div class="browser-page${state.overview ? ' is-overview' : ''}" data-dropzone><div class="overview-holder"><div class="overview-scale">${siteHtml}</div></div></div>
+    <div class="browser-page${state.overview ? ' is-overview' : ''}" data-dropzone${state.sections?.length ? '' : ' tabindex="0" role="region" aria-label="Website preview, empty"'}><div class="overview-holder"><div class="overview-scale">${siteHtml}</div></div></div>
   </div>`;
 }
 
@@ -321,7 +327,7 @@ export function browserShell(state, client, siteHtml) {
  * - "width": laid out at a small desktop width and shrunk to fit the phone's width, scrolling down.
  * - "page": the whole page shrunk until it fits, so players can judge the full design.
  */
-export function applyZoom(page, mode, mobile) {
+export function applyZoom(page, mode, mobile, virtualWidth) {
   const holder = page?.querySelector('.overview-holder');
   const scale = page?.querySelector('.overview-scale');
   if (!holder || !scale) return;
@@ -332,7 +338,7 @@ export function applyZoom(page, mode, mobile) {
     scale.removeAttribute('style');
     return;
   }
-  let width = mode === 'width' ? 680 : 1200;
+  let width = virtualWidth || (mode === 'width' ? 680 : 1200);
   if (mobile) width = 390;
   scale.style.width = `${width}px`;
   scale.style.transform = 'none';

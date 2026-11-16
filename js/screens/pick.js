@@ -34,7 +34,7 @@ export function render(state, game) {
       </div>
       <div class="card-row" tabindex="0" aria-label="Clients">${cards}</div>
       <div class="pick-foot">
-        <p class="bubble">${esc(punchyLine(selected.brief))}</p>
+        <p class="bubble tail-up">${esc(punchyLine(selected.brief))}</p>
         <div class="row-actions">
           <button type="button" class="btn" data-action="surprise">Surprise me</button>
         </div>

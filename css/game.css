@@ -165,30 +165,59 @@ body[data-audio="off"] .needs-audio { display: none; }
 .stage-dark, .screen-timesup { overflow-x: clip; background: var(--color-surface-inverse); color: var(--color-text-on-dark); min-height: 100dvh; display: flex; flex-direction: column; }
 .stage-copy, .timesup-copy { text-align: center; max-width: 920px; margin: 0 auto; padding: 24px 20px 0; }
 .stage-copy p, .timesup-copy p { color: var(--color-text-on-dark); }
+.stage-copy .row-actions { justify-content: center; }
 .fine { font: var(--type-body-small); opacity: .8; }
 .pill { border-radius: var(--radius-pill); margin-top: 8px; }
+/* The cast fills the space under the headline; whoever is talking steps forward.
+   Sizes come from the cast area itself (cqh), so they always fit, with room left for the bubble. */
 .cast {
+  flex: 1 1 auto;
   display: flex;
   justify-content: center;
   align-items: flex-end;
-  gap: 8px;
-  margin-top: auto;
-  min-height: 220px;
-  padding-bottom: 8px;
+  gap: 0;
+  margin-top: 12px;
+  min-height: 240px;
+  padding-bottom: 0;
+  container-type: size;
 }
-.cast-person { margin: 0; width: min(18vw, 180px); position: relative; }
+.cast-person {
+  margin: 0 -1.2vw;
+  width: min(17vw, 50cqh);
+  aspect-ratio: 240 / 300;
+  position: relative;
+  z-index: 1;
+  filter: brightness(.8);
+  transition: width 450ms var(--ease-out), filter 450ms var(--ease-out);
+}
+.cast-person:nth-child(2), .cast-person:nth-child(4) { z-index: 2; }
+.cast-person.is-speaking { width: min(24vw, 64cqh); z-index: 4; filter: none; }
 .cast-person .char { width: 100%; }
+/* Tablets and desktops: the cover is exactly one screen tall, so the cast can fill what the headline leaves. */
+@media (min-width: 768px) {
+  .stage-dark { height: max(100dvh, 620px); }
+  .stage-copy { max-width: 1120px; flex: none; padding-top: 8px; }
+  .stage-dark .stage-copy h1 { font-size: clamp(44px, min(6.6vw, 10dvh), 104px); line-height: .95; margin-bottom: 12px; }
+  .stage-copy p { margin: 8px 0; }
+}
+/* Shorter laptop screens: a tighter headline area leaves room for a big cast. */
+@media (min-width: 768px) and (max-height: 860px) {
+  .stage-dark .stage-copy h1 { font-size: clamp(40px, 8.4dvh, 80px); margin-bottom: 4px; }
+  .stage-copy .fine { display: none; }
+  .stage-copy .pill, .stage-copy .row-actions { margin-top: 4px; }
+  .cast-person .bubble { font-size: 24px; padding: 8px 14px; }
+  .cast-person.is-speaking { width: min(24vw, 62cqh); }
+}
 .cast-person .bubble {
   position: absolute;
   left: 50%;
-  bottom: calc(100% - 12px);
+  bottom: calc(100% + 4px);
   width: max-content;
-  max-width: 240px;
-  transform: translateX(-40%);
-  z-index: 2;
+  max-width: 260px;
+  transform: translateX(calc(-50% + var(--nudge, 0px)));
+  z-index: 5;
 }
-.cast-person:first-child .bubble { left: 0; transform: none; }
-.cast-person:last-child .bubble { left: auto; right: 0; transform: none; }
+.cast-person .bubble::after { left: calc(50% - var(--nudge, 0px) - 9px); }
 .bubble {
   margin: 0;
   background: var(--color-surface-default);
@@ -201,6 +230,22 @@ body[data-audio="off"] .needs-audio { display: none; }
   box-shadow: var(--shadow-card);
   position: relative;
 }
+/* Every speech bubble gets a tail. By default it points down at the speaker below. */
+.bubble::after {
+  content: "";
+  position: absolute;
+  left: 36px;
+  bottom: -11px;
+  width: 18px;
+  height: 18px;
+  background: var(--color-surface-default);
+  border-right: var(--border-ui);
+  border-bottom: var(--border-ui);
+  transform: rotate(45deg);
+}
+/* Tail pointing up, for a bubble that sits below its speaker. */
+.bubble.tail-up::after { top: -11px; bottom: auto; border-right: 0; border-bottom: 0; border-left: var(--border-ui); border-top: var(--border-ui); }
+.bubble[role="status"]::after { display: none; }
 .cast-person .bubble { pointer-events: none; }
 .program-stripe { display: grid; grid-template-columns: 1.2fr .8fr 1fr; height: 14px; }
 .program-stripe span:nth-child(1) { background: var(--program-df); }
@@ -272,6 +317,7 @@ body[data-client="damien"] { --client: var(--client-damien); }
 body[data-client="brenda"] { --client: var(--client-brenda); }
 .screen-client { min-height: 100dvh; }
 .brief, .verdict { display: grid; grid-template-columns: .9fr 1.1fr; gap: 24px; align-items: end; }
+.brief { align-items: center; }
 .brief-card, .report {
   background: var(--color-surface-default);
   color: var(--color-text-default);
@@ -283,20 +329,24 @@ body[data-client="brenda"] { --client: var(--client-brenda); }
 }
 .brief-card h1, .report h1 { font: var(--type-h1); }
 .role { color: var(--color-text-default); }
-.brief-steps { margin: 0 0 16px; padding-left: 0; list-style: none; display: grid; gap: 8px; }
-.brief-steps li { display: flex; gap: 8px; align-items: center; }
+.brief-who h1 { margin: 0 0 6px; }
+.brief-who .role { margin: 0 0 24px; }
+.brief-steps { margin: 0 0 24px; padding-left: 0; list-style: none; display: grid; gap: 10px; }
+.brief-steps li { display: flex; gap: 12px; align-items: center; }
 .brief-steps li::before {
   counter-increment: step;
   content: counter(step);
+  flex: none; /* keeps the number a circle when the text wraps */
   width: 28px; height: 28px; border-radius: 50%;
   display: grid; place-items: center;
   background: var(--color-text-strong); color: var(--color-text-on-dark);
   font: var(--type-label);
 }
 .brief-steps { counter-reset: step; }
-.brief-howto h2 { margin-bottom: 8px; }
-.brief-go { display: flex; gap: 16px 20px; align-items: center; }
-.brief-go .btn { margin-bottom: 0; }
+.brief-howto h2 { font: var(--type-callout); color: var(--color-text-strong); margin: 0 0 12px; }
+.brief-go { display: grid; gap: 10px; }
+.brief-buttons { display: flex; flex-wrap: nowrap; gap: 12px; align-items: center; }
+.brief-go .btn { margin-bottom: 0; white-space: nowrap; }
 .brief-go p { margin: 0; font: var(--type-body-small); }
 .brief-art, .verdict-art { width: min(360px, 80%); }
 .bubble-lg { max-width: 460px; }
@@ -307,14 +357,6 @@ body[data-client="brenda"] { --client: var(--client-brenda); }
 .build-status { margin-left: auto; display: flex; align-items: center; gap: 12px; min-width: 0; }
 .build-status .btn { margin-bottom: 5px; white-space: nowrap; }
 .send-short { display: none; }
-.meter { min-width: 168px; }
-.meter-top { display: flex; justify-content: space-between; gap: 8px; font: var(--type-label); white-space: nowrap; }
-.meter-track { height: 12px; border-radius: var(--radius-pill); background: var(--color-surface-muted); border: 2px solid var(--color-border-strong); overflow: hidden; }
-.meter-fill { display: block; height: 100%; width: 0; transition: width var(--dur-move) var(--ease-out); }
-.meter[data-mood="happy"] .meter-fill { background: var(--mood-happy); }
-.meter[data-mood="meh"] .meter-fill { background: var(--mood-meh); }
-.meter[data-mood="meltdown"] .meter-fill,
-.meter[data-mood="dealbreaker"] .meter-fill { background: var(--mood-meltdown); }
 .timer {
   margin: 0;
   min-width: 92px;
@@ -508,7 +550,7 @@ body[data-client="brenda"] { --client: var(--client-brenda); }
   border-left: 1px solid var(--color-border-default);
 }
 .tabs { flex: none; display: flex; gap: 4px; padding: 12px 12px 10px; border-bottom: 1px solid var(--color-border-default); }
-.tab { flex: 1 1 0; min-width: 0; justify-content: center; padding: 8px 4px; border-radius: var(--radius-pill); white-space: nowrap; }
+.tab { flex: 1 1 auto; width: auto; min-width: 0; justify-content: center; padding: 8px 6px; border-radius: var(--radius-pill); white-space: nowrap; }
 .tab.is-on { background: var(--color-text-strong); color: var(--color-text-on-dark); }
 .tab-sections { display: none; }
 .panel-body { flex: 1; min-height: 0; overflow-y: auto; overflow-x: hidden; padding: 12px 12px 20px; }
@@ -532,10 +574,10 @@ body[data-client="brenda"] { --client: var(--client-brenda); }
 .pic-mini img { width: 100%; height: auto; aspect-ratio: 320 / 220; object-fit: contain; }
 .pic-mini span { padding: 4px 6px 6px; text-align: center; font: var(--type-body-small); }
 .pic-mini img.is-broken { display: none; }
-.decor-mini { height: 36px; border-radius: 8px; background:
-  radial-gradient(currentColor 1.5px, transparent 1.6px) 0 0 / 10px 10px;
-  color: var(--color-text-strong); }
-.decor-mini[data-decor="none"] { background: var(--color-surface-muted); }
+/* Pattern swatch: the same tile the website uses, shown in the text colour on a light tile. */
+.pattern-mini { position: relative; height: 56px; border-radius: 8px; overflow: hidden; background: var(--color-surface-muted); }
+.pattern-mini i { position: absolute; inset: 0; background: var(--color-text-default); opacity: .6;
+  -webkit-mask-repeat: repeat; mask-repeat: repeat; -webkit-mask-position: 0 0; mask-position: 0 0; }
 .sheet-only .text-btn { margin-top: 8px; }
 
 .report h1 { display: flex; gap: 8px; align-items: baseline; flex-wrap: wrap; font: var(--type-h2); margin-bottom: 12px; padding-right: 150px; }
@@ -568,9 +610,107 @@ body[data-client="brenda"] { --client: var(--client-brenda); }
 }
 .stamp.is-in { animation: stamp 420ms var(--ease-stamp) both; }
 
-.timesup .bubble { color: var(--color-text-strong); }
-.timesup { display: grid; grid-template-columns: .8fr 1.2fr; gap: 24px; align-items: center; padding: 24px; }
-.deadline-art { width: min(220px, 56vw); }
+/* Time's up: the Deadline in a spotlight, and the website exactly as it was sent. */
+.tu {
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+  align-items: center;
+  gap: clamp(16px, 4vw, 56px);
+  padding: 4px clamp(16px, 4vw, 56px) 24px;
+}
+.tu .bubble { color: var(--color-text-strong); }
+.tu-stage { position: relative; display: grid; justify-items: center; align-self: end; }
+.tu-rays {
+  position: absolute;
+  inset: -6% -24% 0;
+  z-index: 0;
+  background:
+    radial-gradient(closest-side at 50% 58%, rgba(255, 255, 255, .16), transparent 72%),
+    repeating-conic-gradient(from 0deg at 50% 58%, rgba(215, 40, 133, .28) 0 7deg, transparent 7deg 18deg);
+  -webkit-mask: radial-gradient(closest-side at 50% 58%, #000 25%, transparent 78%);
+  mask: radial-gradient(closest-side at 50% 58%, #000 25%, transparent 78%);
+  animation: tu-spin 40s linear infinite;
+}
+@keyframes tu-spin { to { transform: rotate(360deg); } }
+.tu-deadline { position: relative; z-index: 1; width: auto; }
+.tu .tu-deadline img { width: auto; height: min(62dvh, 600px); }
+.tu-say {
+  position: absolute;
+  z-index: 2;
+  top: 3%;
+  left: 0;
+  max-width: min(300px, 70%);
+  font-size: 26px;
+  transform: rotate(-3deg);
+}
+.tu-say::after {
+  content: "";
+  position: absolute;
+  right: 26px;
+  bottom: -11px;
+  width: 18px;
+  height: 18px;
+  background: var(--color-surface-default);
+  border-right: var(--border-ui);
+  border-bottom: var(--border-ui);
+  transform: rotate(45deg);
+}
+.tu-side { display: grid; gap: 14px; align-content: center; min-width: 0; }
+.tu-title { margin: 0; line-height: .9; }
+.tu-lede { margin: 0; color: var(--color-text-on-dark); opacity: .85; }
+.tu-site { position: relative; margin: 4px 0 0; }
+.tu-site-frame { height: clamp(170px, 30dvh, 300px); pointer-events: none; }
+.tu-site-frame .browser { border-color: #000; box-shadow: 0 10px 0 rgba(0, 0, 0, .35); }
+.tu-site-frame .browser-bar { min-height: 34px; }
+.tu-site .browser-page { overflow: hidden; }
+.tu-site .browser-bar { color: var(--color-text-default); }
+.tu-stage { overflow: clip; overflow-clip-margin: 0; }
+.tu-stamp {
+  position: absolute;
+  right: -8px;
+  top: 36%;
+  padding: 6px 14px;
+  border: 5px solid var(--stamp-meltdown);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, .94);
+  color: var(--stamp-meltdown);
+  font: 800 clamp(26px, 3.4vw, 44px)/1 var(--font-display);
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  box-shadow: 3px 3px 0 #000;
+  animation: stamp 420ms var(--ease-stamp) .7s both;
+}
+.tu-react { display: flex; align-items: center; gap: 14px; }
+.tu-client {
+  flex: none;
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: var(--border-ui);
+  background: var(--card);
+  box-shadow: 3px 3px 0 #000;
+}
+.tu .tu-client img { width: 100%; height: 135%; object-fit: cover; object-position: center top; }
+.tu-react .bubble { position: relative; margin: 0; font-size: 22px; }
+.tu-react .bubble::after {
+  content: "";
+  position: absolute;
+  left: -11px;
+  top: 50%;
+  width: 18px;
+  height: 18px;
+  background: var(--color-surface-default);
+  border-left: var(--border-ui);
+  border-bottom: var(--border-ui);
+  transform: translateY(-50%) rotate(45deg);
+}
+.tu-go { justify-self: start; }
 .screen-timesup .timer { margin-left: auto; }
 
 .program-row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
@@ -596,7 +736,7 @@ body[data-client="brenda"] { --client: var(--client-brenda); }
 .lede { max-width: 70ch; }
 
 .modal-back { position: fixed; inset: 0; background: rgba(0,0,0,.55); display: grid; place-items: center; z-index: 30; padding: 16px; }
-.modal { width: min(860px, 100%); max-height: min(90dvh, 760px); overflow: auto; background: var(--color-surface-default); border: var(--border-ui); border-radius: 24px; box-shadow: var(--shadow-lift); padding: 20px; }
+.modal { width: min(860px, 100%); max-height: min(90dvh, 760px); overflow: auto; background: var(--color-surface-default); border: var(--border-ui); border-radius: 24px; box-shadow: var(--shadow-lift); padding: 24px; }
 .modal-small { width: min(460px, 100%); }
 .modal-small .modal-foot { justify-content: flex-end; margin-top: 8px; }
 .modal-head, .modal-foot { display: flex; justify-content: space-between; gap: 12px; align-items: center; }
@@ -607,6 +747,7 @@ body[data-client="brenda"] { --client: var(--client-brenda); }
 .reread .bubble::after {
   content: "";
   position: absolute;
+  left: auto;
   right: -11px;
   bottom: 28px;
   width: 18px;
@@ -662,17 +803,20 @@ body[data-client="brenda"] { --client: var(--client-brenda); }
 @media (prefers-reduced-motion: reduce) {
   .btn:hover, .pill:hover, .btn:active, .pill:active, .card.is-on, .program:hover { transform: none; transition: none; }
   .dock-bubble .bubble { animation: none; }
-  .client-dock, .meter-fill { transition: none; }
+  .client-dock { transition: none; }
   .panel { transition: none !important; }
   .swipe-toast.is-on, .browser-page[class*="swipe-in"] .overview-holder { animation: none; }
   .timer.is-panic { animation: none; }
   .stamp { opacity: 1; transform: rotate(-8deg); animation: none; }
   .moment-rise, .moment-slide { animation: none; }
+  .tu-rays { animation: none; }
+  .cast-person { transition: none; }
+  .tu-stamp { animation: none; transform: rotate(-8deg); }
   .confetti { display: none; }
 }
 
 @media (max-width: 1199px) {
-  .brief, .verdict, .timesup { grid-template-columns: 1fr; }
+  .brief, .verdict { grid-template-columns: 1fr; }
   .program-row { grid-template-columns: 1fr; }
   .card-row { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); overflow: visible; }
   .card { grid-column: span 2; }
@@ -685,7 +829,6 @@ body[data-client="brenda"] { --client: var(--client-brenda); }
   .build-bar .steps { gap: 4px; }
   .send-long { display: none; }
   .send-short { display: inline; }
-  .meter { min-width: 140px; }
   .builder { grid-template-columns: 200px minmax(0, 1fr) 288px; }
 }
 
@@ -711,25 +854,38 @@ body[data-client="brenda"] { --client: var(--client-brenda); }
   .report h1 { padding-right: 0; padding-top: 44px; }
   .report .row-actions { margin: 12px -20px -20px; padding: 12px 20px 14px; }
   .howto-grid { grid-template-columns: 1fr; }
+  /* Phone cover: the whole cast as a big group; whoever is talking steps forward. */
+  .stage-copy { padding-top: 8px; }
   .cast {
-    min-height: 128px;
+    position: relative;
+    height: max(300px, 48dvh);
+    min-height: 0;
     gap: 0;
     align-items: flex-end;
     justify-content: center;
-    padding: 0 4px;
+    padding: 0;
     overflow: visible;
   }
-  /* The portrait file is a full body. Scale it up and crop the legs so the face fills the row. */
+  .cast { container-type: normal; }
   .cast-person {
-    width: 20%;
-    height: auto;
-    margin: 0;
+    position: static;
+    width: 36vw;
+    margin: 0 -9vw;
     flex: none;
-    overflow: visible;
+    z-index: 1;
+    filter: brightness(.82);
+    transition: width 400ms var(--ease-out), filter 400ms var(--ease-out);
   }
-  .cast-person .char { width: 170%; height: 124px; margin-left: -35%; overflow: hidden; }
-  .cast-person.is-speaking { z-index: 2; }
-  .cast-person .bubble { max-width: min(250px, 72vw); }
+  .cast-person:nth-child(2), .cast-person:nth-child(4) { z-index: 2; }
+  .cast-person .char { width: 100%; height: auto; margin: 0; overflow: visible; }
+  .cast-person.is-speaking { width: 58vw; z-index: 4; filter: none; }
+  .cast-person.is-speaking { position: relative; }
+  .cast-person .bubble {
+    bottom: calc(100% - 6px);
+    max-width: min(300px, 84vw);
+    font-size: 22px;
+    text-align: center;
+  }
   .brief {
     grid-template-columns: 150px minmax(0, 1fr);
     gap: 12px 14px;
@@ -741,25 +897,24 @@ body[data-client="brenda"] { --client: var(--client-brenda); }
   .brief-art img { width: 150px; height: 175px; object-fit: contain; object-position: center bottom; }
   .brief-who { grid-column: 2; grid-row: 1; align-self: center; }
   .brief-who h1 { font: 800 26px/1.05 var(--font-display); }
+  .brief-who .role { margin: 0; }
   .brief .bubble-lg { grid-column: 1 / -1; max-width: none; }
-  .brief-howto {
-    grid-column: 1 / -1;
-    background: var(--color-surface-default);
-    color: var(--color-text-default);
-    border: var(--border-ui);
-    border-radius: 16px;
-    padding: 16px 18px;
-  }
+  /* On phones the brief sits under the client, so its tail points up at them. */
+  .brief .bubble-lg::after { top: -11px; bottom: auto; left: 64px; border-right: 0; border-bottom: 0; border-left: var(--border-ui); border-top: var(--border-ui); }
+  /* No box: the steps sit on the client's colour, like the rest of the brief. */
+  .brief-howto { grid-column: 1 / -1; padding: 4px 4px 0; color: var(--color-text-strong); }
+  .brief-steps { margin-bottom: 4px; }
+  body[data-ink="light"] .brief-howto { color: var(--color-text-on-dark); }
+  body[data-ink="light"] .brief-steps li::before { background: var(--color-surface-default); color: var(--color-text-strong); }
   .brief-howto h2 { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); }
-  .brief-card > .btn, .brief-go { grid-column: 1 / -1; }
-  .brief-card > .btn, .brief-go .btn { width: 100%; }
+  .brief-go { grid-column: 1 / -1; }
+  .brief-buttons .btn { flex: 1 1 0; min-width: 0; justify-content: center; padding-left: 10px; padding-right: 10px; }
   .brief-go { gap: 12px; }
   .brief-go p { text-align: center; }
   body[data-ink="light"] .brief-who h1,
   body[data-ink="light"] .brief-who .role,
   body[data-ink="light"] .brief-go p { color: var(--color-text-on-dark); }
   .verdict-art { width: min(220px, 56vw); }
-  .deadline-art { width: min(176px, 45vw); }
 }
 
 @media (min-width: 768px) {
@@ -800,6 +955,9 @@ body[data-client="brenda"] { --client: var(--client-brenda); }
 .float-btn .ico { width: 20px; height: 20px; }
 .float-btn[aria-pressed="true"] { background: var(--color-text-strong); color: var(--color-text-on-dark); }
 .section-bar .bar-done { padding: 4px 14px; background: rgba(255, 255, 255, .14); }
+
+.panel-for { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 0 0 10px; font: var(--type-label); color: var(--color-text-strong); }
+.panel-for .text-btn { min-height: 44px; font: var(--type-body-small); text-decoration: underline; }
 
 /* Phones only: the choice bar and step ticks. */
 .choice-bar, .tab-done { display: none; }
@@ -878,14 +1036,9 @@ body.is-reordering .browser-page { touch-action: none; }
   .build-status { gap: 6px; }
   .bar-history { display: inline-flex; gap: 2px; }
   .build-tools { display: none; }
-  #build-meter { min-width: 0; flex: 0 1 190px; }
-  .meter { min-width: 0; }
-  .meter-top span:first-child { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0, 0, 0, 0); }
-  .meter-top { min-width: 0; }
-  .meter-top strong { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
   .timer { min-width: 70px; padding: 2px 10px; }
-  .timer-k { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0, 0, 0, 0); }
-  .timer-num { font-size: 24px; }
+  .timer-k { font-size: 11px; line-height: 1.1; }
+  .timer-num { font-size: 22px; }
 
   .builder { grid-template-columns: minmax(0, 1fr) 320px; grid-template-rows: minmax(0, 1fr); padding-right: env(safe-area-inset-right); }
   .library { display: none; }
@@ -934,8 +1087,7 @@ body.is-reordering .browser-page { touch-action: none; }
 @media (max-width: 743px) and (orientation: portrait) {
   .build-bar { min-height: 56px; padding: max(6px, env(safe-area-inset-top)) 8px 6px; gap: 6px; }
   .build-bar .logo { display: none; }
-  .build-status { flex: 1; margin-left: 0; gap: 4px; }
-  #build-meter { flex: 1 1 auto; }
+  .build-status { flex: 1; margin-left: 0; gap: 4px; justify-content: flex-end; }
   .btn-send, #build-timer { flex: none; }
   .bar-redo { display: none; }
   .btn-send { padding: 6px 14px; }
@@ -1100,4 +1252,104 @@ body.is-reordering .browser-page { touch-action: none; }
   .tab { min-height: 50px; }
   .tab-l { font-size: 11px; }
   .client-dock { top: calc(56px + env(safe-area-inset-top)); }
+}
+
+/* Time's up on phones: the Deadline on top, then what was sent, button always in reach. */
+@media (max-width: 760px) {
+  .tu { grid-template-columns: minmax(0, 1fr); align-items: start; gap: 12px; padding: 0 16px calc(96px + env(safe-area-inset-bottom)); }
+  .tu-stage { align-self: start; }
+  .tu .tu-deadline img { height: 30dvh; }
+  .tu-say { top: 6%; left: 0; max-width: 58%; font-size: 18px; padding: 8px 12px; }
+  .tu-title { font-size: 52px; }
+  .tu-site-frame { height: 180px; }
+  .tu-stamp { right: 4px; font-size: 26px; }
+  .tu-client { width: 60px; height: 60px; }
+  .tu-react .bubble { font-size: 18px; }
+  .tu-go {
+    position: fixed;
+    left: 16px;
+    right: 16px;
+    bottom: max(16px, env(safe-area-inset-bottom));
+    z-index: 5;
+    justify-content: center;
+  }
+}
+/* Phones held sideways: shorter everything. */
+@media (max-height: 500px) and (orientation: landscape) {
+  .tu .tu-deadline img { height: 62dvh; }
+  .tu-title { font-size: 44px; }
+  .tu-site-frame { height: 120px; }
+  .tu-say { font-size: 18px; }
+}
+
+/* ---------- Button hierarchy ----------
+   1. Main action (.btn-primary, the cover pill): solid pink (white on the dark cover), flat. One per screen.
+   2. Everyday controls (other buttons, tabs, tiles, toggles): white, thin light border, flat.
+   3. Small controls (.text-btn, .icon-btn-plain): no box.
+   Characters, bubbles, client cards, the brief, the verdict and stamps keep the bold cartoon style. */
+.btn:not(.btn-primary), .icon-btn, .step, .section-tile, .choice, .tab, .float-btn, .preview-toggle,
+.chips li, .qr, .cb-arrow {
+  border: var(--border-soft);
+  box-shadow: none;
+}
+.btn:not(.btn-primary) { transition: background var(--dur-hover) ease, border-color var(--dur-hover) ease; }
+@media (hover: hover) {
+  .btn:not(.btn-primary):hover, .icon-btn:hover:not(:disabled), .float-btn:hover, .choice:hover, .tab:hover:not(.is-on) {
+    background: var(--color-surface-muted);
+    border-color: var(--color-border-default);
+  }
+}
+.btn:not(.btn-primary):hover { box-shadow: none; transform: none; }
+.btn:not(.btn-primary):active { background: #E6E6E6; box-shadow: none; transform: translateY(1px); }
+.btn:not(.btn-primary):disabled { box-shadow: none; background: var(--color-surface-default); }
+/* Flat main action: no black border, no hard shadow, no lift. */
+.btn-primary, .pill { border: 1.5px solid transparent; box-shadow: none; transition: background var(--dur-hover) ease; }
+.btn-primary { border-color: var(--color-brand-primary); }
+.btn-primary:hover, .pill:hover { box-shadow: none; transform: none; }
+.btn-primary:hover { background: #B81F70; border-color: #B81F70; }
+.pill:hover { background: var(--color-surface-muted); }
+.btn-primary:active, .pill:active { box-shadow: none; transform: translateY(1px); }
+.btn-primary:disabled { box-shadow: none; }
+.icon-btn-plain { border-color: transparent; background: transparent; }
+.cb-arrow:active { transform: translateY(1px); background: var(--color-surface-muted); }
+/* Selected things are marked with colour, not heavier borders. */
+.section-tile.is-on { border-color: var(--color-brand-primary); }
+.tab.is-on, .step.is-now { border-color: var(--color-text-strong); }
+.choice.is-on { border-color: transparent; }
+/* The player's website sits flat; a thin border is enough to separate it. */
+.browser { border: var(--border-soft); box-shadow: none; }
+.overview-holder { box-shadow: 0 0 0 1px var(--color-border-soft); }
+.tu-site-frame .browser { border: var(--border-ui); }
+/* Dark screens: quiet buttons stay readable. */
+.stage-dark .btn:not(.btn-primary), .topbar-dark .icon-btn { border-color: rgba(255, 255, 255, .35); }
+/* Phones: the bottom sheet floats over the page, so it keeps a faint shadow but a light edge. */
+@media (max-width: 743px) and (orientation: portrait) { .panel { border-top: var(--border-soft); } }
+/* Phones: which section the Patterns step is changing. */
+.cb-for { margin: 0 0 6px; font: var(--type-body-small); font-size: 13px; color: var(--color-text-default); text-align: center; }
+.cb-for strong { color: var(--color-text-strong); }
+
+/* Focus ring that stays visible (3:1 or better) on every background.
+   Pink on white UI, black on the light client colours, light pink on dark screens. */
+.screen-client :focus-visible { outline-color: var(--color-text-strong); }
+body[data-ink="light"] .screen-client :focus-visible,
+.stage-dark :focus-visible, .screen-timesup :focus-visible, .topbar-dark :focus-visible { outline-color: var(--color-brand-highlight-on-dark); }
+.screen-client .brief-card :focus-visible, .screen-client .report :focus-visible, .modal :focus-visible,
+.screen-timesup .tu-site :focus-visible { outline-color: var(--color-brand-highlight-on-light); }
+/* Very narrow phones (320px): let the two brief buttons stack rather than spill off the screen. */
+@media (max-width: 359px) {
+  .brief-buttons { flex-wrap: wrap; }
+  .brief-buttons .btn { flex: 1 1 100%; }
+}
+/* Number and mark badges are always circles, even when the text next to them wraps. */
+.step-n, .score-mark, .howto-n, .tile-count, .brief-steps li::before { flex: none; aspect-ratio: 1; }
+/* Timer: room around the numbers. */
+.timer { padding: 6px 14px; row-gap: 2px; }
+.timer-num { line-height: 1.05; }
+/* Desktop options panel: simple text tabs with an underline, not five more boxes. */
+@media (min-width: 1200px) {
+  .tabs { gap: 2px; padding: 8px 12px 0; }
+  .tab { flex: 1 1 auto; border: 0; border-bottom: 3px solid transparent; border-radius: 0; background: transparent;
+    color: var(--color-text-default); padding: 10px 4px 9px; min-height: 44px; }
+  .tab.is-on { background: transparent; color: var(--color-text-strong); border-bottom-color: var(--color-brand-primary); }
+  .tab:hover:not(.is-on) { background: transparent; color: var(--color-text-strong); border-bottom-color: var(--color-border-soft); }
 }

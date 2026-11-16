@@ -1,4 +1,4 @@
-import { logo, muteButton, cast } from '../chrome.js';
+import { logo, muteButton, cast, placeCastBubble } from '../chrome.js';
 import { lineFor } from './attract.js';
 
 export function render(state, game) {
@@ -18,4 +18,10 @@ export function render(state, game) {
     </div>
     ${cast(game, client.id, line)}
   </div>`;
+}
+
+export function mount(section) {
+  placeCastBubble(section);
+  // Fonts can change the bubble's width once they arrive.
+  document.fonts?.ready.then(() => placeCastBubble(section));
 }

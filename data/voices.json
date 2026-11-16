@@ -1,0 +1,13 @@
+{
+  "note": "Who voices each character. These are ElevenLabs default voices, available on every account. To recast someone, open a voice in ElevenLabs, copy its Voice ID here (or set ELEVENLABS_VOICE_<NAME> in .env), then run: npm run audio -- --client=<name> --force",
+  "model": "eleven_v4",
+  "fallbackModel": "eleven_multilingual_v2",
+  "voices": {
+    "gerald":   { "name": "Bill",    "id": "pqHfZKP75CvOlQylNhV4", "why": "Older, trustworthy, precise",          "settings": { "stability": 0.55, "style": 0.30, "speed": 0.97 } },
+    "kaia":     { "name": "Laura",   "id": "FGY2WhTYpPnrIDTdsKH5", "why": "Young, upbeat, a little too excited",  "settings": { "stability": 0.35, "style": 0.55, "speed": 1.12 } },
+    "rosa":     { "name": "Matilda", "id": "XrExE9yKIg1WjnnlVkGX", "why": "Warm, friendly, generous",             "settings": { "stability": 0.40, "style": 0.50, "speed": 1.04 } },
+    "damien":   { "name": "Callum",  "id": "N2lVS1w4EtoT3dr4eOWO", "why": "Intense and theatrical, takes his time", "settings": { "stability": 0.50, "style": 0.45, "speed": 0.88 } },
+    "brenda":   { "name": "Sarah",   "id": "EXAVITQu4vr4xnSDxMaL", "why": "Soft and calm, almost a whisper",      "settings": { "stability": 0.65, "style": 0.20, "speed": 0.90 } },
+    "deadline": { "name": "Brian",   "id": "nPczCjzI2devNBz1zQrb", "why": "Deep, dramatic, secretly friendly",    "settings": { "stability": 0.50, "style": 0.40, "speed": 0.92 } }
+  }
+}
