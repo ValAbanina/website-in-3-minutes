@@ -69,8 +69,8 @@
       "id": "ui.count",
       "channel": "ui",
       "gainDb": -20,
-      "duration": 0.5,
-      "prompt": "Single soft coin tick, arcade score counter, very short"
+      "duration": 1.0,
+      "prompt": "One bright arcade coin pickup blip, clearly audible, cheerful, very short"
     },
     {
       "id": "ui.start",
@@ -83,8 +83,8 @@
       "id": "build.drop",
       "channel": "ui",
       "gainDb": -14,
-      "duration": 0.5,
-      "prompt": "Satisfying wooden block placed on a table, solid thunk"
+      "duration": 1.0,
+      "prompt": "Solid wooden block placed firmly on a wooden table, one clear loud thunk, close-up, dry, satisfying"
     },
     {
       "id": "build.remove",
@@ -132,8 +132,8 @@
       "id": "timer.tick",
       "channel": "ui",
       "gainDb": -22,
-      "duration": 0.5,
-      "prompt": "Single clock tick, crisp, dry"
+      "duration": 1.0,
+      "prompt": "One loud crisp mechanical clock tick, close-up, dry, clearly audible, no reverb"
     },
     {
       "id": "timer.heartbeat",
