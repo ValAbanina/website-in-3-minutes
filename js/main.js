@@ -570,7 +570,10 @@ function effects(next, prev) {
       const line = game.deadline.lines[next.deadlineLine || 0] || '';
       const readMs = 1200 + line.length * 50;
       const started = Date.now();
-      audio.say(`voice.deadline.${(next.deadlineLine || 0) + 1}`).then(() => {
+      // Safety: if the voice never reports that it ended (sound blocked, tab asleep), go on after 9 seconds anyway.
+      const spoken = audio.say(`voice.deadline.${(next.deadlineLine || 0) + 1}`);
+      const atMost = new Promise((done) => window.setTimeout(done, 9000));
+      Promise.race([spoken, atMost]).then(() => {
         const wait = Math.max(0, readMs - (Date.now() - started)) + 400;
         window.setTimeout(() => {
           const now = store.get();
@@ -679,7 +682,8 @@ function boot(data, cues) {
   const bump = () => {
     window.clearTimeout(idle);
     idle = window.setTimeout(() => {
-      if (store.get().screen === 'attract') {
+      // While building, the 5-minute clock ends the round (Time's up, then the verdict), so never reset mid-game.
+      if (store.get().screen === 'attract' || store.get().screen === 'build') {
         bump();
         return;
       }
@@ -695,6 +699,8 @@ function boot(data, cues) {
     document.addEventListener(type, bump, { passive: true });
   });
   document.addEventListener('scroll', bump, { passive: true, capture: true });
+  // A new screen (for example Time's up after the clock runs out) restarts the idle countdown.
+  store.subscribe((next, prev) => { if (next.screen !== prev?.screen) bump(); });
   bump();
 
   window.setInterval(() => {

@@ -13,7 +13,7 @@
   },
 
   "flow": [
-    { "id": "attract", "screen": "00 Attract loop", "next": "start", "notes": "Shown after 60s idle. Clients take turns speaking (3.5s each). Silent until first tap." },
+    { "id": "attract", "screen": "00 Attract loop", "next": "start", "notes": "Shown after 60s idle (never while building: the clock ends that round). Clients take turns speaking (3.5s each). Silent until first tap." },
     { "id": "start", "screen": "01 Start", "next": "pick", "actions": ["Start the clock", "How to play"] },
     { "id": "howto", "screen": "01b How to play", "type": "modal", "actions": ["Got it"] },
     { "id": "pick", "screen": "02 Pick a client", "next": "brief", "notes": "Arrow keys browse, Enter picks. 'Surprise me' picks a random client not played this session." },
