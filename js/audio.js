@@ -69,15 +69,25 @@ export function createAudio(cues, mixing) {
     return music?.gain || null;
   }
 
+  /**
+   * While someone speaks, the music fades almost to silence; when they stop,
+   * it waits a moment and comes back gently.
+   */
   function duck(on) {
     const node = musicGain();
     if (!node || !ctx) return;
     const base = music.base;
-    const target = on ? base * dbToGain(mixing?.duckMusicUnderVoiceDb ?? -8) : base;
     const now = ctx.currentTime;
-    node.gain.cancelScheduledValues(now);
-    node.gain.setValueAtTime(node.gain.value, now);
-    node.gain.linearRampToValueAtTime(target, now + (mixing?.duckReleaseMs ?? 300) / 1000);
+    const g = node.gain;
+    g.cancelScheduledValues(now);
+    g.setValueAtTime(g.value, now);
+    if (on) {
+      g.linearRampToValueAtTime(base * dbToGain(mixing?.duckMusicUnderVoiceDb ?? -26), now + (mixing?.duckAttackMs ?? 250) / 1000);
+    } else {
+      const hold = (mixing?.duckHoldMs ?? 400) / 1000;
+      g.setValueAtTime(g.value, now + hold);
+      g.linearRampToValueAtTime(base, now + hold + (mixing?.duckReleaseMs ?? 1200) / 1000);
+    }
   }
 
   /** Fade a track out over a short time, then stop it, so music never cuts off abruptly. */
@@ -106,7 +116,7 @@ export function createAudio(cues, mixing) {
     if (!buf || !ctx) return;
     const cue = byId[id];
     const gain = ctx.createGain();
-    gain.gain.value = dbToGain(cue?.gainDb ?? -16);
+    gain.gain.value = dbToGain(cue?.gainDb ?? (voiceTrack ? (mixing?.voiceGainDb ?? -2) : -16));
     gain.connect(master);
     const source = ctx.createBufferSource();
     source.buffer = buf;

@@ -2,11 +2,14 @@
   "note": "Sound cue IDs used by the game. 'prompt' is what scripts/generate-audio.mjs sends to ElevenLabs: Sound Effects for most cues, Music (engine: music) for the four music loops; 'duration' is in seconds. Volumes are suggested mix levels (gain in dB relative to full scale). Every cue has a visual twin in the UI, so the game works muted.",
   "mixing": {
     "startAfterFirstTap": true,
-    "duckMusicUnderVoiceDb": -8,
-    "duckReleaseMs": 300,
+    "duckMusicUnderVoiceDb": -26,
+    "duckReleaseMs": 1200,
     "oneVoiceAtATime": true,
     "voiceCrossfadeMs": 100,
-    "muteResetsAtAttractLoop": true
+    "muteResetsAtAttractLoop": true,
+    "duckAttackMs": 250,
+    "duckHoldMs": 400,
+    "voiceGainDb": -2
   },
   "cues": [
     {
