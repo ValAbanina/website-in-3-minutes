@@ -516,6 +516,7 @@ function effects(next, prev) {
   else if (next.screen === 'build') {
     audio.loop(next.timeLeft <= game.meta.hurryAtSeconds ? 'music.build-fast' : 'music.build');
   } else if (next.screen === 'timesup' || next.screen === 'verdict') audio.stopMusic();
+  else if (next.screen === 'learn') audio.loop('music.end');
   else audio.loop('music.lobby');
 }
 

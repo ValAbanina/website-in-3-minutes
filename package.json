@@ -9,6 +9,7 @@
     "assets": "node scripts/export-figma-assets.mjs",
     "audio:check": "node scripts/generate-audio.mjs --dry-run",
     "audio": "node scripts/generate-audio.mjs",
+    "audio:music": "node scripts/generate-audio.mjs --only=music",
     "dev": "npx --yes serve . -l 5173",
     "test": "node tests/scoring.test.mjs"
   }
