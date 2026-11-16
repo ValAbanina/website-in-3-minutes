@@ -705,7 +705,7 @@ body[data-client="brenda"] { --client: var(--client-brenda); }
 .howto-grid article .howto-n { position: absolute; left: 6px; top: 6px; width: 24px; height: 24px; font-size: 13px; }
 .howto-grid article p { margin: 0; }
 .howto-n { width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; background: var(--color-text-strong); color: var(--color-text-on-dark); font: var(--type-label); flex: none; }
-.howto-note { background: var(--color-brand-tint); border-radius: var(--radius-md); padding: 12px; }
+.howto-note { background: var(--color-brand-tint); border-radius: var(--radius-md); padding: 12px; margin: 16px 0 0; }
 
 .char { display: block; position: relative; }
 .char img, .char svg { width: 100%; height: auto; display: block; }
@@ -862,7 +862,11 @@ body[data-client="brenda"] { --client: var(--client-brenda); }
 }
 
 @media (min-width: 1200px) {
-  .card { max-width: 240px; }
+  /* The five cards share the full width and stay centred, so wide screens have no empty gap on one side. */
+  .card-row { justify-content: center; }
+  .card { max-width: 300px; }
+  /* Title, cards and footer stay together as one centred block on very wide screens. */
+  .pick { max-width: 1680px; margin-inline: auto; }
 }
 
 
