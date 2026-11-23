@@ -13,7 +13,7 @@ export async function drawShareCard({ game, client, result, elapsed, canvas }) {
   roundRect(ctx, 64, 64, size - 128, size - 128, 36, '#ffffff', '#000000');
   ctx.fillStyle = '#000000';
   ctx.font = '700 36px Roboto, sans-serif';
-  ctx.fillText('Website in 5 minutes', 110, 150);
+  ctx.fillText('Website in 3 minutes', 110, 150);
   ctx.fillStyle = '#D72885';
   ctx.font = '800 28px Roboto Condensed, sans-serif';
   ctx.textAlign = 'right';
@@ -138,7 +138,7 @@ export async function shareResult({ game, client, result, elapsed, stats }) {
   await drawShareCard({ game, client, result, elapsed, canvas });
   const blob = await new Promise((resolve) => canvas.toBlob(resolve, 'image/png'));
   if (!blob) return;
-  const file = new File([blob], 'website-in-5-minutes.png', { type: 'image/png' });
+  const file = new File([blob], 'website-in-3-minutes.png', { type: 'image/png' });
   const who = firstName(client);
   const mood = result.outcome?.id || 'meh';
   const text = game.share.headline
@@ -155,7 +155,7 @@ export async function shareResult({ game, client, result, elapsed, stats }) {
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
-  a.download = 'website-in-5-minutes.png';
+  a.download = 'website-in-3-minutes.png';
   a.click();
   URL.revokeObjectURL(url);
   stats.send('shared', { method: 'download' });

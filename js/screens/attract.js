@@ -9,7 +9,7 @@ export function render(state, game) {
       ${logo()}
     </header>
     <div class="stage-copy moment-rise">
-      <h1>Can you build a website in 5 minutes?</h1>
+      <h1>Can you build a website in 3 minutes?</h1>
       <p>Five picky clients. One drag-and-drop builder. Make them happy before the clock runs out.</p>
       <button type="button" class="pill" data-action="to-start"><span aria-hidden="true">◎</span> Tap anywhere to play</button>
     </div>

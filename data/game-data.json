@@ -1,9 +1,9 @@
 {
   "meta": {
-    "title": "Website in 5 minutes",
+    "title": "Website in 3 minutes",
     "by": "Langara College, Department of Design Formation",
     "figma": "https://www.figma.com/design/6NPkrb0UeMPWLPTQtNXFcc/Game---Website-In-5-min",
-    "timerSeconds": 300,
+    "timerSeconds": 180,
     "hurryAtSeconds": 60,
     "panicAtSeconds": 15,
     "clientHurryCommentAtSeconds": 30,

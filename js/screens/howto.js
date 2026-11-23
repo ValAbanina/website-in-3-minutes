@@ -9,27 +9,26 @@ export function render() {
         <article>
           <img class="howto-icon" src="assets/svg/howto/step-1.svg" alt="" width="72" height="72">
           <span class="howto-n">1</span>
-          <p>Pick a client and read their brief. Nobody says exactly what they want.</p>
+          <p>Pick a client and read their brief.</p>
         </article>
         <article>
           <img class="howto-icon" src="assets/svg/howto/step-2.svg" alt="" width="72" height="72">
           <span class="howto-n">2</span>
-          <p>Build a one-page site: add sections, drag to reorder, choose how many columns.</p>
+          <p>Add sections to build the page.</p>
         </article>
         <article>
           <img class="howto-icon" src="assets/svg/howto/step-3.svg" alt="" width="72" height="72">
           <span class="howto-n">3</span>
-          <p>Style it: colours, fonts, a style, pictures and patterns.</p>
+          <p>Choose colours, fonts, pictures and patterns.</p>
         </article>
         <article>
           <img class="howto-icon" src="assets/svg/howto/step-4.svg" alt="" width="72" height="72">
           <span class="howto-n">4</span>
-          <p>Send it before the 5 minutes run out, or the Deadline sends it for you.</p>
+          <p>Send it before the 3 minutes are up.</p>
         </article>
       </div>
-      <p class="howto-note"><strong>No hints while you build.</strong> Read the brief closely: you find out what the client thinks only after you send it.</p>
       <footer class="modal-foot">
-        <p>Keyboard works too: Tab to move, Enter to choose, arrows to reorder sections.</p>
+        <p>Keyboard works too: Tab and Enter.</p>
         <button type="button" class="btn btn-primary" data-action="close-howto">Got it</button>
       </footer>
     </div>

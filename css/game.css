@@ -205,7 +205,7 @@ body[data-audio="off"] .needs-audio { display: none; }
   .stage-dark .stage-copy h1 { font-size: clamp(40px, 8.4dvh, 80px); margin-bottom: 4px; }
   .stage-copy .fine { display: none; }
   .stage-copy .pill, .stage-copy .row-actions { margin-top: 4px; }
-  .cast-person .bubble { font-size: 24px; padding: 8px 14px; }
+  .cast-person .bubble { font-size: 18px; padding: 8px 14px; }
   .cast-person.is-speaking { width: min(24vw, 62cqh); }
 }
 .cast-person .bubble {
@@ -225,7 +225,7 @@ body[data-audio="off"] .needs-audio { display: none; }
   border-radius: 18px;
   padding: 10px 16px;
   font: var(--type-hand);
-  font-size: clamp(24px, 3vw, 34px);
+  font-size: clamp(18px, 2.1vw, 24px);
   box-shadow: var(--shadow-card);
   position: relative;
 }
@@ -441,7 +441,7 @@ body[data-client="brenda"] { --client: var(--client-brenda); }
 }
 .dock-bubble .bubble {
   display: inline-block;
-  font-size: 26px;
+  font-size: 19px;
   animation: pop var(--dur-pop) var(--ease-overshoot) both;
   transform-origin: 36px 100%;
 }
@@ -616,7 +616,7 @@ body[data-client="brenda"] { --client: var(--client-brenda); }
   top: 3%;
   left: 0;
   max-width: min(300px, 70%);
-  font-size: 26px;
+  font-size: 20px;
   transform: rotate(-3deg);
 }
 .tu-side { display: grid; gap: 14px; align-content: center; min-width: 0; }
@@ -658,7 +658,7 @@ body[data-client="brenda"] { --client: var(--client-brenda); }
   box-shadow: 3px 3px 0 #000;
 }
 .tu .tu-client img { width: 100%; height: 135%; object-fit: cover; object-position: center top; }
-.tu-react .bubble { position: relative; margin: 0; font-size: 22px; }
+.tu-react .bubble { position: relative; margin: 0; font-size: 17px; }
 .tu-go { justify-self: start; }
 .screen-timesup .timer { margin-left: auto; }
 
@@ -702,13 +702,13 @@ body[data-client="brenda"] { --client: var(--client-brenda); }
 .reread-note { margin: 0; color: var(--color-text-default, inherit); }
 .reread-art { background: var(--card); border: var(--border-ui); border-radius: var(--radius-md, 16px); overflow: hidden; display: flex; align-items: flex-end; }
 .reread-art .char { width: 100%; }
-.howto-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+/* Steps read down the columns: 1 and 2 on the left, 3 and 4 on the right. */
+.howto-grid { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: auto auto; grid-auto-flow: column; gap: 12px; }
 .howto-grid article { background: var(--color-surface-muted); border-radius: var(--radius-md); padding: 12px 14px 12px 12px; display: grid; grid-template-columns: 72px minmax(0, 1fr); gap: 4px 12px; align-items: center; position: relative; }
 .howto-icon { width: 72px; height: 72px; display: block; }
 .howto-grid article .howto-n { position: absolute; left: 6px; top: 6px; width: 24px; height: 24px; font-size: 13px; }
 .howto-grid article p { margin: 0; }
 .howto-n { width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; background: var(--color-text-strong); color: var(--color-text-on-dark); font: var(--type-label); flex: none; }
-.howto-note { background: var(--color-brand-tint); border-radius: var(--radius-md); padding: 12px; margin: 16px 0 0; }
 
 .char { display: block; position: relative; }
 .char img, .char svg { width: 100%; height: auto; display: block; }
@@ -797,7 +797,7 @@ body[data-client="brenda"] { --client: var(--client-brenda); }
   .report { padding: 20px; }
   .report h1 { padding-right: 0; padding-top: 44px; }
   .report .row-actions { margin: 12px -20px -20px; padding: 12px 20px 14px; }
-  .howto-grid { grid-template-columns: 1fr; }
+  .howto-grid { grid-template-columns: 1fr; grid-template-rows: none; grid-auto-flow: row; }
   /* Phone cover: the whole cast as a big group; whoever is talking steps forward. */
   .stage-copy { padding-top: 8px; }
   .cast {
@@ -827,7 +827,7 @@ body[data-client="brenda"] { --client: var(--client-brenda); }
   .cast-person .bubble {
     bottom: calc(100% - 6px);
     max-width: min(300px, 84vw);
-    font-size: 22px;
+    font-size: 17px;
     text-align: center;
   }
   .brief {
@@ -1026,7 +1026,7 @@ body.is-reordering .browser-page { touch-action: none; }
   .dock-meta { display: none; }
   .dock-art { width: 56px; height: 56px; box-shadow: 3px 3px 0 #000; }
   .dock-bubble { position: static; width: auto; max-width: min(360px, calc(100vw - 110px)); margin-top: 4px; }
-  .dock-bubble .bubble { font-size: 23px; transform-origin: 0 0; --bubble-shadow: 3px 3px 0 #000; }
+  .dock-bubble .bubble { font-size: 18px; transform-origin: 0 0; --bubble-shadow: 3px 3px 0 #000; }
 }
 
 /* ---------- Phones held upright: the website first, options in a resizable bottom panel ---------- */
@@ -1185,7 +1185,7 @@ body.is-reordering .browser-page { touch-action: none; }
   .client-dock { top: calc(62px + env(safe-area-inset-top)); left: 12px; }
   .dock-art { width: 48px; height: 48px; }
   .dock-bubble { max-width: calc(100vw - 90px); }
-  .dock-bubble .bubble { font-size: 21px; padding: 8px 12px; }
+  .dock-bubble .bubble { font-size: 16px; padding: 8px 12px; }
 }
 
 /* Phones held sideways: very little height, so keep the bars thin. */
@@ -1205,12 +1205,12 @@ body.is-reordering .browser-page { touch-action: none; }
   .tu { grid-template-columns: minmax(0, 1fr); align-items: start; gap: 12px; padding: 0 16px calc(96px + env(safe-area-inset-bottom)); }
   .tu-stage { align-self: start; }
   .tu .tu-deadline img { height: 30dvh; }
-  .tu-say { top: 6%; left: 0; max-width: 58%; font-size: 18px; padding: 8px 12px; }
+  .tu-say { top: 6%; left: 0; max-width: 58%; font-size: 16px; padding: 8px 12px; }
   .tu-title { font-size: 52px; }
   .tu-site-frame { height: 180px; }
   .tu-stamp { right: 4px; font-size: 26px; }
   .tu-client { width: 60px; height: 60px; }
-  .tu-react .bubble { font-size: 18px; }
+  .tu-react .bubble { font-size: 16px; }
   .tu-go {
     position: fixed;
     left: 16px;
@@ -1225,7 +1225,7 @@ body.is-reordering .browser-page { touch-action: none; }
   .tu .tu-deadline img { height: 62dvh; }
   .tu-title { font-size: 44px; }
   .tu-site-frame { height: 120px; }
-  .tu-say { font-size: 18px; }
+  .tu-say { font-size: 16px; }
 }
 
 /* ---------- Button hierarchy ----------
@@ -1349,3 +1349,6 @@ body[data-ink="light"] .screen-client :focus-visible,
 }
 /* Icons inside buttons are drawn (SVG), never emoji, so they look the same on every phone. */
 .btn-ico { flex: none; margin-right: 8px; vertical-align: -4px; }
+/* No single word left alone on the last line: headings balance their lines, text avoids orphans. */
+h1, h2, h3 { text-wrap: balance; }
+p, li, .bubble, .btn, figcaption { text-wrap: pretty; }

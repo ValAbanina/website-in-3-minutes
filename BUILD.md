@@ -1,4 +1,4 @@
-# BUILD.md — how to build "Website in 5 minutes"
+# BUILD.md — how to build "Website in 3 minutes"
 
 This is the brief for the coding agent in Cursor. Work through the milestones **in order**. Each one ends with checks; don't move on until they pass. Paste a milestone into Cursor chat as a prompt, or say "Do milestone 3 from BUILD.md".
 
@@ -158,6 +158,6 @@ Follow the Figma page **Motion & Sound**; its table is the spec.
 - **Overflow:** no horizontal scroll at 320px wide.
 
 ## 11 · Deploy to GitHub Pages
-- **Repo:** create a public repo `website-in-5-minutes`, then push. Never push `.env`; it's in `.gitignore`.
+- **Repo:** create a public repo `website-in-3-minutes`, then push. Never push `.env`; it's in `.gitignore`.
 - **Pages:** Settings > Pages > Deploy from branch `main`, folder `/` (root).
 - **Share card:** put the live URL in `config.js` (`GAME_URL`).
