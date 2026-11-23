@@ -1360,3 +1360,9 @@ p, li, .bubble, .btn, figcaption { text-wrap: pretty; }
 .share-ico:hover { background: var(--color-surface-muted); }
 .share-ico.is-done { background: #0B7A3E; color: #fff; }
 @media (max-width: 599px) { .share-row { margin-left: 0; width: 100%; } }
+/* Stacked verdict (tablets and phones): the client stands right on the card, no gap. */
+@media (max-width: 1199px) {
+  .verdict { row-gap: 0; }
+  .verdict-person { margin-bottom: -3px; }
+  .verdict .report { position: relative; z-index: 1; }
+}

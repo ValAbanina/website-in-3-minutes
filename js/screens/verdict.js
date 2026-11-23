@@ -47,8 +47,8 @@ export function render(state, game, client) {
           <p>${esc(client.lesson)}${esc(extra)}</p>
         </div>
         <div class="row-actions">
-          <button type="button" class="btn btn-primary" data-action="to-learn">Learn the theory</button>
           <button type="button" class="btn" data-action="next-client">Next client</button>
+          <button type="button" class="btn btn-primary" data-action="to-learn">Learn the theory</button>
           ${shareIcons(shareText({ game, client, result, elapsed: state.elapsed }))}
         </div>
       </article>
