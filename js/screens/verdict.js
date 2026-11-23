@@ -2,6 +2,7 @@ import { esc, firstName, prefersReducedMotion } from '../dom.js';
 import { logo, muteButton, progress } from '../chrome.js';
 import { characterHTML } from '../characters.js';
 import { outcomeHeadline, outcomeWhy } from '../scoring.js';
+import { shareIcons, shareText } from '../share.js';
 
 function mark(icon) {
   if (icon === 'check') return '✓';
@@ -46,9 +47,9 @@ export function render(state, game, client) {
           <p>${esc(client.lesson)}${esc(extra)}</p>
         </div>
         <div class="row-actions">
-          <button type="button" class="btn btn-primary" data-action="next-client">Next client</button>
-          <button type="button" class="btn" data-action="share">Share result</button>
-          <button type="button" class="text-btn" data-action="to-learn">Learn the theory</button>
+          <button type="button" class="btn btn-primary" data-action="to-learn">Learn the theory</button>
+          <button type="button" class="btn" data-action="next-client">Next client</button>
+          ${shareIcons(shareText({ game, client, result, elapsed: state.elapsed }))}
         </div>
       </article>
     </div>

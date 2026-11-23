@@ -7,7 +7,7 @@ import { createComments, triggerLine, triggerLines } from './comments.js';
 import { clientById, onClientInk, deviceKind, esc } from './dom.js';
 import { placeCastBubble } from './chrome.js';
 import { defaultSection } from './site/render.js';
-import { shareResult } from './share.js';
+import { shareNative, copyLink, shareText } from './share.js';
 import * as attract from './screens/attract.js';
 import * as start from './screens/start.js';
 import * as howto from './screens/howto.js';
@@ -275,7 +275,7 @@ function onClick(event) {
   }
 
   audio.unlock();
-  if (!['send', 'add-section', 'to-pick', 'to-build', 'surprise', 'select-client', 'undo', 'redo', 'share'].includes(action)) {
+  if (!['send', 'add-section', 'to-pick', 'to-build', 'surprise', 'select-client', 'undo', 'redo', 'share-native', 'share-copy'].includes(action)) {
     audio.play('ui.click');
   }
 
@@ -414,8 +414,20 @@ function onClick(event) {
     const next = pool[Math.floor(Math.random() * pool.length)] || game.clients[0];
     freshRound('pick', next.id, played);
   } else if (action === 'to-learn') store.set({ screen: 'learn' });
-  else if (action === 'share' && client && state.result) {
-    shareResult({ game, client, result: state.result, elapsed: state.elapsed, stats });
+  else if ((action === 'share-native' || action === 'share-copy') && client && state.result) {
+    const text = shareText({ game, client, result: state.result, elapsed: state.elapsed });
+    const live = document.getElementById('live');
+    if (action === 'share-native') {
+      shareNative(text).then((how) => { if (how === 'shared') stats.send('shared', { method: 'native' }); });
+    } else {
+      copyLink(text).then((ok) => {
+        btn.classList.toggle('is-done', ok);
+        btn.setAttribute('aria-label', ok ? 'Link copied' : 'Copy link');
+        if (live) live.textContent = ok ? 'Link copied' : '';
+        if (ok) stats.send('shared', { method: 'copy' });
+        window.setTimeout(() => { btn.classList.remove('is-done'); btn.setAttribute('aria-label', 'Copy link'); }, 2000);
+      });
+    }
   }
 }
 
