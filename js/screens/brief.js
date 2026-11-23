@@ -23,9 +23,9 @@ export function render(state, game, client) {
         <div class="brief-howto">
           <h2>How it works</h2>
           <ol class="brief-steps">
-            <li>Add sections, drag to reorder, pick columns.</li>
-            <li>Choose colours, fonts, style, pictures, patterns.</li>
-            <li>Send it to ${esc(who)} before the clock runs out.</li>
+            <li>Add sections to build the page.</li>
+            <li>Choose colours, fonts, pictures and patterns.</li>
+            <li>Send it to ${esc(who)} before time is up.</li>
           </ol>
         </div>
         <div class="brief-go">
