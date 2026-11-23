@@ -1353,3 +1353,10 @@ body[data-ink="light"] .screen-client :focus-visible,
 /* No single word left alone on the last line: headings balance their lines, text avoids orphans. */
 h1, h2, h3 { text-wrap: balance; }
 p, li, .bubble, .btn, figcaption { text-wrap: pretty; }
+/* Verdict: share icons sit at the end of the button row. */
+.share-row { margin-left: auto; display: flex; align-items: center; gap: 4px; }
+.share-label { font: var(--type-label); color: var(--color-text-default); margin-right: 4px; }
+.share-ico { display: inline-grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; color: var(--color-text-strong); background: transparent; border: 0; cursor: pointer; }
+.share-ico:hover { background: var(--color-surface-muted); }
+.share-ico.is-done { background: #0B7A3E; color: #fff; }
+@media (max-width: 599px) { .share-row { margin-left: 0; width: 100%; } }

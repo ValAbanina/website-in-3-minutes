@@ -132,33 +132,79 @@ function wrapText(ctx, text, x, y, max, lineHeight) {
   ctx.fillText(line.trim(), x, yy);
 }
 
-export async function shareResult({ game, client, result, elapsed, stats }) {
-  const canvas = document.createElement('canvas');
-  await document.fonts.ready.catch(() => {});
-  await drawShareCard({ game, client, result, elapsed, canvas });
-  const blob = await new Promise((resolve) => canvas.toBlob(resolve, 'image/png'));
-  if (!blob) return;
-  const file = new File([blob], 'website-in-3-minutes.png', { type: 'image/png' });
-  const who = firstName(client);
+/** The live game's address (without any ?query), so shared links always open the game. */
+export function gameUrl() {
+  return `${location.origin}${location.pathname}`;
+}
+
+/** What a shared post says, e.g. "I made Rosa melt down in 2:41. Can you build a website in 3 minutes?" */
+export function shareText({ game, client, result, elapsed }) {
   const mood = result.outcome?.id || 'meh';
-  const text = game.share.headline
-    .replace('{client}', who)
+  const line = game.share.headline
+    .replace('{client}', firstName(client))
     .replace('{outcomeVerb}', game.share.outcomeVerbs[mood] || mood)
     .replace('{time}', formatClock(elapsed));
-  if (navigator.canShare && navigator.canShare({ files: [file] })) {
-    try {
-      await navigator.share({ files: [file], title: game.meta.title, text });
-      stats.send('shared', { method: 'share' });
-      return;
-    } catch { /* download instead */ }
+  return `${line}. Can you build a website in 3 minutes?`;
+}
+
+const ICONS = {
+  share: '<path d="M12 3v12M7.5 7.5 12 3l4.5 4.5"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/>',
+  link: '<path d="M10 14a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1"/><path d="M14 10a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1"/>',
+  linkedin: '<rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 10v7M8 7v.01M12 17v-4a2 2 0 0 1 4 0v4M12 10v7"/>',
+  facebook: '<path d="M14 8h3V4h-3a4 4 0 0 0-4 4v3H7v4h3v6h4v-6h3l1-4h-4V8z"/>',
+  x: '<path d="M4 4l16 16M20 4 4 20"/>',
+};
+const icon = (name) => `<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[name]}</svg>`;
+
+/** A row of share icons. The device share sheet only shows where the browser supports it. */
+export function shareIcons(text) {
+  const url = gameUrl();
+  const enc = encodeURIComponent;
+  const links = [
+    ['linkedin', 'Share on LinkedIn', `https://www.linkedin.com/sharing/share-offsite/?url=${enc(url)}`],
+    ['facebook', 'Share on Facebook', `https://www.facebook.com/sharer/sharer.php?u=${enc(url)}`],
+    ['x', 'Share on X', `https://x.com/intent/post?text=${enc(text)}&url=${enc(url)}`],
+  ];
+  const native = typeof navigator !== 'undefined' && navigator.share
+    ? `<button type="button" class="share-ico" data-action="share-native" aria-label="Share">${icon('share')}</button>`
+    : '';
+  return `<div class="share-row" role="group" aria-label="Share your result">
+    <span class="share-label">Share</span>
+    ${native}
+    <button type="button" class="share-ico" data-action="share-copy" aria-label="Copy link">${icon('link')}</button>
+    ${links.map(([id, label, href]) => `<a class="share-ico" href="${esc(href)}" target="_blank" rel="noopener" aria-label="${esc(label)}" data-share="${id}">${icon(id)}</a>`).join('')}
+  </div>`;
+}
+
+/** Called straight from the tap, so phones and iPads accept it (no slow work before it). */
+export async function shareNative(text) {
+  try {
+    await navigator.share({ title: 'Website in 3 minutes', text, url: gameUrl() });
+    return 'shared';
+  } catch (err) {
+    return err?.name === 'AbortError' ? 'cancelled' : 'failed';
   }
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = 'website-in-3-minutes.png';
-  a.click();
-  URL.revokeObjectURL(url);
-  stats.send('shared', { method: 'download' });
+}
+
+export async function copyLink(text) {
+  const value = `${text} ${gameUrl()}`;
+  try {
+    await navigator.clipboard.writeText(value);
+    return true;
+  } catch {
+    // Older browsers: copy through a hidden text box.
+    const box = document.createElement('textarea');
+    box.value = value;
+    box.setAttribute('readonly', '');
+    box.style.position = 'fixed';
+    box.style.opacity = '0';
+    document.body.appendChild(box);
+    box.select();
+    let ok = false;
+    try { ok = document.execCommand('copy'); } catch { ok = false; }
+    box.remove();
+    return ok;
+  }
 }
 
 export function bubble(text, extra = '') {

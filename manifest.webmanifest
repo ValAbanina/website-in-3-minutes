@@ -1,7 +1,7 @@
 {
   "name": "Website in 3 minutes",
   "short_name": "3-min website",
-  "description": "A five-minute design game from Langara Design Formation.",
+  "description": "A three-minute design game from Langara Design Formation.",
   "start_url": "./",
   "scope": "./",
   "display": "fullscreen",
