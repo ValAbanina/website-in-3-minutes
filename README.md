@@ -1,6 +1,6 @@
-# Website in 5 minutes
+# Website in 3 minutes
 
-A five-minute design game for Langara College, Department of Design Formation. Pick a picky cartoon client, read their brief, build their one-page website before the clock runs out, and find out if they're happy. At the end, explore Design Formation, Digital Media & Design and AI Application Design & Development.
+A three-minute design game for Langara College, Department of Design Formation. Pick a picky cartoon client, read their brief, build their one-page website before the clock runs out, and find out if they're happy. At the end, explore Design Formation, Digital Media & Design and AI Application Design & Development.
 
 - **Design:** the [Figma file](https://www.figma.com/design/6NPkrb0UeMPWLPTQtNXFcc/Game---Website-In-5-min)
 - **Hosting:** GitHub Pages, public link

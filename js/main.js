@@ -685,7 +685,7 @@ function boot(data, cues) {
   const bump = () => {
     window.clearTimeout(idle);
     idle = window.setTimeout(() => {
-      // While building, the 5-minute clock ends the round (Time's up, then the verdict), so never reset mid-game.
+      // While building, the 3-minute clock ends the round (Time's up, then the verdict), so never reset mid-game.
       if (store.get().screen === 'attract' || store.get().screen === 'build') {
         bump();
         return;

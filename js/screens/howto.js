@@ -24,7 +24,7 @@ export function render() {
         <article>
           <img class="howto-icon" src="assets/svg/howto/step-4.svg" alt="" width="72" height="72">
           <span class="howto-n">4</span>
-          <p>Send it before the 5 minutes run out, or the Deadline sends it for you.</p>
+          <p>Send it before the 3 minutes run out, or the Deadline sends it for you.</p>
         </article>
       </div>
       <p class="howto-note"><strong>No hints while you build.</strong> Read the brief closely: you find out what the client thinks only after you send it.</p>

@@ -1,4 +1,4 @@
-# BUILD.md — how to build "Website in 5 minutes"
+# BUILD.md — how to build "Website in 3 minutes"
 
 This is the brief for the coding agent in Cursor. Work through the milestones **in order**. Each one ends with checks; don't move on until they pass. Paste a milestone into Cursor chat as a prompt, or say "Do milestone 3 from BUILD.md".
 

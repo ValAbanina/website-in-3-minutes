@@ -20,7 +20,7 @@ export function initialState(meta) {
     choiceKey: null,
     deadlineLine: 0,
     picTarget: null,
-    timeLeft: meta?.timerSeconds ?? 300,
+    timeLeft: meta?.timerSeconds ?? 180,
     startedAt: null,
     autoSent: false,
     played: [],
