@@ -1282,9 +1282,11 @@ body[data-ink="light"] .screen-client :focus-visible,
 .stage-dark :focus-visible, .screen-timesup :focus-visible, .topbar-dark :focus-visible { outline-color: var(--color-brand-highlight-on-dark); }
 .screen-client .brief-card :focus-visible, .screen-client .report :focus-visible, .modal :focus-visible,
 .screen-timesup .tu-site :focus-visible { outline-color: var(--color-brand-highlight-on-light); }
-/* Very narrow phones (320px): keep the two brief buttons side by side (Start building on the right), with smaller text. */
+/* Very narrow phones (320px): the two brief buttons stack, Start building on top. */
 @media (max-width: 359px) {
-  .brief-buttons .btn { white-space: nowrap; font-size: 14px; padding-inline: 8px; }
+  .brief-buttons { flex-wrap: wrap; }
+  .brief-buttons .btn { flex: 1 1 100%; }
+  .brief-buttons .btn-primary { order: -1; }
 }
 /* Number and mark badges are always circles, even when the text next to them wraps. */
 .step-n, .score-mark, .howto-n, .tile-count, .brief-steps li::before { flex: none; aspect-ratio: 1; }
@@ -1345,9 +1347,9 @@ body[data-ink="light"] .screen-client :focus-visible,
 /* Start screen: the two buttons are always the same size. Side by side on larger screens, stacked on phones. */
 .stage-copy .row-actions { display: grid; grid-template-columns: 1fr 1fr; width: fit-content; max-width: 100%; margin-inline: auto; }
 @media (max-width: 599px) {
-  /* Phones: side by side, How to play left and Start the clock (pink) right, filling the width. */
-  .stage-copy .row-actions { grid-template-columns: 1fr 1fr; width: min(100%, 420px); }
-  .stage-copy .row-actions .btn { white-space: nowrap; font-size: clamp(14px, 4.2vw, 18px); padding-inline: 8px; justify-content: center; }
+  /* Phones: stacked at full width, Start the clock on top. */
+  .stage-copy .row-actions { grid-template-columns: 1fr; width: min(100%, 320px); }
+  .stage-copy .row-actions .btn-primary { order: -1; }
 }
 /* Icons inside buttons are drawn (SVG), never emoji, so they look the same on every phone. */
 .btn-ico { flex: none; margin-right: 8px; vertical-align: -4px; }
@@ -1367,10 +1369,11 @@ p, li, .bubble, .btn, figcaption { text-wrap: pretty; }
   .verdict-person { margin-bottom: -3px; }
   .verdict .report { position: relative; z-index: 1; }
 }
-/* Phones: the two verdict buttons share the full width, secondary left and main (pink) right, each on one line. */
+/* Button pairs: side by side, the main (pink) button is on the right; stacked on phones, it is on top. */
+/* Phones: the verdict buttons are stacked at full width, Learn the theory on top. */
 @media (max-width: 599px) {
-  .report .row-actions { display: grid; grid-template-columns: 1fr 1fr; }
-  .report .row-actions .btn { white-space: nowrap; font-size: clamp(14px, 4.2vw, 17px); padding-inline: 8px; }
+  .report .row-actions { display: grid; grid-template-columns: 1fr; }
+  .report .row-actions .btn-primary { order: -1; }
   .report .row-actions .btn { width: 100%; justify-content: center; text-align: center; }
   .report .row-actions .share-row { grid-column: 1 / -1; }
 }
