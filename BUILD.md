@@ -158,6 +158,6 @@ Follow the Figma page **Motion & Sound**; its table is the spec.
 - **Overflow:** no horizontal scroll at 320px wide.
 
 ## 11 · Deploy to GitHub Pages
-- **Repo:** create a public repo `website-in-5-minutes`, then push. Never push `.env`; it's in `.gitignore`.
+- **Repo:** create a public repo `website-in-3-minutes`, then push. Never push `.env`; it's in `.gitignore`.
 - **Pages:** Settings > Pages > Deploy from branch `main`, folder `/` (root).
 - **Share card:** put the live URL in `config.js` (`GAME_URL`).

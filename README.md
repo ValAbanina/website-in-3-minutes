@@ -25,7 +25,7 @@ A three-minute design game for Langara College, Department of Design Formation. 
 
 ## Getting started
 
-1. **Open the folder in Cursor.** Use File > Open Folder > `website-in-5-minutes`.
+1. **Open the folder in Cursor.** Use File > Open Folder > `website-in-5-minutes` (the folder on your computer keeps its old name; that is fine).
 2. **Add your keys to `.env`:**
    - `ELEVENLABS_API_KEY`: from ElevenLabs > Developers > API keys.
    - One voice ID per character: `ELEVENLABS_VOICE_GERALD`, `ELEVENLABS_VOICE_KAIA`, `ELEVENLABS_VOICE_ROSA`, `ELEVENLABS_VOICE_DAMIEN`, `ELEVENLABS_VOICE_BRENDA` and `ELEVENLABS_VOICE_DEADLINE`. In ElevenLabs, go to Voices, open a voice and copy its ID. The comments in `.env` describe each character's voice.
