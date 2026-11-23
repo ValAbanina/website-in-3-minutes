@@ -152,7 +152,8 @@ const ICONS = {
   link: '<path d="M10 14a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1"/><path d="M14 10a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1"/>',
   linkedin: '<rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 10v7M8 7v.01M12 17v-4a2 2 0 0 1 4 0v4M12 10v7"/>',
   facebook: '<path d="M14 8h3V4h-3a4 4 0 0 0-4 4v3H7v4h3v6h4v-6h3l1-4h-4V8z"/>',
-  x: '<path d="M4 4l16 16M20 4 4 20"/>',
+  // The X logo: an outlined slanted bar crossed by a thin stroke (not a plain ×, which reads as Close).
+  x: '<path d="M4 4h4.5L20 20h-4.5z"/><path d="M19.5 4l-6 6.8M10.5 13.2 4.5 20"/>',
 };
 const icon = (name) => `<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[name]}</svg>`;
 
@@ -166,13 +167,13 @@ export function shareIcons(text) {
     ['x', 'Share on X', `https://x.com/intent/post?text=${enc(text)}&url=${enc(url)}`],
   ];
   const native = typeof navigator !== 'undefined' && navigator.share
-    ? `<button type="button" class="share-ico" data-action="share-native" aria-label="Share">${icon('share')}</button>`
+    ? `<button type="button" class="share-ico" data-action="share-native" aria-label="Share" title="Share">${icon('share')}</button>`
     : '';
   return `<div class="share-row" role="group" aria-label="Share your result">
     <span class="share-label">Share</span>
     ${native}
-    <button type="button" class="share-ico" data-action="share-copy" aria-label="Copy link">${icon('link')}</button>
-    ${links.map(([id, label, href]) => `<a class="share-ico" href="${esc(href)}" target="_blank" rel="noopener" aria-label="${esc(label)}" data-share="${id}">${icon(id)}</a>`).join('')}
+    <button type="button" class="share-ico" data-action="share-copy" aria-label="Copy link" title="Copy link">${icon('link')}</button>
+    ${links.map(([id, label, href]) => `<a class="share-ico" href="${esc(href)}" target="_blank" rel="noopener" aria-label="${esc(label)}" title="${esc(label)}" data-share="${id}">${icon(id)}</a>`).join('')}
   </div>`;
 }
 
