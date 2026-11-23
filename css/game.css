@@ -1366,3 +1366,9 @@ p, li, .bubble, .btn, figcaption { text-wrap: pretty; }
   .verdict-person { margin-bottom: -3px; }
   .verdict .report { position: relative; z-index: 1; }
 }
+/* Phones: the verdict buttons are stacked at full width, the main one at the bottom (like the start screen). */
+@media (max-width: 599px) {
+  .report .row-actions { display: grid; grid-template-columns: 1fr; }
+  .report .row-actions .btn { width: 100%; justify-content: center; text-align: center; }
+  .report .row-actions .share-row { grid-column: 1 / -1; }
+}
