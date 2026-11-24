@@ -1377,3 +1377,10 @@ p, li, .bubble, .btn, figcaption { text-wrap: pretty; }
   .report .row-actions .btn { width: 100%; justify-content: center; text-align: center; }
   .report .row-actions .share-row { grid-column: 1 / -1; }
 }
+/* Programs page: the QR code is for computers and tablets. On phones (you can't scan your own screen) it becomes a plain link. */
+.qr .qr-visit { display: none; }
+@media (max-width: 743px) {
+  .qr { border: 0; padding: 0; background: none; max-width: none; min-height: 44px; }
+  .qr img, .qr .qr-scan { display: none; }
+  .qr .qr-visit { display: inline; font: var(--type-body); font-weight: 700; color: var(--color-text-strong); text-decoration: underline; text-underline-offset: 3px; }
+}
