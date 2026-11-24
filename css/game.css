@@ -1282,10 +1282,11 @@ body[data-ink="light"] .screen-client :focus-visible,
 .stage-dark :focus-visible, .screen-timesup :focus-visible, .topbar-dark :focus-visible { outline-color: var(--color-brand-highlight-on-dark); }
 .screen-client .brief-card :focus-visible, .screen-client .report :focus-visible, .modal :focus-visible,
 .screen-timesup .tu-site :focus-visible { outline-color: var(--color-brand-highlight-on-light); }
-/* Very narrow phones (320px): let the two brief buttons stack rather than spill off the screen. */
+/* Very narrow phones (320px): the two brief buttons stack, Start building on top. */
 @media (max-width: 359px) {
   .brief-buttons { flex-wrap: wrap; }
   .brief-buttons .btn { flex: 1 1 100%; }
+  .brief-buttons .btn-primary { order: -1; }
 }
 /* Number and mark badges are always circles, even when the text next to them wraps. */
 .step-n, .score-mark, .howto-n, .tile-count, .brief-steps li::before { flex: none; aspect-ratio: 1; }
@@ -1346,7 +1347,9 @@ body[data-ink="light"] .screen-client :focus-visible,
 /* Start screen: the two buttons are always the same size. Side by side on larger screens, stacked on phones. */
 .stage-copy .row-actions { display: grid; grid-template-columns: 1fr 1fr; width: fit-content; max-width: 100%; margin-inline: auto; }
 @media (max-width: 599px) {
+  /* Phones: stacked at full width, Start the clock on top. */
   .stage-copy .row-actions { grid-template-columns: 1fr; width: min(100%, 320px); }
+  .stage-copy .row-actions .btn-primary { order: -1; }
 }
 /* Icons inside buttons are drawn (SVG), never emoji, so they look the same on every phone. */
 .btn-ico { flex: none; margin-right: 8px; vertical-align: -4px; }
@@ -1366,9 +1369,18 @@ p, li, .bubble, .btn, figcaption { text-wrap: pretty; }
   .verdict-person { margin-bottom: -3px; }
   .verdict .report { position: relative; z-index: 1; }
 }
-/* Phones: the verdict buttons are stacked at full width, the main one at the bottom (like the start screen). */
+/* Button pairs: side by side, the main (pink) button is on the right; stacked on phones, it is on top. */
+/* Phones: the verdict buttons are stacked at full width, Learn the theory on top. */
 @media (max-width: 599px) {
   .report .row-actions { display: grid; grid-template-columns: 1fr; }
+  .report .row-actions .btn-primary { order: -1; }
   .report .row-actions .btn { width: 100%; justify-content: center; text-align: center; }
   .report .row-actions .share-row { grid-column: 1 / -1; }
+}
+/* Programs page: the QR code is for computers and tablets. On phones (you can't scan your own screen) it becomes a plain link. */
+.qr .qr-visit { display: none; }
+@media (max-width: 743px) {
+  .qr { border: 0; padding: 0; background: none; max-width: none; min-height: 44px; }
+  .qr img, .qr .qr-scan { display: none; }
+  .qr .qr-visit { display: inline; font: var(--type-body); font-weight: 700; color: var(--color-text-strong); text-decoration: underline; text-underline-offset: 3px; }
 }

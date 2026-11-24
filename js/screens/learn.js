@@ -50,7 +50,8 @@ export function render(state, game) {
         </div>
         <a class="qr" href="https://www.designformation.ca/" target="_blank" rel="noopener">
           <img src="assets/svg/qr-designformation.svg" alt="QR code for designformation.ca" width="96" height="96">
-          <span>Scan to explore on your phone<br>designformation.ca</span>
+          <span class="qr-scan">Scan to explore on your phone<br>designformation.ca</span>
+          <span class="qr-visit">Visit designformation.ca</span>
         </a>
       </div>
     </div>
