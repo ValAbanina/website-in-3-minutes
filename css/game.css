@@ -1384,3 +1384,14 @@ p, li, .bubble, .btn, figcaption { text-wrap: pretty; }
   .qr img, .qr .qr-scan { display: none; }
   .qr .qr-visit { display: inline; font: var(--type-body); font-weight: 700; color: var(--color-text-strong); text-decoration: underline; text-underline-offset: 3px; }
 }
+/* Every text link: on hover (and keyboard focus) it turns pink and the underline gets thicker. */
+.text-btn, .qr .qr-visit, .qr .qr-scan { transition: color var(--dur-hover) ease, text-decoration-color var(--dur-hover) ease; }
+@media (hover: hover) {
+  .text-btn:hover:not(:disabled), .qr:hover .qr-visit {
+    color: var(--color-brand-highlight-on-light);
+    text-decoration-thickness: 2px;
+  }
+  .qr:hover { border-color: var(--color-brand-primary); }
+  .qr:hover .qr-scan { color: var(--color-brand-highlight-on-light); }
+}
+.stage-dark .text-btn:hover:not(:disabled), .topbar-dark .text-btn:hover:not(:disabled) { color: var(--color-brand-highlight-on-dark); }
