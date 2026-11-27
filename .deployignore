@@ -1,0 +1,16 @@
+# Files GitHub does not copy to DreamHost
+.git/
+.github/
+.gitignore
+.deployignore
+.DS_Store
+.nojekyll
+*.md
+.cursor/
+.env*
+apps-script/
+scripts/
+tests/
+package.json
+package-lock.json
+node_modules/
